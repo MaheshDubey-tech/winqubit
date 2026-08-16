@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Exact Color Tokens from WINQubit Design System Sheet */
+    --primary-grape: #5D1451;
+    --secondary-blue: #ADD8E6;
+    --accent-pink: #E83CB7;
+    --bg-soft-white: #F7F5FF;
+    
+    /* Neutrals */
+    --text-primary: #1E1632;
+    --text-secondary: #6E6785;
+    --border-line: #E9E6F2;
+    --white-glass: #FFFFFF;
+  }
+
+  body {
+    background-color: var(--bg-soft-white);
+    color: var(--text-primary);
+    font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F7F5FF 60%, #F0ECFC 100%);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit), var(--font-inter), sans-serif;
+  }
+
+  .font-numbers {
+    font-family: var(--font-space), monospace;
+  }
+}
+
+/* Exact Glass Effect from Design Spec Sheet */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 32px;
+  box-shadow: 0 25px 80px rgba(93, 20, 81, 0.12), inset 0 1px 3px rgba(255, 255, 255, 0.95);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(232, 60, 183, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 30px 90px rgba(93, 20, 81, 0.18), inset 0 1px 3px rgba(255, 255, 255, 1);
+}
+
+.glass-card-compact {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 15px 40px rgba(93, 20, 81, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #E9E6F2;
+  border-radius: 20px;
+  color: #1E1632;
+  box-shadow: inset 0 2px 4px rgba(93, 20, 81, 0.02);
+  transition: all 0.25s ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #E83CB7;
+  box-shadow: 0 0 0 3px rgba(232, 60, 183, 0.2), 0 4px 14px rgba(93, 20, 81, 0.06);
+}
+
+/* Gradient Combinations from Sheet */
+.gradient-main {
+  background: linear-gradient(135deg, #5D1451 0%, #E83CB7 50%, #ADD8E6 100%);
+}
+
+.gradient-purple-pink {
+  background: linear-gradient(135deg, #5D1451 0%, #E83CB7 100%);
+}
+
+.gradient-pink-blue {
+  background: linear-gradient(135deg, #E83CB7 0%, #ADD8E6 100%);
+}
+
+.gradient-purple-blue {
+  background: linear-gradient(135deg, #5D1451 0%, #ADD8E6 100%);
+}
+
+.gradient-aurora {
+  background: linear-gradient(135deg, #8A2BE2 0%, #E83CB7 50%, #ADD8E6 100%);
+}
+
+/* Typography Gradient Text */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #5D1451 0%, #E83CB7 55%, #8A2BE2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #E83CB7 0%, #5D1451 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* UI Elements: Buttons from Design Sheet */
+.btn-primary {
+  background: linear-gradient(135deg, #5D1451 0%, #E83CB7 100%);
+  color: #FFFFFF;
+  box-shadow: 0 10px 25px rgba(232, 60, 183, 0.35);
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #7A1A6B 0%, #F056C4 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(232, 60, 183, 0.5);
+}
+
+.btn-ghost {
+  border: 1px solid #E9E6F2;
+  background: rgba(255, 255, 255, 0.7);
+  color: #5D1451;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(93, 20, 81, 0.04);
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #E83CB7;
+  color: #5D1451;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(232, 60, 183, 0.15);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #5D1451;
+  border-radius: 9999px;
+  box-shadow: 0 6px 16px rgba(93, 20, 81, 0.05);
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: #E83CB7;
+  transform: translateY(-2px);
+}
+
+/* Background Blobs Animations */
+@keyframes floatBlob1 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(60px, -70px) scale(1.12); }
+  66% { transform: translate(-40px, 40px) scale(0.92); }
+}
+
+@keyframes floatBlob2 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(-60px, 60px) scale(0.88); }
+  66% { transform: translate(50px, -50px) scale(1.1); }
+}
+
+@keyframes floatBlob3 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(70px, 60px) scale(1.15); }
+}
+
+.animate-blob-1 {
+  animation: floatBlob1 20s infinite ease-in-out;
+}
+
+.animate-blob-2 {
+  animation: floatBlob2 25s infinite ease-in-out;
+}
+
+.animate-blob-3 {
+  animation: floatBlob3 22s infinite ease-in-out;
+}
+
+/* Subtle dot texture */
+.bg-noise {
+  background-image: radial-gradient(rgba(93, 20, 81, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7F5FF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(93, 20, 81, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 60, 183, 0.5);
+}
+
+/* GPU Hardware Acceleration & Smoothness Optimizations */
+.gpu-layer {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.animate-blob-1, .animate-blob-2, .animate-blob-3 {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
