@@ -75,7 +75,7 @@ export default function AnnouncementsPage() {
                   </p>
                 </div>
 
-                {ann.attachments.length > 0 && (
+                {ann.attachments && ann.attachments.length > 0 && (
                   <div className="pt-4 border-t border-[#E9E6F2] space-y-2">
                     <span className="text-[11px] font-extrabold text-[#5D1451] uppercase tracking-wider block">
                       Official Attachments:
@@ -120,7 +120,7 @@ export default function AnnouncementsPage() {
                 <p className="text-xs text-[#6E6785] leading-relaxed font-normal">{ann.content}</p>
               </div>
 
-              {ann.attachments.length > 0 && (
+              {ann.attachments && ann.attachments.length > 0 && (
                 <div className="flex items-center gap-2 flex-shrink-0">
                   {ann.attachments.map((att, idx) => (
                     <a

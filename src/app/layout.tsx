@@ -29,13 +29,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'WINQubit | Women Led Innovation — Dream. Build. Lead.',
-  description: 'Empowering women researchers, engineers, and visionaries to pioneer breakthrough innovations in Quantum Computing, Artificial Intelligence, and Deep-Tech Engineering.',
-  keywords: ['WINQubit', 'Women Led Innovation', 'Quantum Computing', 'Women in STEM', 'AI Innovation', 'Post-Quantum Cryptography', 'Deep Tech'],
+  title: 'WINQubit | Dream. Build. Lead. — Student Innovation Ecosystem',
+  description: 'WINQubit: Women-Led. Inclusive. Student-Driven. A student innovation and pre-incubation ecosystem powered by InQubit across premier academic institutions in Mumbai.',
+  keywords: ['WINQubit', 'Student Innovation', 'Pre-Incubation', 'InQubit', 'TSEC', 'TSDC', 'TIAT', 'TIHM', 'HackSpark', 'Prototype Grants'],
   openGraph: {
-    title: 'WINQubit | Women Led Innovation',
-    description: 'Pioneering Quantum & AI Innovation Led By Women. Dream. Build. Lead.',
-    images: ['/winqubit-logo.png'],
+    title: 'WINQubit | Student Innovation & Pre-Incubation',
+    description: 'Dream. Build. Lead. Empowering student innovators across TSEC, TSDC, TIAT, and TIHM.',
+    type: 'website',
   },
 };
 
@@ -46,12 +46,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} ${spaceGrotesk.variable} scroll-smooth`}>
-      <body className="antialiased selection:bg-[#E83CB7]/30 selection:text-[#5D1451]">
+      <body className="antialiased bg-[#020617] text-slate-100 selection:bg-violet-500 selection:text-white">
         <DataProvider>
           <LenisProvider>
             <BackgroundAurora />
             <Navbar />
-            <main className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <main className="min-h-screen pt-4 pb-12">
               {children}
             </main>
             <Footer />
@@ -60,4 +60,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-};
+}

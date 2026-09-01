@@ -29,7 +29,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
       <div>
         <div className="relative w-full h-56 overflow-hidden bg-slate-100">
           <Image
-            src={event.image}
+            src={event.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'}
             alt={event.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"

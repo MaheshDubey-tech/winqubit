@@ -1,11 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles, Send, CheckCircle2, Lightbulb, User, Mail, School, FileText, ArrowRight } from 'lucide-react';
-import { useData } from '@/context/DataContext';
-import { Badge } from '@/components/ui/Badge';
-import confetti from 'canvas-confetti';
+import { 
+  Sparkles, 
+  X, 
+  Lightbulb, 
+  Users, 
+  Compass, 
+  Wrench, 
+  Award, 
+  ArrowRight, 
+  ArrowLeft, 
+  CheckCircle2 
+} from 'lucide-react';
 
 interface InnovateModalProps {
   isOpen: boolean;
@@ -13,245 +20,366 @@ interface InnovateModalProps {
 }
 
 export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose }) => {
-  const { colleges, submitInnovateForm } = useData();
+  const [step, setStep] = useState(1);
+  const [track, setTrack] = useState('idea');
   const [formData, setFormData] = useState({
-    studentName: '',
+    institution: 'Thakur Shyamnarayan Engineering College (TSEC)',
+    fullName: '',
     email: '',
     phone: '',
-    college: colleges[0]?.name || 'Institute of Quantum & Engineering Tech (IQET)',
-    projectTitle: '',
-    category: 'Quantum Software',
-    description: ''
+    rollNo: '',
+    branch: 'Computer Engineering',
+    year: 'TE',
+    domain: 'Artificial Intelligence & Deep Tech',
+    ideaTitle: '',
+    problemStatement: '',
+    proposedSolution: '',
+    currentStage: 'Concept / Ideation',
+    supportNeeded: [] as string[],
+    teamSize: '1',
   });
-
-  const [submitted, setSubmitted] = useState(false);
-  const [appId, setAppId] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [refCode, setRefCode] = useState('');
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.studentName || !formData.email || !formData.projectTitle) return;
+  const tracks = [
+    {
+      id: 'idea',
+      label: 'I have an idea to build',
+      icon: Lightbulb,
+      desc: 'Submit your solution for technical validation & review',
+    },
+    {
+      id: 'team',
+      label: 'I need a multidisciplinary team',
+      icon: Users,
+      desc: 'Connect with coders, designers, or domain specialists',
+    },
+    {
+      id: 'mentor',
+      label: 'I need an industry mentor',
+      icon: Compass,
+      desc: 'Get paired with senior founders and technical experts',
+    },
+    {
+      id: 'prototype',
+      label: 'I want to build a prototype',
+      icon: Wrench,
+      desc: 'Apply for lab access and prototype micro-grants',
+    },
+    {
+      id: 'challenge',
+      label: 'I want to solve industry challenges',
+      icon: Award,
+      desc: 'Participate in corporate & HackSpark challenges',
+    },
+  ];
 
-    const result = submitInnovateForm({
-      studentName: formData.studentName,
-      email: formData.email,
-      phone: formData.phone,
-      college: formData.college,
-      projectTitle: formData.projectTitle,
-      category: formData.category,
-      description: formData.description
-    });
+  const supportOptions = [
+    'Prototype POC Grant (up to ₹1L)',
+    '1-on-1 Industry Mentorship',
+    'Campus Maker Lab / Hardware Access',
+    'Cloud Server / API Credits',
+    'Patent & Prior-Art Legal Help',
+    'InQubit Venture Incubation Review',
+  ];
 
-    if (result.success) {
-      setAppId(result.id);
-      setSubmitted(true);
-      try {
-        confetti({
-          particleCount: 90,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      } catch (err) {}
-    }
+  const handleSupportToggle = (item: string) => {
+    setFormData(prev => ({
+      ...prev,
+      supportNeeded: prev.supportNeeded.includes(item)
+        ? prev.supportNeeded.filter(i => i !== item)
+        : [...prev.supportNeeded, item],
+    }));
   };
 
-  const handleResetAndClose = () => {
-    setSubmitted(false);
-    setAppId('');
-    setFormData({
-      studentName: '',
-      email: '',
-      phone: '',
-      college: colleges[0]?.name || 'Institute of Quantum & Engineering Tech (IQET)',
-      projectTitle: '',
-      category: 'Quantum Software',
-      description: ''
-    });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = Math.floor(1000 + Math.random() * 9000).toString();
+    setRefCode(`WINQ-2026-${code}`);
+    setIsSubmitted(true);
+  };
+
+  const handleReset = () => {
+    setIsSubmitted(false);
+    setStep(1);
     onClose();
   };
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md overflow-y-auto">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-2xl bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-white/80 my-8 space-y-6"
-        >
-          {/* Close Button */}
-          <button
-            onClick={handleResetAndClose}
-            className="absolute top-5 right-5 p-2.5 rounded-full bg-[#F7F5FF] text-[#5D1451] hover:bg-[#EEF2FF] transition-colors"
-            aria-label="Close modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Modal Header */}
-          <div className="space-y-2 pr-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FCE7F3] border border-[#FBCFE8] shadow-sm">
-              <Lightbulb className="w-3.5 h-3.5 text-[#E83CB7]" />
-              <span className="text-[11px] font-black tracking-wider text-[#5D1451] uppercase">
-                Student Innovation Portal
-              </span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2rem] shadow-2xl overflow-hidden my-8">
+        <div className="h-[2px] bg-gradient-to-r from-violet-500 via-cyan-400 to-indigo-500 w-full" />
+        
+        <div className="p-6 md:p-8">
+          {/* Header */}
+          <div className="flex items-center justify-between pb-4 border-b border-white/5">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-violet-400">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  Student Innovation Portal
+                </h3>
+                <p className="text-[11px] text-gray-400">
+                  WINQubit × InQubit Idea Intake & Acceleration Engine
+                </p>
+              </div>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#1E1632] font-outfit">
-              Submit Your Idea & Innovate
-            </h2>
-            <p className="text-xs text-[#6E6785] leading-relaxed">
-              Are you a student or scholar eager to build, pitch, or research in Quantum Computing, AI, or Hardware? Register your innovation project with the WINQubit Four-College Consortium.
-            </p>
+            <button
+              onClick={onClose}
+              className="p-1.5 text-gray-400 hover:text-white rounded-full hover:bg-white/5 transition"
+              aria-label="Close modal"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
 
-          {submitted ? (
-            <div className="p-8 rounded-3xl bg-[#EEF2FF] border border-[#C7D2FE] text-center space-y-4 animate-in fade-in">
-              <div className="w-14 h-14 rounded-full btn-primary text-white flex items-center justify-center mx-auto shadow-lg">
+          {/* Success Screen */}
+          {isSubmitted ? (
+            <div className="py-8 text-center space-y-5 animate-in fade-in">
+              <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-center mx-auto text-emerald-400 shadow-lg shadow-emerald-500/10">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-black text-[#1E1632] font-outfit">Innovation Proposal Received!</h3>
-              <p className="text-xs text-[#5D1451] font-semibold max-w-md mx-auto">
-                Thank you, <strong>{formData.studentName}</strong>! Your project <strong>"{formData.projectTitle}"</strong> has been registered with our review committee.
-              </p>
-              <div className="inline-block p-3.5 bg-white rounded-2xl border border-[#C7D2FE] text-xs font-mono font-bold text-[#5D1451]">
-                Application Pass ID: <strong>{appId}</strong>
+              <div className="space-y-1.5">
+                <h4 className="text-xl font-bold text-white">Innovation Proposal Submitted!</h4>
+                <p className="text-xs text-gray-400 max-w-md mx-auto">
+                  Thank you, <span className="text-white font-semibold">{formData.fullName || 'Student Innovator'}</span>. Your proposal has been routed to the Faculty Coordinator and Student Committee at {formData.institution.split('(')[0]}.
+                </p>
               </div>
-              <p className="text-[11px] text-[#6E6785]">
-                Our academic mentorship board will contact you shortly regarding lab access, seed grant opportunities, and hackathon tracks.
-              </p>
-              <div className="pt-3">
+
+              <div className="bg-slate-950 border border-white/10 rounded-2xl p-4 max-w-sm mx-auto space-y-2 text-left text-xs">
+                <div className="flex justify-between items-center text-gray-400">
+                  <span>Tracking Reference:</span>
+                  <span className="font-mono font-bold text-cyan-400">{refCode}</span>
+                </div>
+                <div className="flex justify-between items-center text-gray-400">
+                  <span>Next Review Stage:</span>
+                  <span className="text-slate-300">Institutional Faculty Review Board</span>
+                </div>
+                <div className="flex justify-between items-center text-gray-400">
+                  <span>Target Response:</span>
+                  <span className="text-emerald-400">Within 72 Hours via WhatsApp / Email</span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleReset}
+                className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs px-6 py-2.5 rounded-full transition shadow-lg shadow-violet-600/30"
+              >
+                Done & Return to Site
+              </button>
+            </div>
+          ) : step === 1 ? (
+            /* Step 1: Select Track */
+            <div className="pt-6 space-y-5">
+              <div className="space-y-1">
+                <h4 className="text-sm font-bold text-white">How can WINQubit power your journey?</h4>
+                <p className="text-xs text-gray-400">Select your primary reason for reaching out today.</p>
+              </div>
+
+              <div className="space-y-2.5">
+                {tracks.map(t => {
+                  const Icon = t.icon;
+                  const isSelected = track === t.id;
+                  return (
+                    <button
+                      key={t.id}
+                      type="button"
+                      onClick={() => setTrack(t.id)}
+                      className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-center justify-between group ${
+                        isSelected
+                          ? 'bg-violet-600/15 border-violet-500 text-white shadow-lg shadow-violet-500/10'
+                          : 'bg-white/[0.02] border-white/5 text-gray-400 hover:text-white hover:bg-white/[0.04]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3.5">
+                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition ${
+                          isSelected ? 'bg-violet-600 text-white' : 'bg-slate-800 text-gray-400 group-hover:text-white'
+                        }`}>
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className={`text-xs font-bold ${isSelected ? 'text-violet-300' : 'text-white'}`}>
+                            {t.label}
+                          </div>
+                          <div className="text-[11px] text-gray-500">{t.desc}</div>
+                        </div>
+                      </div>
+                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
+                        isSelected ? 'border-violet-400 bg-violet-500 text-white' : 'border-white/20'
+                      }`}>
+                        {isSelected && '✓'}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex justify-end pt-2">
                 <button
-                  onClick={handleResetAndClose}
-                  className="px-6 py-3 rounded-full btn-primary text-white font-extrabold text-xs shadow-md"
+                  type="button"
+                  onClick={() => setStep(2)}
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-bold px-6 py-2.5 rounded-full transition shadow-lg shadow-violet-600/20"
                 >
-                  Done
+                  Continue to Details
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#1E1632]">Student Full Name *</label>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-[#6E6785] absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Riya Deshmukh"
-                      value={formData.studentName}
-                      onChange={(e) => setFormData({ ...formData, studentName: e.target.value })}
-                      className="w-full glass-input pl-9 pr-3 py-2.5 text-xs font-bold"
-                    />
-                  </div>
+            /* Step 2: Form Details */
+            <form onSubmit={handleSubmit} className="pt-6 space-y-4 text-xs">
+              <div className="flex items-center justify-between pb-2 border-b border-white/5">
+                <div>
+                  <h4 className="text-sm font-bold text-white">Student & Campus Details</h4>
+                  <p className="text-[11px] text-gray-400">Tell us where you are studying and how we can reach you.</p>
                 </div>
-
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#1E1632]">Student Email *</label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-[#6E6785] absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. riya@college.edu"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full glass-input pl-9 pr-3 py-2.5 text-xs font-bold"
-                    />
-                  </div>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="text-[11px] text-cyan-400 hover:underline inline-flex items-center gap-1"
+                >
+                  <ArrowLeft className="w-3 h-3" /> Change Track
+                </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#1E1632]">Phone / WhatsApp</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. +1 (555) 019-2834"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full glass-input px-3 py-2.5 text-xs font-bold"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#1E1632]">College / University *</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="sm:col-span-2">
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Campus / Institution *</label>
                   <select
-                    value={formData.college}
-                    onChange={(e) => setFormData({ ...formData, college: e.target.value })}
-                    className="w-full glass-input px-3 py-2.5 text-xs font-bold bg-white"
+                    value={formData.institution}
+                    onChange={e => setFormData({ ...formData, institution: e.target.value })}
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-violet-400"
                   >
-                    {colleges.map((c) => (
-                      <option key={c.id} value={c.name}>
-                        {c.code} — {c.name}
-                      </option>
-                    ))}
-                    <option value="Other Institution">Other University / College</option>
+                    <option value="Thakur Shyamnarayan Engineering College (TSEC)">Thakur Shyamnarayan Engineering College (TSEC)</option>
+                    <option value="Thakur Shyamnarayan Degree College (TSDC)">Thakur Shyamnarayan Degree College (TSDC)</option>
+                    <option value="Thakur Institute of Aviation Technology (TIAT)">Thakur Institute of Aviation Technology (TIAT)</option>
+                    <option value="Thakur Institute of Hotel Management (TIHM)">Thakur Institute of Hotel Management (TIHM)</option>
+                    <option value="Other Partner Institution">Other Partner Institution</option>
                   </select>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#1E1632]">Project / Idea Title *</label>
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Full Name *</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Qiskit QAOA Algorithm for Microgrids"
-                    value={formData.projectTitle}
-                    onChange={(e) => setFormData({ ...formData, projectTitle: e.target.value })}
-                    className="w-full glass-input px-3 py-2.5 text-xs font-bold"
+                    placeholder="e.g. Priya Sharma"
+                    value={formData.fullName}
+                    onChange={e => setFormData({ ...formData, fullName: e.target.value })}
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
                   />
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#1E1632]">Innovation Category</label>
-                  <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full glass-input px-3 py-2.5 text-xs font-bold bg-white"
-                  >
-                    <option value="Quantum Software">Quantum Software & Algorithms</option>
-                    <option value="Quantum Hardware">Quantum Hardware & Circuits</option>
-                    <option value="AI & Neural Systems">AI & Neural Systems</option>
-                    <option value="Post-Quantum Security">Post-Quantum Security & Cryptography</option>
-                    <option value="Deep Tech Incubation">Deep Tech Incubation Idea</option>
-                  </select>
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">College Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="e.g. student@tsec.edu.in"
+                    value={formData.email}
+                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">WhatsApp / Phone Number *</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+91 98765 43210"
+                    value={formData.phone}
+                    onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Branch & Academic Year *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Computer Engg / TE (3rd Year)"
+                    value={formData.branch}
+                    onChange={e => setFormData({ ...formData, branch: e.target.value })}
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                  />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-[#1E1632]">Brief Pitch / Idea Summary</label>
-                <textarea
-                  rows={3}
-                  placeholder="Describe your innovation concept, research objectives, or prototype details..."
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full glass-input p-3 text-xs font-bold"
-                />
+              {/* Innovation Details */}
+              <div className="pt-2 border-t border-white/5 space-y-3">
+                <h5 className="text-xs font-bold text-white">Innovation Project Details</h5>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Project / Idea Title</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Autonomous Drone for Hospital Logistics"
+                    value={formData.ideaTitle}
+                    onChange={e => setFormData({ ...formData, ideaTitle: e.target.value })}
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Problem Statement & Proposed Solution</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Describe what problem you are solving and how your technology/solution works..."
+                    value={formData.problemStatement}
+                    onChange={e => setFormData({ ...formData, problemStatement: e.target.value })}
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1.5">Support Needed (Select all that apply)</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {supportOptions.map(opt => {
+                      const isChecked = formData.supportNeeded.includes(opt);
+                      return (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => handleSupportToggle(opt)}
+                          className={`text-left p-2 rounded-xl border text-[11px] transition ${
+                            isChecked
+                              ? 'bg-violet-600/20 border-violet-500 text-violet-200'
+                              : 'bg-white/[0.02] border-white/5 text-gray-400 hover:text-white'
+                          }`}
+                        >
+                          {isChecked ? '✓ ' : '+ '} {opt}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
 
-              <div className="pt-3 flex items-center justify-end gap-3">
+              <div className="flex justify-between items-center pt-3 border-t border-white/5">
                 <button
                   type="button"
-                  onClick={handleResetAndClose}
-                  className="px-5 py-2.5 rounded-full text-xs font-bold text-[#6E6785] hover:bg-[#F7F5FF]"
+                  onClick={() => setStep(1)}
+                  className="text-gray-400 hover:text-white text-xs font-semibold"
                 >
-                  Cancel
+                  Back
                 </button>
                 <button
                   type="submit"
-                  className="px-7 py-3 rounded-full btn-primary text-white font-extrabold text-xs shadow-lg shadow-[#E83CB7]/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
+                  className="bg-gradient-to-r from-violet-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-xs px-6 py-2.5 rounded-full transition shadow-lg shadow-violet-600/20"
                 >
-                  <span>Submit Innovation Application</span>
-                  <Send className="w-4 h-4" />
+                  Submit Proposal
                 </button>
               </div>
             </form>
           )}
-        </motion.div>
+        </div>
       </div>
-    </AnimatePresence>
+    </div>
   );
 };

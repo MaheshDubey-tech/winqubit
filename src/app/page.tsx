@@ -2,622 +2,579 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import {
-  Sparkles,
-  ArrowRight,
-  Calendar,
-  Bell,
-  Users,
-  Award,
-  ChevronRight,
-  Cpu,
-  Layers,
-  CheckCircle2,
-  Lightbulb,
-  Building2,
-  HeartHandshake,
-  Download,
-  FileText,
-  Bookmark,
-  School,
+import { 
+  Sparkles, 
+  ArrowRight, 
+  Users, 
+  Rocket, 
+  CheckCircle2, 
+  Compass, 
+  Wrench, 
+  Award, 
+  Cpu, 
+  Bot, 
+  Plane, 
+  Utensils, 
+  TrendingUp, 
+  Leaf, 
   ExternalLink,
+  ChevronRight,
   ShieldCheck,
-  ImageIcon
+  Zap,
+  Building2,
+  Briefcase
 } from 'lucide-react';
-import { useData } from '@/context/DataContext';
-import { GlassCard } from '@/components/ui/GlassCard';
-import { GlassButton } from '@/components/ui/GlassButton';
-import { Badge } from '@/components/ui/Badge';
-import { SectionHeader } from '@/components/shared/SectionHeader';
-import { EventCard } from '@/components/events/EventCard';
-import { AnimatedSection } from '@/components/shared/AnimatedSection';
+import { 
+  CAMPUSES, 
+  STATS, 
+  STUDENT_LIFECYCLE, 
+  CORE_PROGRAMS, 
+  INNOVATION_CLUSTERS, 
+  GOVERNING_COUNCIL 
+} from '@/lib/initialData';
 import { InnovateModal } from '@/components/shared/InnovateModal';
+import { JoinModal } from '@/components/shared/JoinModal';
 import { CollaborateModal } from '@/components/shared/CollaborateModal';
-import { Announcement } from '@/types';
 
 export default function HomePage() {
-  const { siteContent, colleges, events, announcements, committee } = useData();
+  const [innovateOpen, setInnovateOpen] = useState(false);
+  const [joinOpen, setJoinOpen] = useState(false);
+  const [collaborateOpen, setCollaborateOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('tsec');
 
-  // Modals for Innovate & Collaborate
-  const [innovateModalOpen, setInnovateModalOpen] = useState(false);
-  const [collaborateModalOpen, setCollaborateModalOpen] = useState(false);
+  const clusterIconMap: Record<string, any> = {
+    Cpu,
+    Bot,
+    Plane,
+    Utensils,
+    TrendingUp,
+    Leaf,
+  };
 
-  // Selected announcement for detail preview
-  const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
-  const [announcementFilter, setAnnouncementFilter] = useState<string>('All');
+  const lifecycleIconMap: Record<string, any> = {
+    Compass,
+    Users,
+    Wrench,
+    CheckCircle2,
+    Rocket,
+  };
 
-  const featuredEvents = events.slice(0, 3);
-
-  // Filtered homepage announcements
-  const filteredAnnouncements = announcementFilter === 'All'
-    ? announcements
-    : announcements.filter(a => a.priority === announcementFilter);
-
-  const committeePreview = committee.slice(0, 3);
-
-  const statIcons = [
-    <Users key="1" className="w-6 h-6 text-[#5D1451]" />,
-    <Cpu key="2" className="w-6 h-6 text-[#E83CB7]" />,
-    <School key="3" className="w-6 h-6 text-[#0284C7]" />,
-    <Award key="4" className="w-6 h-6 text-[#5D1451]" />
-  ];
-
-  const statColors = ['#EEF2FF', '#FCE7F3', '#E0F2FE', '#F3E8FF'];
+  const programIconMap: Record<string, any> = {
+    Flame: Zap,
+    Sparkles: Sparkles,
+    Award: Award,
+    Rocket: Rocket,
+  };
 
   return (
-    <div className="space-y-28">
-      {/* ========================================================= */}
-      {/* 1. HERO SECTION (HOME)                                    */}
-      {/* ========================================================= */}
-      <AnimatedSection id="hero" className="pt-6 pb-8 lg:pt-12 lg:pb-12 text-center max-w-5xl mx-auto space-y-8">
-        {/* Transparent Logo Cutout Emblem */}
-        <div className="flex justify-center items-center">
-          <div className="relative w-36 h-28 sm:w-44 sm:h-32 transition-transform hover:scale-105 duration-500">
-            <Image
-              src="/winqubit-logo-cutout.png"
-              alt="WINQubit Logo"
-              fill
-              sizes="(max-width: 768px) 144px, 176px"
-              className="object-contain"
-              priority
-            />
+    <div className="space-y-20 md:space-y-28 pb-20 overflow-hidden">
+      {/* 1. HERO SECTION */}
+      <section className="relative pt-10 md:pt-16 pb-8 overflow-hidden">
+        {/* Background Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] md:w-[1000px] h-[450px] bg-[radial-gradient(circle_at_50%_0%,#1e1b4b,transparent_75%)] pointer-events-none -z-10" />
+
+        <div className="container mx-auto px-4 md:px-8 text-center">
+          {/* Eyebrow badge */}
+          <div className="flex items-center justify-center space-x-4 mb-4">
+            <div className="h-[1px] w-12 bg-violet-500/30" />
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+              <Sparkles className="w-3 h-3 text-cyan-400" />
+              Women-Led • Inclusive • Student-Driven
+            </span>
+            <div className="h-[1px] w-12 bg-violet-500/30" />
           </div>
-        </div>
 
-        {/* Subtitle Pill Badge */}
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#FCE7F3] border border-[#FBCFE8] shadow-sm">
-          <Sparkles className="w-4 h-4 text-[#E83CB7]" />
-          <span className="text-xs font-black tracking-wider text-[#5D1451] uppercase">
-            {siteContent.hero.subtitle}
-          </span>
-        </div>
+          {/* Main Title */}
+          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-5 max-w-4xl mx-auto leading-[1.1]">
+            Dream. Build.{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-cyan-400 to-indigo-400">
+              Lead.
+            </span>
+          </h1>
 
-        {/* Main Hero Headline */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#1E1632] tracking-tight leading-[1.1] font-outfit max-w-4xl mx-auto">
-          {siteContent.hero.title}
-        </h1>
+          {/* Subtitle */}
+          <p className="text-xs sm:text-sm md:text-base text-gray-400 max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+            WINQubit is a multi-campus student innovation and pre-incubation ecosystem powered by InQubit across premier academic institutions in Mumbai—uniting engineering, commerce, aviation, and hospitality creators.
+          </p>
 
-        {/* Sub-paragraph */}
-        <p className="text-lg sm:text-xl text-[#6E6785] leading-relaxed max-w-3xl mx-auto font-normal">
-          {siteContent.hero.description}
-        </p>
-
-        {/* Action Buttons */}
-        <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-          <GlassButton variant="primary" size="lg" href={siteContent.hero.primaryCtaLink || '/events'}>
-            <span>{siteContent.hero.primaryCtaText || 'Explore Flagship Events'}</span>
-            <ArrowRight className="w-5 h-5" />
-          </GlassButton>
-
-          <button
-            onClick={() => setInnovateModalOpen(true)}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-[#5D1451] font-extrabold text-sm border border-[#E9E6F2] hover:bg-[#EEF2FF] shadow-md hover:scale-105 transition-all"
-          >
-            <Lightbulb className="w-4 h-4 text-[#E83CB7]" />
-            <span>{siteContent.hero.studentPortalText || 'Student Portal'}</span>
-          </button>
-
-          <button
-            onClick={() => setCollaborateModalOpen(true)}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#EEF2FF] text-[#4F46E5] font-extrabold text-sm border border-[#C7D2FE] hover:bg-[#E0E7FF] shadow-md hover:scale-105 transition-all"
-          >
-            <HeartHandshake className="w-4 h-4 text-[#4F46E5]" />
-            <span>{siteContent.hero.partnerPortalText || 'Partner Portal'}</span>
-          </button>
-        </div>
-
-        {/* 4 Live Metric Stat Cards Grid */}
-        <div className="pt-8 grid grid-cols-2 md:grid-cols-4 gap-5 text-left">
-          {siteContent.hero.stats.map((st, i) => (
-            <div
-              key={i}
-              className="glass-panel p-6 border-white/80 bg-white/60 flex flex-col justify-between space-y-4 hover:-translate-y-1.5 transition-all duration-300 shadow-md"
-            >
-              <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center border border-white shadow-sm"
-                style={{ backgroundColor: statColors[i % statColors.length] }}
-              >
-                {statIcons[i % statIcons.length]}
-              </div>
-              <div>
-                <p className="text-3xl sm:text-4xl font-black text-[#5D1451] tracking-tight font-numbers">
-                  {st.value}
-                </p>
-                <p className="text-xs font-bold text-[#6E6785] mt-1">
-                  {st.label}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </AnimatedSection>
-
-      {/* ========================================================= */}
-      {/* 2. ANNOUNCEMENTS SECTION (MOVED RIGHT AFTER HOME/HERO)   */}
-      {/* ========================================================= */}
-      <AnimatedSection id="announcements">
-        <SectionHeader
-          badge={siteContent.sectionHeaders.announcements.badge}
-          title={siteContent.sectionHeaders.announcements.title}
-          subtitle={siteContent.sectionHeaders.announcements.subtitle}
-          centered
-        />
-
-        {/* Priority Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto mb-6">
-          {['All', 'Urgent', 'Opportunity', 'Notice', 'Update'].map((p) => (
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3.5 mb-14">
             <button
-              key={p}
-              onClick={() => setAnnouncementFilter(p)}
-              className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all ${
-                announcementFilter === p
-                  ? 'btn-primary text-white shadow-md'
-                  : 'bg-white/80 text-[#1E1632] hover:bg-[#EEF2FF]'
-              }`}
+              onClick={() => setJoinOpen(true)}
+              className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm px-7 py-3 rounded-full transition shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 flex items-center gap-2"
             >
-              {p}
+              Get Student Pass (₹500)
+              <ArrowRight className="w-4 h-4" />
             </button>
-          ))}
-        </div>
 
-        {/* Clean Homepage Announcements Stream */}
-        <div className="space-y-4 max-w-4xl mx-auto">
-          {filteredAnnouncements.slice(0, 4).map((ann) => {
-            const isExpanded = selectedAnnouncement?.id === ann.id;
-            return (
-              <GlassCard
-                key={ann.id}
-                className="p-6 border-white/80 bg-white/75 backdrop-blur-2xl transition-all duration-300 space-y-3 shadow-md hover:shadow-lg"
-              >
-                <div
-                  onClick={() => setSelectedAnnouncement(isExpanded ? null : ann)}
-                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#FCE7F3] text-[#5D1451] flex items-center justify-center flex-shrink-0 border border-[#FBCFE8]">
-                      <Bell className="w-4 h-4 text-[#E83CB7]" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Badge variant={ann.priority === 'Urgent' ? 'important' : 'upcoming'} size="sm">
-                          {ann.priority}
-                        </Badge>
-                        {ann.pinned && (
-                          <span className="text-[10px] font-black text-[#5D1451] bg-[#EEF2FF] px-2 py-0.5 rounded-full border border-[#C7D2FE]">
-                            Pinned
-                          </span>
-                        )}
-                        <span className="text-[11px] font-semibold text-[#6E6785]">
-                          {ann.date}
-                        </span>
-                      </div>
-                      <h3 className="text-base font-extrabold text-[#1E1632] hover:text-[#5D1451] transition-colors font-outfit">
-                        {ann.title}
-                      </h3>
-                    </div>
-                  </div>
+            <button
+              onClick={() => setInnovateOpen(true)}
+              className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs sm:text-sm px-7 py-3 rounded-full transition shadow-lg shadow-violet-600/20 hover:scale-105 active:scale-95 flex items-center gap-2"
+            >
+              Submit Idea / Find Team
+              <Sparkles className="w-4 h-4 text-cyan-300" />
+            </button>
 
-                  <div className="flex items-center gap-2 flex-shrink-0 self-end sm:self-center">
-                    <span className="text-[11px] font-bold text-[#5D1451] bg-[#FCE7F3] px-3 py-1 rounded-full border border-[#FBCFE8]">
-                      {isExpanded ? 'Hide Details' : 'Read Announcement'}
-                    </span>
-                  </div>
-                </div>
+            <button
+              onClick={() => setCollaborateOpen(true)}
+              className="bg-white/5 hover:bg-white/10 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-full border border-white/10 transition flex items-center gap-2"
+            >
+              Partner with Us
+            </button>
+          </div>
 
-                {/* Inline Expanded Content directly on Homepage */}
-                {isExpanded && (
-                  <div className="pt-4 border-t border-[#E9E6F2] space-y-3 text-xs text-[#6E6785] animate-in fade-in">
-                    <p className="leading-relaxed font-normal text-sm text-[#1E1632]">
-                      {ann.content}
-                    </p>
-
-                    {ann.attachments && ann.attachments.length > 0 && (
-                      <div className="pt-2 space-y-1.5">
-                        <span className="text-[10px] font-black text-[#5D1451] uppercase tracking-wider block">
-                          Download Official Attachments:
-                        </span>
-                        <div className="flex flex-wrap gap-2">
-                          {ann.attachments.map((att, i) => (
-                            <a
-                              key={i}
-                              href={att.url}
-                              className="px-3.5 py-1.5 rounded-xl bg-[#EEF2FF] border border-[#C7D2FE] text-[#4F46E5] hover:bg-[#FCE7F3] hover:text-[#DB2777] text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
-                            >
-                              <Download className="w-3.5 h-3.5" />
-                              <span>{att.name}</span>
-                              {att.size && <span className="opacity-70">({att.size})</span>}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </GlassCard>
-            );
-          })}
-        </div>
-
-        {/* View All Announcements Button */}
-        <div className="pt-8 text-center">
-          <GlassButton variant="primary" size="lg" href="/announcements">
-            <span>View All Announcements</span>
-            <ArrowRight className="w-5 h-5" />
-          </GlassButton>
-        </div>
-      </AnimatedSection>
-
-      {/* ========================================================= */}
-      {/* 3. FOUR-COLLEGE INSTITUTIONAL COLLABORATION SECTION       */}
-      {/* ========================================================= */}
-      <AnimatedSection id="colleges">
-        <GlassCard className="p-8 sm:p-12 border-white/80 bg-white/60 backdrop-blur-3xl shadow-xl space-y-8">
-          <SectionHeader
-            badge={siteContent.sectionHeaders.colleges.badge}
-            title={siteContent.sectionHeaders.colleges.title}
-            subtitle={siteContent.sectionHeaders.colleges.subtitle}
-            centered
-          />
-
-          {/* 4 College Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {colleges.map((col) => (
+          {/* Key Metrics / Target Stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
+            {STATS.map((stat, idx) => (
               <div
-                key={col.id}
-                className="glass-card-compact p-6 rounded-3xl bg-white/80 border border-white flex flex-col justify-between space-y-4 shadow-md hover:-translate-y-1 transition-all duration-300"
+                key={idx}
+                className="bg-slate-900/60 border border-white/5 rounded-2xl p-4 text-center backdrop-blur-sm hover:border-violet-500/30 transition group"
               >
-                <div className="space-y-3">
-                  <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-white shadow-sm">
-                    <Image
-                      src={col.logo}
-                      alt={col.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute top-2.5 left-2.5">
-                      <span className="px-2.5 py-0.5 rounded-full bg-white/95 text-[#5D1451] font-black text-[10px] uppercase shadow-sm">
-                        {col.code}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <span className="text-[10px] font-extrabold text-[#4F46E5] bg-[#EEF2FF] px-2.5 py-0.5 rounded-full uppercase border border-[#C7D2FE]">
-                      Founding Partner
-                    </span>
-                    <h4 className="text-base font-black text-[#1E1632] font-outfit mt-2 leading-snug">
-                      {col.name}
-                    </h4>
-                    <p className="text-[11px] text-[#6E6785] mt-1 font-semibold">
-                      📍 {col.location}
-                    </p>
-                  </div>
-
-                  <p className="text-xs text-[#6E6785] leading-relaxed line-clamp-3">
-                    {col.description}
-                  </p>
+                <div className={`font-display text-2xl sm:text-3xl font-bold ${stat.color || 'text-white'} group-hover:scale-105 transition`}>
+                  {stat.value}
                 </div>
-
-                <a
-                  href={col.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#5D1451] hover:text-[#E83CB7] transition-colors pt-2 border-t border-[#E9E6F2]"
-                >
-                  <span>Visit College Portal</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+                <div className="text-[11px] font-bold text-white mt-1">{stat.label}</div>
+                <div className="text-[10px] text-gray-500 mt-0.5">{stat.sub}</div>
               </div>
             ))}
           </div>
-        </GlassCard>
-      </AnimatedSection>
+        </div>
+      </section>
 
-      {/* ========================================================= */}
-      {/* 4. ABOUT US SECTION                                       */}
-      {/* ========================================================= */}
-      <AnimatedSection id="about">
-        <GlassCard className="p-8 sm:p-14 border-white/80 bg-white/50 backdrop-blur-3xl shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <Badge variant="featured">{siteContent.about.badge || siteContent.sectionHeaders.about.badge}</Badge>
-              <h2 className="text-3xl sm:text-4xl font-black text-[#1E1632] leading-snug font-outfit">
-                {siteContent.about.title || siteContent.sectionHeaders.about.title}
-              </h2>
-              <p className="text-base text-[#6E6785] leading-relaxed">
-                {siteContent.about.vision}
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="p-5 rounded-2xl bg-white/70 border border-[#E9E6F2] shadow-sm space-y-1.5">
-                  <span className="text-xs font-black text-[#5D1451] bg-[#FCE7F3] px-2.5 py-0.5 rounded-full">Our Mission</span>
-                  <p className="text-xs text-[#6E6785] line-clamp-3 leading-relaxed">{siteContent.about.mission}</p>
-                </div>
-                <div className="p-5 rounded-2xl bg-white/70 border border-[#E9E6F2] shadow-sm space-y-1.5">
-                  <span className="text-xs font-black text-[#5D1451] bg-[#EEF2FF] px-2.5 py-0.5 rounded-full">Four-College Key Focus</span>
-                  <p className="text-xs text-[#6E6785] leading-relaxed">Quantum Computing, AI Hardware, Post-Quantum Security & Inclusive Grants.</p>
-                </div>
-              </div>
-              <div className="pt-2">
-                <GlassButton variant="ghost" href="/about">
-                  <span>Discover Our Journey & Objectives</span>
-                  <ChevronRight className="w-4 h-4" />
-                </GlassButton>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-              {siteContent.about.objectives.slice(0, 4).map((obj, index) => (
-                <div key={index} className="glass-card-compact p-5 flex flex-col justify-between space-y-3 bg-white/70">
-                  <div className="w-9 h-9 rounded-2xl bg-[#FCE7F3] text-[#5D1451] flex items-center justify-center font-black text-sm border border-white font-numbers">
-                    0{index + 1}
-                  </div>
-                  <p className="text-xs text-[#1E1632] font-bold leading-relaxed">
-                    {obj}
-                  </p>
-                </div>
-              ))}
-            </div>
+      {/* 2. THE 4 PILLARS OF WINQUBIT */}
+      <section className="container mx-auto px-4 md:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+            Core Foundations
           </div>
-        </GlassCard>
-      </AnimatedSection>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+            Built on Four Pillars of Excellence
+          </h2>
+          <p className="text-xs sm:text-sm text-gray-400 mt-2">
+            A comprehensive framework designed to convert student curiosity into scalable, venture-backed enterprises.
+          </p>
+        </div>
 
-      {/* ========================================================= */}
-      {/* 5. DUAL PORTALS SECTION (INNOVATE & COLLABORATE)          */}
-      {/* ========================================================= */}
-      <AnimatedSection id="innovate-collaborate">
-        <SectionHeader
-          badge={siteContent.sectionHeaders.innovateCollaborate.badge}
-          title={siteContent.sectionHeaders.innovateCollaborate.title}
-          subtitle={siteContent.sectionHeaders.innovateCollaborate.subtitle}
-          centered
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Card 1: INNOVATE (Students) */}
-          <div className="group rounded-[32px] p-8 sm:p-10 bg-gradient-to-br from-white/90 via-white/80 to-[#FCE7F3]/40 border-2 border-[#FBCFE8] shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden">
-            <div className="absolute -top-12 -right-12 w-40 h-40 bg-[#E83CB7]/10 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="space-y-4 relative z-10">
-              <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] border border-[#FBCFE8] text-[#5D1451] flex items-center justify-center shadow-sm">
-                <Lightbulb className="w-7 h-7 text-[#E83CB7]" />
-              </div>
-
-              <div>
-                <span className="text-[11px] font-black tracking-wider text-[#5D1451] uppercase bg-[#FCE7F3] px-3 py-1 rounded-full border border-[#FBCFE8]">
-                  {siteContent.innovateCard.badge}
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-[#1E1632] font-outfit mt-3">
-                  {siteContent.innovateCard.title}
-                </h3>
-              </div>
-
-              <p className="text-xs text-[#6E6785] leading-relaxed font-medium">
-                {siteContent.innovateCard.description}
-              </p>
-
-              <ul className="space-y-2 pt-2 text-xs text-[#1E1632] font-bold">
-                {siteContent.innovateCard.bullets.map((bullet, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#E83CB7] flex-shrink-0" />
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-violet-500/30 transition group">
+            <div className="w-12 h-12 rounded-2xl bg-violet-600/20 text-violet-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <Users className="w-6 h-6" />
             </div>
-
-            <div className="pt-4 relative z-10">
-              <button
-                onClick={() => setInnovateModalOpen(true)}
-                className="w-full py-4 rounded-full btn-primary text-white font-extrabold text-xs shadow-lg shadow-[#E83CB7]/30 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
-              >
-                <span>{siteContent.innovateCard.ctaText}</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+            <h3 className="text-base font-bold text-white mb-2">Women-Led & Inclusive</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Empowering diverse leadership and fostering equal access to maker spaces, grant funding, and leadership chapters across Mumbai.
+            </p>
           </div>
 
-          {/* Card 2: COLLABORATE (Organisations & Individuals) */}
-          <div className="group rounded-[32px] p-8 sm:p-10 bg-gradient-to-br from-white/90 via-white/80 to-[#EEF2FF]/60 border-2 border-[#C7D2FE] shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden">
-            <div className="absolute -top-12 -right-12 w-40 h-40 bg-[#4F46E5]/10 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="space-y-4 relative z-10">
-              <div className="w-14 h-14 rounded-2xl bg-[#EEF2FF] border border-[#C7D2FE] text-[#4F46E5] flex items-center justify-center shadow-sm">
-                <HeartHandshake className="w-7 h-7 text-[#4F46E5]" />
-              </div>
-
-              <div>
-                <span className="text-[11px] font-black tracking-wider text-[#4F46E5] uppercase bg-[#EEF2FF] px-3 py-1 rounded-full border border-[#C7D2FE]">
-                  {siteContent.collaborateCard.badge}
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-[#1E1632] font-outfit mt-3">
-                  {siteContent.collaborateCard.title}
-                </h3>
-              </div>
-
-              <p className="text-xs text-[#6E6785] leading-relaxed font-medium">
-                {siteContent.collaborateCard.description}
-              </p>
-
-              <ul className="space-y-2 pt-2 text-xs text-[#1E1632] font-bold">
-                {siteContent.collaborateCard.bullets.map((bullet, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#4F46E5] flex-shrink-0" />
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-cyan-500/30 transition group">
+            <div className="w-12 h-12 rounded-2xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <Zap className="w-6 h-6" />
             </div>
+            <h3 className="text-base font-bold text-white mb-2">Multidisciplinary Synergy</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Uniting engineers, business strategists, aviation technicians, and food scientists to build complete, defensible products.
+            </p>
+          </div>
 
-            <div className="pt-4 relative z-10">
-              <button
-                onClick={() => setCollaborateModalOpen(true)}
-                className="w-full py-4 rounded-full bg-[#4F46E5] text-white font-extrabold text-xs shadow-lg shadow-[#4F46E5]/30 hover:bg-[#4338CA] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
-              >
-                <span>{siteContent.collaborateCard.ctaText}</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-emerald-500/30 transition group">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <ShieldCheck className="w-6 h-6" />
             </div>
+            <h3 className="text-base font-bold text-white mb-2">Student-Driven Governance</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Autonomous campus innovation committees led by student directors in tech, marketing, operations, networking, and finance.
+            </p>
+          </div>
+
+          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-amber-500/30 transition group">
+            <div className="w-12 h-12 rounded-2xl bg-amber-600/20 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <Rocket className="w-6 h-6" />
+            </div>
+            <h3 className="text-base font-bold text-white mb-2">InQubit Incubation Pipeline</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Direct transition from student prototype to institutional incubation, seed capital, IP registration, and commercial launch.
+            </p>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* ========================================================= */}
-      {/* 6. EVENTS SECTION                                         */}
-      {/* ========================================================= */}
-      <AnimatedSection id="events">
-        <SectionHeader
-          badge={siteContent.sectionHeaders.events.badge}
-          title={siteContent.sectionHeaders.events.title}
-          subtitle={siteContent.sectionHeaders.events.subtitle}
-          action={
-            <GlassButton variant="ghost" href="/events">
-              <span>View All Events</span>
-              <ArrowRight className="w-4 h-4" />
-            </GlassButton>
-          }
-        />
+      {/* 3. FOUR PARTICIPATING CAMPUSES */}
+      <section className="container mx-auto px-4 md:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-2">
+              Campus Chapters
+            </div>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+              Participating Higher Education Institutions
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
+              Active innovation chapters with specialized hardware labs, faculty mentors, and student boards.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featuredEvents.map((evt) => (
-            <EventCard key={evt.id} event={evt} />
-          ))}
+          <Link
+            href="/leadership"
+            className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 self-start md:self-auto"
+          >
+            View Governance & Committees <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
-      </AnimatedSection>
 
-      {/* ========================================================= */}
-      {/* 7. COMMITTEE SECTION                                      */}
-      {/* ========================================================= */}
-      <AnimatedSection id="committee">
-        <SectionHeader
-          badge={siteContent.sectionHeaders.committee.badge}
-          title={siteContent.sectionHeaders.committee.title}
-          subtitle={siteContent.sectionHeaders.committee.subtitle}
-          action={
-            <GlassButton variant="ghost" href="/committee">
-              <span>View Full Committee</span>
-              <ArrowRight className="w-4 h-4" />
-            </GlassButton>
-          }
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {committeePreview.map((mem) => (
-            <GlassCard
-              key={mem.id}
-              className="p-6 border-white/80 bg-white/75 space-y-4 flex flex-col justify-between shadow-lg"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {CAMPUSES.map((campus) => (
+            <div
+              key={campus.id}
+              className="bg-slate-900/50 border border-white/5 rounded-3xl p-6 flex flex-col justify-between hover:border-violet-500/30 transition group relative overflow-hidden"
             >
-              <div>
-                <div className="relative w-full h-56 rounded-2xl overflow-hidden mb-4 border border-white shadow-sm">
-                  <Image
-                    src={mem.photo}
-                    alt={mem.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <Badge variant="featured">{mem.category}</Badge>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${campus.badgeColor || 'border-violet-500/30 text-violet-400'}`}>
+                    {campus.shortName}
+                  </span>
+                  <span className="text-[10px] text-gray-500">{campus.established}</span>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition">
+                    {campus.name}
+                  </h3>
+                  <div className="text-[11px] text-gray-400 font-medium mt-1">
+                    {campus.tagline}
                   </div>
                 </div>
-                <h3 className="text-lg font-black text-[#1E1632] font-outfit">{mem.name}</h3>
-                <p className="text-xs font-bold text-[#5D1451]">{mem.position}</p>
-                <p className="text-xs text-[#6E6785] line-clamp-2 mt-2 font-normal">{mem.bio}</p>
+
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  {campus.description}
+                </p>
+
+                <div className="pt-2">
+                  <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">
+                    Core Labs & Facilities
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {campus.keyLabs.slice(0, 3).map((lab, i) => (
+                      <span key={i} className="text-[9px] bg-white/[0.03] border border-white/5 text-gray-300 px-2 py-0.5 rounded-md">
+                        {lab}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              <div className="pt-3 border-t border-[#E9E6F2] flex items-center justify-between text-xs">
-                <span className="font-mono text-[#6E6785] text-[11px] truncate max-w-[160px]">
-                  {mem.social?.email || 'Consortium Lead'}
+              <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
+                <span className="text-[11px] text-gray-400">
+                  {campus.faculty.length} Faculty • {campus.students.length} Student Leads
                 </span>
-                <span className="text-[10px] font-bold text-[#4F46E5] bg-[#EEF2FF] px-2.5 py-1 rounded-full">
-                  Verified Lead
-                </span>
+                <Link
+                  href="/leadership"
+                  className="text-[11px] text-cyan-400 hover:underline font-bold inline-flex items-center gap-0.5"
+                >
+                  Board <ChevronRight className="w-3 h-3" />
+                </Link>
               </div>
-            </GlassCard>
+            </div>
           ))}
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* ========================================================= */}
-      {/* 8. CONTACT CTA SECTION                                    */}
-      {/* ========================================================= */}
-      <AnimatedSection id="contact">
-        <div
-          className="rounded-[32px] p-10 sm:p-16 text-white text-center relative overflow-hidden shadow-2xl border border-white/30"
-          style={{
-            background: 'linear-gradient(135deg, #5D1451 0%, #851C74 50%, #E83CB7 100%)'
-          }}
-        >
-          {/* Subtle noise and light accents */}
-          <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none" />
-          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-[#ADD8E6]/20 blur-3xl" />
+      {/* 4. STUDENT INNOVATION LIFECYCLE (5 STAGES) */}
+      <section className="container mx-auto px-4 md:px-8">
+        <div className="bg-slate-900/30 border border-white/10 rounded-[2.5rem] p-6 md:p-12 relative overflow-hidden">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+              5-Stage Journey
+            </div>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+              The Student Innovation Lifecycle
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2">
+              From an initial spark of curiosity in campus classrooms to validated proof of concepts and full-scale venture incubation.
+            </p>
+          </div>
 
-          <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-            <span className="inline-block px-5 py-2 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-black border border-white/30 tracking-wider shadow-sm uppercase">
-              {siteContent.contactCta.badge}
-            </span>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+            {STUDENT_LIFECYCLE.map((step, idx) => {
+              const Icon = lifecycleIconMap[step.icon] || Compass;
+              return (
+                <div
+                  key={step.step}
+                  className="bg-slate-950/80 border border-white/5 rounded-2xl p-5 flex flex-col justify-between hover:border-violet-500/40 transition group"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold text-cyan-400">{step.step}</span>
+                      <div className="w-8 h-8 rounded-xl bg-violet-600/20 text-violet-400 flex items-center justify-center group-hover:scale-110 transition">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                    </div>
 
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-outfit drop-shadow-md">
-              {siteContent.contactCta.title}
+                    <div>
+                      <div className="text-xs font-bold text-violet-400 uppercase tracking-wider">{step.name}</div>
+                      <h4 className="text-sm font-bold text-white mt-0.5">{step.action}</h4>
+                    </div>
+
+                    <p className="text-[11px] text-gray-400 leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-white/5 text-[10px] text-gray-500 font-mono">
+                    {step.timeline}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              href="/students"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs px-7 py-3 rounded-full transition shadow-lg shadow-violet-600/20"
+            >
+              Explore Full Student Roadmap & Grants
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. CORE PROGRAMS */}
+      <section className="container mx-auto px-4 md:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+            Incubation Tracks
+          </div>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+            Core Programs & Cohorts
+          </h2>
+          <p className="text-xs sm:text-sm text-gray-400 mt-2">
+            Structured hackathons, acceleration bootcamps, prototype grants, and continuous venture pipeline.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {CORE_PROGRAMS.map((prog) => {
+            const Icon = programIconMap[prog.icon] || Sparkles;
+            return (
+              <div
+                key={prog.id}
+                className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col justify-between hover:border-violet-500/30 transition group"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl bg-violet-600/20 text-violet-400 flex items-center justify-center">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                          {prog.duration}
+                        </span>
+                        <h3 className="text-lg font-bold text-white">{prog.title}</h3>
+                      </div>
+                    </div>
+                    <span className="text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-bold">
+                      {prog.activeStatus}
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    {prog.description}
+                  </p>
+
+                  <div className="space-y-2 pt-2">
+                    {prog.benefits.map((b, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs text-gray-400">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                        <span>{b}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
+                  <div className="text-[11px] font-bold text-violet-400">
+                    {prog.grantAmount || prog.intake}
+                  </div>
+                  <button
+                    onClick={() => setInnovateOpen(true)}
+                    className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1"
+                  >
+                    Apply for Track <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 6. INNOVATION CLUSTERS PREVIEW */}
+      <section className="container mx-auto px-4 md:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-2">
+              Focus Domains
+            </div>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+              Six Key Innovation Clusters
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
+              Multi-institutional research clusters mapped to faculty expertise and specialized laboratories.
+            </p>
+          </div>
+
+          <Link
+            href="/innovation"
+            className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 self-start md:self-auto"
+          >
+            Explore All Clusters & Problem Statements <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {INNOVATION_CLUSTERS.map((cluster) => {
+            const Icon = clusterIconMap[cluster.iconName] || Cpu;
+            return (
+              <div
+                key={cluster.id}
+                className="bg-slate-900/50 border border-white/5 rounded-3xl p-6 hover:border-cyan-500/30 transition group flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition">
+                    <Icon className="w-5 h-5" />
+                  </div>
+
+                  <div>
+                    <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition">
+                      {cluster.title}
+                    </h3>
+                    <div className="text-[11px] text-gray-500 mt-0.5">
+                      Campuses: {cluster.alignedCampuses.join(' • ')}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {cluster.subfields.slice(0, 3).map((sub, i) => (
+                      <span key={i} className="text-[9px] bg-white/[0.03] border border-white/5 text-gray-400 px-2 py-0.5 rounded-md">
+                        {sub}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-gray-400 space-y-1">
+                    <span className="text-[9px] font-bold text-violet-400 uppercase tracking-wider block">Sample Project</span>
+                    <p className="line-clamp-2">{cluster.sampleProject}</p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between">
+                  <button
+                    onClick={() => setInnovateOpen(true)}
+                    className="text-[11px] font-bold text-cyan-400 hover:underline"
+                  >
+                    Submit Project in this Cluster →
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 7. GOVERNING COUNCIL HIGHLIGHT */}
+      <section className="container mx-auto px-4 md:px-8">
+        <div className="bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-6 md:p-12">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+              Strategic Oversight
+            </div>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+              Governing Council & Leadership
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2">
+              Steering ecosystem strategy, institutional policy, prototype grants, and direct alignment with InQubit venture incubation.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {GOVERNING_COUNCIL.map((leader) => (
+              <div
+                key={leader.id}
+                className="bg-slate-950 border border-white/5 rounded-3xl p-6 text-center hover:border-violet-500/30 transition group"
+              >
+                <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-2 border-violet-500/30 group-hover:border-cyan-400 transition">
+                  <img
+                    src={leader.photoUrl}
+                    alt={leader.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h4 className="text-base font-bold text-white">{leader.name}</h4>
+                <div className="text-[11px] text-cyan-400 font-semibold">{leader.designation}</div>
+                <div className="text-[10px] text-gray-500 mb-3">{leader.organization}</div>
+                <p className="text-xs text-gray-400 leading-relaxed">{leader.bio}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              href="/leadership"
+              className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1"
+            >
+              Explore Governing Council & All 4 Campus Committees <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. BOTTOM CTA BANNER */}
+      <section className="container mx-auto px-4 md:px-8">
+        <div className="bg-gradient-to-r from-violet-950 via-slate-900 to-indigo-950 border border-violet-500/30 rounded-[2.5rem] p-8 md:p-14 text-center relative overflow-hidden shadow-2xl">
+          <div className="max-w-2xl mx-auto space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5" />
+              Cohort 2026-27 Enrollment Open
+            </div>
+
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+              Ready to Turn Your Campus Project Into a Viable Startup?
             </h2>
 
-            <p className="text-base sm:text-lg text-white leading-relaxed font-medium max-w-2xl mx-auto opacity-95">
-              {siteContent.contactCta.description}
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+              Join 500+ student creators across TSEC, TSDC, TIAT, and TIHM. Get verified lab access, prototype grants, and 1-on-1 venture mentorship today.
             </p>
 
-            <div className="pt-4 flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <button
-                onClick={() => setInnovateModalOpen(true)}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#5D1451] hover:bg-[#FCE7F3] font-black text-sm shadow-2xl hover:scale-105 transition-all duration-300"
+                onClick={() => setJoinOpen(true)}
+                className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm px-8 py-3.5 rounded-full transition shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95"
               >
-                <span>{siteContent.contactCta.button1Text}</span>
-                <Lightbulb className="w-4 h-4 text-[#E83CB7]" />
+                Get Student Pass (₹500)
               </button>
-
               <button
-                onClick={() => setCollaborateModalOpen(true)}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/20 backdrop-blur-md border border-white text-white hover:bg-white/30 font-black text-sm shadow-2xl hover:scale-105 transition-all duration-300"
+                onClick={() => setInnovateOpen(true)}
+                className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs sm:text-sm px-8 py-3.5 rounded-full transition shadow-lg shadow-violet-600/20 hover:scale-105 active:scale-95"
               >
-                <span>{siteContent.contactCta.button2Text}</span>
-                <HeartHandshake className="w-4 h-4" />
+                Submit Innovation Idea
+              </button>
+              <button
+                onClick={() => setCollaborateOpen(true)}
+                className="bg-white/5 hover:bg-white/10 text-white font-semibold text-xs sm:text-sm px-6 py-3.5 rounded-full border border-white/10 transition"
+              >
+                Enterprise / College Partner
               </button>
             </div>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* Innovate & Collaborate Modals */}
-      <InnovateModal
-        isOpen={innovateModalOpen}
-        onClose={() => setInnovateModalOpen(false)}
-      />
-
-      <CollaborateModal
-        isOpen={collaborateModalOpen}
-        onClose={() => setCollaborateModalOpen(false)}
-      />
+      {/* Global Interactive Modals */}
+      <InnovateModal isOpen={innovateOpen} onClose={() => setInnovateOpen(false)} />
+      <JoinModal isOpen={joinOpen} onClose={() => setJoinOpen(false)} />
+      <CollaborateModal isOpen={collaborateOpen} onClose={() => setCollaborateOpen(false)} />
     </div>
   );
 }

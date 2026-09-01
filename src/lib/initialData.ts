@@ -1,570 +1,978 @@
+// Full initial dataset aligned with the template
 import {
+  GoverningCouncilMember,
+  StrategicMandate,
+  StatItem,
+  StudentLifecycleStep,
+  CoreProgram,
+  InnovationCluster,
   ActivityEvent,
+  ResourceItem,
+  FAQItem,
   Announcement,
+  CollegePartner,
   CommitteeMember,
   Collaboration,
-  GalleryItem,
-  SiteContent,
   ContactSubmission,
-  CollegePartner,
   InnovateSubmission,
-  CollaborateSubmission
+  CollaborateSubmission,
+  SiteContent
 } from '@/types';
 
-export const INITIAL_SITE_CONTENT: SiteContent = {
-  hero: {
-    title: 'Pioneering Quantum & AI Innovation Led By Women',
-    subtitle: 'WOMEN LED INNOVATION — DREAM. BUILD. INNOVATE.',
-    description: 'Empowering female researchers, student innovators, and industry leaders to reshape quantum technology, deep-tech engineering, and intelligent computing across our four-college consortium.',
-    primaryCtaText: 'Explore Flagship Events',
-    primaryCtaLink: '/events',
-    studentPortalText: 'Student Portal',
-    partnerPortalText: 'Partner Portal',
-    stats: [
-      { label: 'Innovators & Scholars', value: '1,250+' },
-      { label: 'Keynotes & Workshops', value: '48+' },
-      { label: 'Collaborating Colleges', value: '4' },
-      { label: 'Research Grants & Awards', value: '$450K+' }
-    ]
-  },
-  sectionHeaders: {
-    announcements: {
-      badge: 'Official Bulletins',
-      title: 'Announcements & Notices',
-      subtitle: 'Stay informed on research fellowship deadlines, compute credits, and four-college consortium notices.'
-    },
-    colleges: {
-      badge: 'Institutional Alliance',
-      title: 'Four-College Collaboration',
-      subtitle: 'WINQubit is a joint multi-campus alliance uniting four premier academic institutions to drive research, student innovation, and deep-tech excellence.'
-    },
-    about: {
-      badge: 'About WINQubit',
-      title: 'Empowering Visionary Women in Deep-Tech & Quantum',
-      subtitle: 'Building an internationally recognized, inclusive ecosystem where women lead breakthrough innovations in Quantum Computing & Artificial Intelligence.'
-    },
-    innovateCollaborate: {
-      badge: 'Dual Portal Access',
-      title: 'Innovate & Collaborate',
-      subtitle: 'Whether you are a student ready to pitch groundbreaking ideas or an organization seeking institutional partnership, choose your path below.'
-    },
-    events: {
-      badge: 'Consortium Gatherings',
-      title: 'Flagship Events & Masterclasses',
-      subtitle: 'Explore upcoming workshops with open student seat reservation, or view photos and recap summaries from completed events.'
-    },
-    committee: {
-      badge: 'Leadership & Council',
-      title: 'Committee & Mentorship',
-      subtitle: 'Pioneering researchers and academic faculty steering WINQubit innovation initiatives across consortium campuses.'
-    }
-  },
-  innovateCard: {
-    badge: 'For Students & Scholars',
-    title: 'Innovate',
-    description: 'Submit research ideas, apply for quantum fellowship grants, join inter-campus hackathons, or propose hardware prototypes across our four partner colleges.',
-    bullets: [
-      'Student Research Fellowship Applications',
-      'Inter-College Hackathons & Competitions',
-      'Lab Simulator Access & Mentorship'
-    ],
-    ctaText: 'Open Student Innovate Application'
-  },
-  collaborateCard: {
-    badge: 'For Organizations & Partners',
-    title: 'Collaborate',
-    description: 'Partner with the WINQubit Four-College Consortium. We welcome universities, quantum labs, corporate sponsors, and guest experts to co-fund research and host joint programs.',
-    bullets: [
-      'Co-funded Research & Lab Collaborations',
-      'Corporate Hackathon & Event Sponsorships',
-      'Faculty Exchanges & Expert Keynotes'
-    ],
-    ctaText: 'Submit Partner Collaboration Request'
-  },
-  about: {
-    badge: 'About WINQubit',
-    title: 'Empowering Visionary Women in Deep-Tech & Quantum',
-    vision: 'To build an internationally recognized, inclusive ecosystem where women lead breakthrough innovations in Quantum Computing, Artificial Intelligence, and Frontier Technologies across institutional alliances.',
-    mission: 'To bridge gender gaps in high-tech research, cultivate student talent through mentorship and hands-on hackathons, foster strategic global collaborations, and commercialize women-led intellectual properties.',
-    objectives: [
-      'Cultivate high-impact research initiatives in Quantum Algorithms, Superconducting Circuits, and Applied AI.',
-      'Deliver world-class technical workshops, developer bootcamps, and leadership masterclasses.',
-      'Establish global university and corporate partnerships for co-funded innovation programs.',
-      'Provide seed incubation, IP guidance, and venture acceleration for women-founded deep-tech startups.'
-    ],
-    journey: [
-      {
-        id: 'j-1',
-        year: '2022',
-        title: 'Founding WINQubit Initiative',
-        description: 'Established WINQubit as a pioneering Women-Led Innovation council uniting visionary researchers across four partner colleges.'
-      },
-      {
-        id: 'j-2',
-        year: '2023',
-        title: 'First Four-College Consortium Summit',
-        description: 'Hosted over 500 delegates from partner campuses, releasing collaborative research whitepapers on quantum security.'
-      },
-      {
-        id: 'j-3',
-        year: '2024',
-        title: 'Global Industry Consortium',
-        description: 'Formed strategic alliances with leading quantum computing laboratories, tech giants, and venture incubators.'
-      },
-      {
-        id: 'j-4',
-        year: '2025',
-        title: 'Incubation & Research Lab Expansion',
-        description: 'Launched the WINQubit Quantum Simulator Lab, incubating student-led hardware and software research projects.'
-      },
-      {
-        id: 'j-5',
-        year: '2026',
-        title: 'Next-Gen Global Horizon',
-        description: 'Expanding footprint across institutions with fellowship grants, real-time quantum cloud testbeds, and annual student awards.'
-      }
-    ]
-  },
-  contactCta: {
-    badge: 'Four-College Innovation Hub',
-    title: 'Ready to Innovate & Collaborate?',
-    description: 'Join the WINQubit community today to participate in quantum hackathons, apply for fellowship grants, and connect with global female researchers.',
-    button1Text: 'Student Innovate Portal',
-    button2Text: 'Partner Collaborate Portal'
-  },
-  contactInfo: {
-    email: 'contact@winqubit.org',
-    phone: '+1 (800) 946-7824',
-    address: 'WINQubit Four-College Consortium Hub, 450 Quantum Parkway, Innovation Campus',
-    officeHours: 'Monday – Friday: 09:00 AM – 06:00 PM',
-    mapEmbedUrl: 'https://maps.google.com/maps?q=37.3860517,-122.0838511&z=14&output=embed'
-  }
-};
-
-export const INITIAL_COLLEGES: CollegePartner[] = [
-  {
-    id: 'col-iqet',
-    name: 'Institute of Quantum & Engineering Tech',
-    code: 'IQET',
-    logo: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=400&q=80',
-    location: 'Main Engineering Campus',
-    website: 'https://iqet.edu',
-    description: 'Founding partner institution leading quantum hardware research, cleanroom fabrication, and nanotech labs.',
-    isFoundingPartner: true
-  },
-  {
-    id: 'col-ncas',
-    name: 'National College of Applied Sciences & AI',
-    code: 'NCAS',
-    logo: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=400&q=80',
-    location: 'North Technology Quad',
-    website: 'https://ncas.edu',
-    description: 'Pioneering institution specializing in machine learning, post-quantum cryptography, and intelligent algorithms.',
-    isFoundingPartner: true
-  },
-  {
-    id: 'col-aiar',
-    name: 'Apex Institute of Advanced Research',
-    code: 'AIAR',
-    logo: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=400&q=80',
-    location: 'Central Science Park',
-    website: 'https://aiar.edu',
-    description: 'Center of excellence for interdisciplinary research, student incubation, and IP commercialization.',
-    isFoundingPartner: true
-  },
-  {
-    id: 'col-muti',
-    name: 'Metropolitan University of Tech & Innovation',
-    code: 'MUTI',
-    logo: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=400&q=80',
-    location: 'Metropolitan Innovation Hub',
-    website: 'https://muti.edu',
-    description: 'Lead campus driving industry collaborations, hackathons, and female leadership mentorship programs.',
-    isFoundingPartner: true
-  }
+export const NAV_ITEMS = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'about', label: 'About', href: '/about' },
+  { id: 'leadership', label: 'Leadership', href: '/leadership' },
+  { id: 'students', label: 'For Students', href: '/students' },
+  { id: 'programs', label: 'Programs', href: '/programs' },
+  { id: 'innovation', label: 'Innovation', href: '/innovation' },
+  { id: 'partners', label: 'Partners', href: '/partners' },
+  { id: 'events', label: 'Events', href: '/events' },
+  { id: 'resources', label: 'Resources', href: '/resources' },
+  { id: 'contact', label: 'Contact', href: '/contact' },
 ];
 
-export const INITIAL_EVENTS: ActivityEvent[] = [
+export const GOVERNING_COUNCIL: GoverningCouncilMember[] = [
   {
-    id: 'evt-ipr-masterclass',
-    title: 'IPR & Patent Filing Masterclass for Scholars',
-    description: 'Step-by-step guidance on drafting patent specifications, prior art search techniques, international PCT applications, and filing women-led IP commercialization.',
-    fullContent: 'An intensive masterclass designed for researchers, scholars, and deep-tech innovators across our four partner colleges. You will learn fundamental patent drafting methodologies, claims formatting, freedom-to-operate searches, and how to protect novel quantum algorithms and AI architectures. The session covers practical case studies from patent grant approvals and commercial licensing frameworks.',
-    category: 'WORKSHOP',
-    date: 'September 04, 2026',
-    time: '10:00 AM – 01:30 PM PST',
-    venue: 'Virtual Conference Hall & IQET Campus Auditorium',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80'
-    ],
-    registrationUrl: '/events/evt-ipr-masterclass/register',
-    status: 'Upcoming',
-    featured: true,
-    speaker: 'Adv. Ananya Mukherjee',
-    speakerRole: 'Senior Patent Attorney & Tech IP Strategist',
-    prerequisites: [
-      'Basic understanding of research methodology or technical project documentation',
-      'Working draft of an innovation concept or research topic (optional for live review)'
-    ],
-    agenda: [
-      { time: '10:00 AM', topic: 'Welcome & Introduction to High-Tech Intellectual Property' },
-      { time: '10:30 AM', topic: 'Prior Art Searching & Patentability Assessment' },
-      { time: '11:30 AM', topic: 'Drafting Patent Claims & Specifications (Live Demo)' },
-      { time: '12:30 PM', topic: 'PCT Filing & Global Commercialization Roadmap' },
-      { time: '01:00 PM', topic: 'Open Q&A and Direct Legal Clinic' }
-    ]
+    id: 'vishram-bapat',
+    name: 'Mr. Vishram Bapat',
+    designation: 'Management Committee Member',
+    organization: 'WINQubit & InQubit Ecosystem',
+    photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    bio: 'Pioneering strategist guiding ecosystem growth, institutional alignments, and high-impact incubator governance across higher education.',
+    expertise: ['Ecosystem Governance', 'Strategic Growth', 'Incubator Alignment'],
   },
   {
-    id: 'evt-quantum-hackathon',
-    title: 'WINQubit Four-College Inter-Campus Hackathon 2026',
-    description: 'A 48-hour hackathon focusing on Qiskit algorithms, post-quantum cryptography, and fault-tolerant quantum error correction for student coders.',
-    fullContent: 'Join over 800 coders, mathematicians, and engineers across all four partner colleges. Participants will work on real IBM Quantum & Qiskit simulators, solving high-impact problems in drug discovery, financial modeling, and cryptographic resilience. Mentors from all 4 college faculties will be available 24/7.',
-    category: 'HACKATHON',
-    date: 'October 12, 2026',
-    time: '09:00 AM PST (48 Hours)',
-    venue: 'MUTI Innovation Center & Hybrid Virtual Cloud',
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80'
-    ],
-    registrationUrl: '/events/evt-quantum-hackathon/register',
-    status: 'Upcoming',
-    featured: true,
-    speaker: 'Dr. Elena Rostova & Prof. Sarah Lin',
-    speakerRole: 'Principal Quantum Scientists, WINQubit Council',
-    prerequisites: [
-      'Python programming familiarity',
-      'Basic linear algebra and quantum logic gates knowledge'
-    ],
-    agenda: [
-      { time: 'Day 1 - 09:00 AM', topic: 'Keynote & Problem Statements Unveiling' },
-      { time: 'Day 1 - 02:00 PM', topic: 'Mentor Office Hours & Simulator Access Setup' },
-      { time: 'Day 2 - 08:00 PM', topic: 'Project Submissions & Code Freeze' },
-      { time: 'Day 3 - 11:00 AM', topic: 'Live Pitching & Grand Prize Ceremony' }
-    ]
+    id: 'dhruv-singh',
+    name: 'Mr. Dhruv Singh',
+    designation: 'Management Committee Member',
+    organization: 'WINQubit & InQubit Ecosystem',
+    photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    bio: 'Driving deep-tech ventures, pre-incubation pipelines, and industry challenge integration across collaborative student innovation hubs.',
+    expertise: ['Deep-Tech Pipelines', 'Industry Linkages', 'Innovation Policy'],
   },
   {
-    id: 'evt-leadership-summit',
-    title: 'Women in AI & Quantum Leadership Summit',
-    description: 'Executive summit featuring keynote presentations from female leaders in deep technology, quantum hardware, and AI ethics across partner campuses.',
-    fullContent: 'An exclusive assembly of CTOs, principal scientists, and venture directors discussing the roadmap of quantum commercialization, career trajectories for female innovators, and funding frameworks for academic spin-offs.',
-    category: 'SUMMIT',
-    date: 'August 28, 2026',
-    time: '10:00 AM – 05:00 PM PST',
-    venue: 'NCAS Auditorium & Global Live Stream',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80'
-    ],
-    registrationUrl: '/events/evt-leadership-summit/register',
-    status: 'Ongoing',
-    featured: true,
-    speaker: 'Dr. Aris Thorne & Maria Gonzalez',
-    speakerRole: 'Executive Directors, WINQubit Consortium'
+    id: 'harnish-master',
+    name: 'Mr. Harnish Master',
+    designation: 'Management Committee Member',
+    organization: 'WINQubit & InQubit Ecosystem',
+    photoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+    bio: 'Orchestrating venture enablement, early-stage prototype grants, and scalable entrepreneurship support from campus to market.',
+    expertise: ['Venture Capital Readiness', 'Prototype Grant Allocation', 'Operational Strategy'],
   },
-  {
-    id: 'evt-pqc-masterclass',
-    title: 'Post-Quantum Cryptography Technical Workshop',
-    description: 'Hands-on technical workshop on NIST lattice-based standards, Kyber algorithms, and enterprise security implementation.',
-    fullContent: 'Detailed exploration of lattice-based cryptography standards held at the AIAR campus. Attendees learned practical implementation tactics for securing legacy systems against future quantum threats using open-source PQC libraries. Includes successful student projects and benchmark demos.',
-    category: 'MASTERCLASS',
-    date: 'May 12, 2026',
-    time: '02:00 PM – 06:00 PM PST',
-    venue: 'AIAR Interactive Research Lab',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80'
-    ],
-    registrationUrl: '',
-    status: 'Completed',
-    featured: false,
-    speaker: 'Dr. Sophia Vance',
-    speakerRole: 'Lead Cybersecurity & PQC Chair',
-    outcomes: [
-      'Trained 140+ student participants across the four partner colleges in Kyber and Dilithium algorithms.',
-      'Published 3 student research posters on quantum-safe network protocols.',
-      'Established open open-source PQC code repository accessible to all consortium scholars.'
-    ]
-  },
-  {
-    id: 'evt-quantum-cleanroom-bootcamp',
-    title: 'Superconducting Qubit Cleanroom Fabrication Bootcamp',
-    description: 'Specialized 3-day practical bootcamp on micro-fabrication, electron-beam lithography, and cryostat microwave testing for superconducting circuits.',
-    fullContent: 'An intensive hands-on lab experience conducted in the IQET Nanofabrication Facility. 45 female scholars built and characterized aluminum-junction superconducting resonators, operating dilute refrigeration equipment at 15 mK.',
-    category: 'BOOTCAMP',
-    date: 'March 18, 2026',
-    time: 'Full Day (3 Days)',
-    venue: 'IQET Cleanroom & Cryogenics Complex',
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80'
-    ],
-    registrationUrl: '',
-    status: 'Completed',
-    featured: false,
-    speaker: 'Prof. Amara Patel',
-    speakerRole: 'Head of Quantum Hardware & Research',
-    outcomes: [
-      'Fabricated 12 test chip wafers with microwave resonators achieving Q-factors over 100,000.',
-      'Awarded cleanroom access fellowships to 8 top-performing student teams.'
-    ]
-  }
 ];
 
-export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
+export const STRATEGIC_MANDATES: StrategicMandate[] = [
+  {
+    title: 'Overall Strategy & Direction',
+    description: 'Setting network-wide milestones, long-term vision, and strategic goals for student innovation.',
+  },
+  {
+    title: 'Policy & Governance',
+    description: 'Enforcing ethical standards, inclusion mandates, intellectual property guidelines, and quality frameworks.',
+  },
+  {
+    title: 'Budget & Prototype Grants',
+    description: 'Approving institutional funding, proof-of-concept grants, and specialized hardware/cloud allowances.',
+  },
+  {
+    title: 'Institutional & Industry Partnerships',
+    description: 'Expanding the campus partner network and bringing Fortune 500 corporate challenges directly to students.',
+  },
+  {
+    title: 'Strategic Alignment with InQubit',
+    description: 'Managing the seamless pipeline for validated student prototypes moving into full-stage InQubit incubation.',
+  },
+  {
+    title: 'Network Expansion & Performance',
+    description: 'Monitoring Year 1 growth metrics: 500+ members, 50 ideas, 25 prototypes, and 10 viable campus startups.',
+  },
+];
+
+export const CAMPUSES = [
+  {
+    id: 'tsec',
+    name: 'Thakur Shyamnarayan Engineering College',
+    shortName: 'TSEC',
+    tagline: 'Engineering & Advanced Technology Campus',
+    badgeColor: 'border-violet-500/40 text-violet-400 bg-violet-500/10',
+    accentColor: 'from-violet-600 to-indigo-600',
+    description: 'Leading breakthroughs in Artificial Intelligence, Robotics, IoT, Cybersecurity, and Software Engineering.',
+    campusLocation: 'Kandivali (East), Mumbai',
+    established: 'Estd. 2014',
+    keyLabs: ['AI & Supercomputing Lab', 'Robotics Fabrication Hub', 'IoT Sensor Prototyping', 'Cybersecurity Sandbox'],
+    faculty: [
+      {
+        id: 'tsec-f1',
+        name: 'Dr. Principal Name',
+        designation: 'Principal',
+        roleInWINQubit: 'Institutional Head & Patron',
+        institution: 'Thakur Shyamnarayan Engineering College',
+        department: 'Academic Leadership',
+        photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+        title: 'Principal',
+        email: 'principal@tsec.edu.in',
+        role: 'Institutional Head',
+      },
+      {
+        id: 'tsec-f2',
+        name: 'Dr. Nirmala Kamble',
+        designation: 'Faculty Coordinator & Mentor',
+        roleInWINQubit: 'Faculty Mentor / Institutional Coordinator',
+        institution: 'Thakur Shyamnarayan Engineering College',
+        department: 'Computer & IT Engineering',
+        photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
+        title: 'Associate Professor',
+        email: 'nirmala.k@tsec.edu.in',
+        role: 'Faculty Coordinator',
+      },
+      {
+        id: 'tsec-f3',
+        name: 'Prof. Faculty Mentor',
+        designation: 'Assistant Professor',
+        roleInWINQubit: 'Faculty Mentor — Innovation & R&D',
+        institution: 'Thakur Shyamnarayan Engineering College',
+        department: 'Electronics & Telecommunication',
+        photoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+        title: 'Assistant Professor',
+        email: 'mentor@tsec.edu.in',
+        role: 'R&D Mentor',
+      },
+    ],
+    students: [
+      {
+        id: 'tsec-s1',
+        name: 'Ananya Sharma',
+        role: 'Technology Lead',
+        branch: 'Computer Engineering',
+        year: 'TE',
+        department: 'Computer Engineering',
+        photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+        skills: ['Full Stack Dev', 'AI Models', 'Cloud Systems'],
+      },
+      {
+        id: 'tsec-s2',
+        name: 'Rohan Mehta',
+        role: 'Social Media & Marketing Lead',
+        branch: 'Information Technology',
+        year: 'SE',
+        department: 'Information Technology',
+        photoUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80',
+        skills: ['Growth Strategy', 'Content Direction', 'Campaigns'],
+      },
+      {
+        id: 'tsec-s3',
+        name: 'Pooja Iyer',
+        role: 'Operations Lead',
+        branch: 'Electronics & Computer Science',
+        year: 'TE',
+        department: 'Electronics',
+        photoUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
+        skills: ['Event Ops', 'Maker Lab Coordination', 'Logistics'],
+      },
+      {
+        id: 'tsec-s4',
+        name: 'Aditya Patil',
+        role: 'Networking & Partnerships Lead',
+        branch: 'Mechanical Engineering',
+        year: 'BE',
+        department: 'Mechanical',
+        photoUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80',
+        skills: ['Corporate Outreach', 'Industry Sprints', 'PR'],
+      },
+      {
+        id: 'tsec-s5',
+        name: 'Sneha Deshmukh',
+        role: 'Finance & Grants Lead',
+        branch: 'Computer Engineering',
+        year: 'TE',
+        department: 'Computer Engineering',
+        photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80',
+        skills: ['Grant Tracking', 'Budget Audits', 'Sponsorships'],
+      },
+    ],
+  },
+  {
+    id: 'tsdc',
+    name: 'Thakur Shyamnarayan Degree College',
+    shortName: 'TSDC',
+    tagline: 'Interdisciplinary Sciences, Commerce & Humanities',
+    badgeColor: 'border-cyan-500/40 text-cyan-400 bg-cyan-500/10',
+    accentColor: 'from-cyan-500 to-blue-600',
+    description: 'Fostering FinTech, E-Commerce, Computational Sciences, Media Tech, and Social Entrepreneurship.',
+    campusLocation: 'Kandivali (East), Mumbai',
+    established: 'Estd. 2017',
+    keyLabs: ['FinTech & Analytics Studio', 'Digital Media Incubation Lab', 'Computational Science Center'],
+    faculty: [
+      {
+        id: 'tsdc-f1',
+        name: 'Dr. Principal Name',
+        designation: 'Principal',
+        roleInWINQubit: 'Institutional Head & Patron',
+        institution: 'Thakur Shyamnarayan Degree College',
+        department: 'Academic Administration',
+        photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+        title: 'Principal',
+        email: 'principal@tsdc.edu.in',
+        role: 'Institutional Head',
+      },
+      {
+        id: 'tsdc-f2',
+        name: 'Mrs. Abha Dhote',
+        designation: 'Faculty Coordinator & Mentor',
+        roleInWINQubit: 'Faculty Mentor / Institutional Coordinator',
+        institution: 'Thakur Shyamnarayan Degree College',
+        department: 'Commerce & Management',
+        photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
+        title: 'Assistant Professor',
+        email: 'abha.d@tsdc.edu.in',
+        role: 'Faculty Coordinator',
+      },
+      {
+        id: 'tsdc-f3',
+        name: 'Prof. Faculty Mentor',
+        designation: 'Assistant Professor',
+        roleInWINQubit: 'Faculty Mentor — Interdisciplinary Programs',
+        institution: 'Thakur Shyamnarayan Degree College',
+        department: 'Information Technology / CS',
+        photoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+        title: 'Assistant Professor',
+        email: 'mentor@tsdc.edu.in',
+        role: 'Interdisciplinary Mentor',
+      },
+    ],
+    students: [
+      {
+        id: 'tsdc-s1',
+        name: 'Tanvi Joshi',
+        role: 'Technology Lead',
+        branch: 'B.Sc. Data Science',
+        year: 'TY',
+        department: 'Data Science',
+        photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+        skills: ['Data Modeling', 'Business Intelligence', 'Python'],
+      },
+      {
+        id: 'tsdc-s2',
+        name: 'Karan Shah',
+        role: 'Social Media & Marketing Lead',
+        branch: 'B.Com (Banking & Insurance)',
+        year: 'SY',
+        department: 'Commerce',
+        photoUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80',
+        skills: ['FinTech Marketing', 'Content Design', 'Branding'],
+      },
+      {
+        id: 'tsdc-s3',
+        name: 'Ritika Gupta',
+        role: 'Operations Lead',
+        branch: 'BMS (Management Studies)',
+        year: 'TY',
+        department: 'Management',
+        photoUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
+        skills: ['Startup Acceleration Ops', 'Mentorship Schedule'],
+      },
+      {
+        id: 'tsdc-s4',
+        name: 'Aman Verma',
+        role: 'Networking Lead',
+        branch: 'B.A. Multimedia & Mass Comm',
+        year: 'SY',
+        department: 'Media Studies',
+        photoUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80',
+        skills: ['Media Outreach', 'Press & Creator Relations'],
+      },
+      {
+        id: 'tsdc-s5',
+        name: 'Devika Nair',
+        role: 'Finance Lead',
+        branch: 'BAF (Accounting & Finance)',
+        year: 'TY',
+        department: 'Finance',
+        photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80',
+        skills: ['Unit Economics', 'Venture Financial Modeling'],
+      },
+    ],
+  },
+  {
+    id: 'tiat',
+    name: 'Thakur Institute of Aviation Technology',
+    shortName: 'TIAT',
+    tagline: 'Aviation, Aerospace & Autonomous Flight',
+    badgeColor: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10',
+    accentColor: 'from-emerald-500 to-teal-600',
+    description: 'Pioneering Unmanned Aerial Vehicles (UAVs), Drone tech, Avionics diagnostics, and Aerospace engineering.',
+    campusLocation: 'Kandivali (East), Mumbai',
+    established: 'Estd. 2006',
+    keyLabs: ['DGCA Drone Prototyping Bay', 'Avionics Simulator Lab', 'Aerospace Composite Workshop'],
+    faculty: [
+      {
+        id: 'tiat-f1',
+        name: 'Capt. / Principal Name',
+        designation: 'Principal / Chief Instructor',
+        roleInWINQubit: 'Institutional Head & Patron',
+        institution: 'Thakur Institute of Aviation Technology',
+        department: 'Aviation Sciences',
+        photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+        title: 'Principal',
+        email: 'principal@tiat.edu.in',
+        role: 'Institutional Head',
+      },
+      {
+        id: 'tiat-f2',
+        name: 'Mr. Vivek Kulkarni',
+        designation: 'Faculty Coordinator & Mentor',
+        roleInWINQubit: 'Faculty Mentor / Institutional Coordinator',
+        institution: 'Thakur Institute of Aviation Technology',
+        department: 'Avionics & Drone Systems',
+        photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
+        title: 'Chief Avionics Instructor',
+        email: 'vivek.k@tiat.edu.in',
+        role: 'Faculty Coordinator',
+      },
+      {
+        id: 'tiat-f3',
+        name: 'Prof. Faculty Mentor',
+        designation: 'Senior Instructor',
+        roleInWINQubit: 'Faculty Mentor — Aerospace Innovation',
+        institution: 'Thakur Institute of Aviation Technology',
+        department: 'Aircraft Maintenance & Engineering',
+        photoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+        title: 'Senior Instructor',
+        email: 'mentor@tiat.edu.in',
+        role: 'Aerospace Mentor',
+      },
+    ],
+    students: [
+      {
+        id: 'tiat-s1',
+        name: 'Varun Rao',
+        role: 'Technology Lead',
+        branch: 'Avionics Engineering',
+        year: 'Sem 5',
+        department: 'Avionics',
+        photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+        skills: ['UAV Telemetry', 'Flight Controller Firmware', 'Sensors'],
+      },
+      {
+        id: 'tiat-s2',
+        name: 'Meera Kulkarni',
+        role: 'Social Media & Marketing Lead',
+        branch: 'AME (Mechanical Stream)',
+        year: 'Sem 3',
+        department: 'Mechanical AME',
+        photoUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80',
+        skills: ['Drone Expo Coverage', 'Aero Community Building'],
+      },
+      {
+        id: 'tiat-s3',
+        name: 'Sameer Khan',
+        role: 'Operations Lead',
+        branch: 'AME (Avionics Stream)',
+        year: 'Sem 5',
+        department: 'Avionics AME',
+        photoUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
+        skills: ['Flight Testing Approvals', 'Hangar Workshop Safety'],
+      },
+      {
+        id: 'tiat-s4',
+        name: 'Zoya Siddiqui',
+        role: 'Networking Lead',
+        branch: 'Drone Pilot & Autonomous Systems',
+        year: 'Sem 3',
+        department: 'Drone Systems',
+        photoUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80',
+        skills: ['Civil Aviation Liaisons', 'Industry Drone Challenges'],
+      },
+      {
+        id: 'tiat-s5',
+        name: 'Kavya Pillai',
+        role: 'Finance Lead',
+        branch: 'Avionics Maintenance',
+        year: 'Sem 5',
+        department: 'Maintenance',
+        photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80',
+        skills: ['Hardware Bill of Materials', 'Aero Component Sourcing'],
+      },
+    ],
+  },
+  {
+    id: 'tihm',
+    name: 'Thakur Institute of Hotel Management',
+    shortName: 'TIHM',
+    tagline: 'Hospitality Tech, Culinary Innovation & Food Science',
+    badgeColor: 'border-amber-500/40 text-amber-400 bg-amber-500/10',
+    accentColor: 'from-amber-500 to-orange-600',
+    description: 'Transforming smart kitchen tech, alternative foods, sustainable packaging, and experiential hospitality.',
+    campusLocation: 'Kandivali (East), Mumbai',
+    established: 'Estd. 2019',
+    keyLabs: ['Food Science & Molecular Culinary Lab', 'Smart Kitchen Automation Suite', 'Eco-Packaging Testing Station'],
+    faculty: [
+      {
+        id: 'tihm-f1',
+        name: 'Chef / Principal Name',
+        designation: 'Principal',
+        roleInWINQubit: 'Institutional Head & Patron',
+        institution: 'Thakur Institute of Hotel Management',
+        department: 'Hospitality & Culinary Arts',
+        photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+        title: 'Principal',
+        email: 'principal@tihm.edu.in',
+        role: 'Institutional Head',
+      },
+      {
+        id: 'tihm-f2',
+        name: 'Prof. Faculty Coordinator',
+        designation: 'Faculty Coordinator & Mentor',
+        roleInWINQubit: 'Faculty Mentor / Institutional Coordinator',
+        institution: 'Thakur Institute of Hotel Management',
+        department: 'Culinary Innovation & Management',
+        photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
+        title: 'Coordinator',
+        email: 'coordinator@tihm.edu.in',
+        role: 'Faculty Coordinator',
+      },
+      {
+        id: 'tihm-f3',
+        name: 'Prof. Faculty Mentor',
+        designation: 'Assistant Professor',
+        roleInWINQubit: 'Faculty Mentor — FoodTech & Sustainability',
+        institution: 'Thakur Institute of Hotel Management',
+        department: 'Food Production & Science',
+        photoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+        title: 'Assistant Professor',
+        email: 'mentor@tihm.edu.in',
+        role: 'FoodTech Mentor',
+      },
+    ],
+    students: [
+      {
+        id: 'tihm-s1',
+        name: 'Prathamesh Salve',
+        role: 'Technology Lead',
+        branch: 'B.Sc. Hospitality Studies',
+        year: 'TY',
+        department: 'Hospitality',
+        photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+        skills: ['Kitchen Tech Automation', 'Food Preservation Tech'],
+      },
+      {
+        id: 'tihm-s2',
+        name: 'Gauri Sawant',
+        role: 'Social Media & Marketing Lead',
+        branch: 'BA Culinary Arts',
+        year: 'SY',
+        department: 'Culinary Arts',
+        photoUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80',
+        skills: ['F&B Brand Storytelling', 'Culinary Product Demos'],
+      },
+      {
+        id: 'tihm-s3',
+        name: 'Mihir Jadhav',
+        role: 'Operations Lead',
+        branch: 'B.Sc. Hospitality Studies',
+        year: 'TY',
+        department: 'Operations',
+        photoUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
+        skills: ['Food Hygiene Compliance', 'Pilot Kitchen Scaling'],
+      },
+      {
+        id: 'tihm-s4',
+        name: 'Aishwarya Rane',
+        role: 'Networking Lead',
+        branch: 'Bakery & Confectionery Tech',
+        year: 'SY',
+        department: 'Bakery',
+        photoUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80',
+        skills: ['Hotel Chain Partnerships', 'Cloud Kitchen Ties'],
+      },
+      {
+        id: 'tihm-s5',
+        name: 'Kunal Bhatia',
+        role: 'Finance Lead',
+        branch: 'B.Sc. Hospitality Studies',
+        year: 'TY',
+        department: 'Finance',
+        photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80',
+        skills: ['F&B Cost Control', 'Packaging Material Economics'],
+      },
+    ],
+  },
+];
+
+export const STATS: StatItem[] = [
+  {
+    label: 'Partner Institutions',
+    value: '4',
+    sub: 'Campuses Across Mumbai',
+    color: 'text-violet-400',
+  },
+  {
+    label: 'Year 1 Target Members',
+    value: '500+',
+    sub: 'Student Innovators',
+    color: 'text-cyan-400',
+  },
+  {
+    label: 'Ideas Vetted Annually',
+    value: '50+',
+    sub: 'Interdisciplinary POCs',
+    color: 'text-emerald-400',
+  },
+  {
+    label: 'Prototype Grants',
+    value: '₹2.5L',
+    sub: 'Per Shortlisted Project',
+    color: 'text-amber-400',
+  },
+  {
+    label: 'Target Viable Startups',
+    value: '10',
+    sub: 'Incorporated in Year 1',
+    color: 'text-indigo-400',
+  },
+];
+
+export const STUDENT_LIFECYCLE: StudentLifecycleStep[] = [
+  {
+    step: '01',
+    name: 'DISCOVER',
+    action: 'Explore a Problem',
+    tagline: 'Spot campus & societal pain points',
+    desc: 'Participate in Ideathons, problem-scouting bootcamps, and domain deep dives to discover high-value problems worth solving.',
+    icon: 'Compass',
+    deliverables: ['Problem validation canvas', 'User empathy interviews (10+)', 'Market landscape summary'],
+    supportOffered: 'Access to Industry Problem Banks, Faculty brainstorming sessions, and Domain Masterclasses.',
+    timeline: 'Weeks 1 - 3',
+  },
+  {
+    step: '02',
+    name: 'TEAM UP',
+    action: 'Assemble Multidisciplinary Crew',
+    tagline: 'Engineers + Designers + Business Minds',
+    desc: 'Break campus silos. Form complementary teams across TSEC (Tech), TSDC (Commerce/Media), TIAT (Aviation), and TIHM (FoodTech).',
+    icon: 'Users',
+    deliverables: ['Team charter & role assignments', 'Skill complement matrix', 'Initial feasibility brief'],
+    supportOffered: 'Cross-campus mixer events, skill-matching portal, and student chapter team matchmaking.',
+    timeline: 'Weeks 4 - 6',
+  },
+  {
+    step: '03',
+    name: 'PROTOTYPE',
+    action: 'Build Minimum Viable Product',
+    tagline: 'Zero to hardware/software prototype',
+    desc: 'Utilize state-of-the-art campus labs, cloud infrastructure credits, 3D printers, and drone testing bays to build MVP 1.0.',
+    icon: 'Wrench',
+    deliverables: ['Working MVP prototype', 'Architecture/BOM schematic', 'Demonstration screencast / build log'],
+    supportOffered: 'Up to ₹1,00,000 Micro-Grant for hardware parts, free cloud credits, and Lab Technician support.',
+    timeline: 'Weeks 7 - 14',
+  },
+  {
+    step: '04',
+    name: 'VALIDATE',
+    action: 'Field Testing & Customer Feedback',
+    tagline: 'Real tests with real end-users',
+    desc: 'Deploy prototypes within Thakur campus ecosystems, partner hospitals, retail chains, or industry partners for rigorous user trials.',
+    icon: 'CheckCircle2',
+    deliverables: ['25+ user testing feedback logs', 'Iterated product v2.0', 'Provisional IP/Patent filing draft'],
+    supportOffered: 'Testing environments across campus networks, industry advisory reviews, and legal IP guidance.',
+    timeline: 'Weeks 15 - 20',
+  },
+  {
+    step: '05',
+    name: 'INCUBATE',
+    action: 'InQubit Fast-Track Incubation',
+    tagline: 'Company incorporation & investor pitch',
+    desc: 'Graduate from pre-incubation directly into InQubit venture acceleration with seed capital readiness, investor syndicates, and market scale.',
+    icon: 'Rocket',
+    deliverables: ['Investor Pitch Deck', 'Incorporated Pvt. Ltd. entity', 'Term sheet / Pre-seed milestone target'],
+    supportOffered: 'Direct pitch to InQubit Investment Committee, institutional equity support, and investor network access.',
+    timeline: 'Week 21 onwards',
+  },
+];
+
+export const CORE_PROGRAMS: CoreProgram[] = [
+  {
+    id: 'prog-innovation',
+    category: 'innovation',
+    title: 'Innovation Challenges & Buildathons',
+    tagline: 'From blank canvas to working proof of concept in 48 hours',
+    description: 'Quarterly inter-institutional hackathons, ideathons, and hardware buildathons where students solve real corporate and civic problem statements.',
+    duration: '48 Hours to 1 Week',
+    intake: '150+ Students / Cohort',
+    eligibility: 'All WINQubit member students across TSEC, TSDC, TIAT & TIHM',
+    grantAmount: '₹25,000 - ₹50,000 Cash Prizes + Prototype Fast-Track',
+    benefits: ['Direct corporate problem statements', 'Overnight lab & mentorship access', 'Cash prizes & hardware credits', 'Direct entry into Pre-Incubation Cohort'],
+    icon: 'Flame',
+    activeStatus: 'HackSpark 2026 Open',
+  },
+  {
+    id: 'prog-pre-incubation',
+    category: 'pre-incubation',
+    title: '12-Week Pre-Incubation Bootcamp',
+    tagline: 'Structured venture building from validated idea to investor-ready prototype',
+    description: 'A cohort-based acceleration journey focusing on customer discovery, financial modeling, prototype fabrication, IP protection, and pitching.',
+    duration: '12 Weeks (Bi-annual cohorts)',
+    intake: '15 Curated Teams / Cohort',
+    eligibility: 'Vetted student teams with a validated proof of concept',
+    grantAmount: '₹1,00,000 Prototype POC Grant per team',
+    benefits: ['Dedicated 1-on-1 industry mentor', 'Free access to specialized campus fabrication labs', 'Legal guidance for trademark & patent filing', 'Demo Day pitch to Angel Investors & InQubit board'],
+    icon: 'Sparkles',
+    activeStatus: 'Applications Open for Q2',
+  },
+  {
+    id: 'prog-fellowship',
+    category: 'fellowship',
+    title: 'WINQubit Student Innovation Fellowship',
+    tagline: 'Full-year leadership, research, and venture creation fellowship',
+    description: 'Prestigious fellowship for top student builders, chapter leads, and researchers leading interdisciplinary technology initiatives.',
+    duration: '1 Academic Year',
+    intake: '20 Fellows Across 4 Campuses',
+    eligibility: 'Second & Third-year students with demonstrated technical or entrepreneurial drive',
+    grantAmount: 'Monthly stipend + ₹2,50,000 Project Budget',
+    benefits: ['Designated as Campus Innovation Leader', 'Direct mentorship from Fortune 500 tech leaders', 'Sponsored trips to national startup expos and summits', 'Fast-track recommendations for high-growth tech roles'],
+    icon: 'Award',
+    activeStatus: 'Selection in Progress',
+  },
+  {
+    id: 'prog-acqubit',
+    category: 'incubation',
+    title: 'InQubit Venture Incubation Pipeline',
+    tagline: 'Seamless graduation into full-scale venture backing and institutional investment',
+    description: 'The premier gateway connecting top-performing student prototypes with institutional capital, seed funding, and commercial market entry.',
+    duration: '12 - 18 Months',
+    intake: 'Top 5 Graduating Teams / Year',
+    eligibility: 'Incorporated startups with paying pilot customers or defensible IP',
+    grantAmount: 'Seed Capital Investment & Co-Working Facility',
+    benefits: ['Direct institutional seed funding routes', 'InQubit full-stack incubation infrastructure', 'Go-to-market enterprise client introductions', 'Ongoing governance, tax, and compliance support'],
+    icon: 'Rocket',
+    activeStatus: 'Continuous Pipeline',
+  },
+];
+
+export const INNOVATION_CLUSTERS: InnovationCluster[] = [
+  {
+    id: 'ai-data',
+    title: 'Artificial Intelligence & Deep Tech',
+    iconName: 'Cpu',
+    color: 'from-violet-600 to-indigo-600',
+    subfields: ['Large Language Models (LLMs)', 'Computer Vision', 'Autonomous Agents', 'Edge AI', 'Cybersecurity Threat Detection', 'Multimodal Search'],
+    openProblems: ['Automated medical report summarization in regional Indian languages', 'Edge-based computer vision for micro-defect detection in manufacturing', 'AI copilot for aircraft maintenance manual indexing'],
+    sampleProject: 'Autonomous edge-vision sorting system for industrial recycling lines.',
+    alignedCampuses: ['TSEC (Engineering)', 'TSDC (Data Science)'],
+  },
+  {
+    id: 'iot-robotics',
+    title: 'Robotics, Embedded IoT & Hardware',
+    iconName: 'Bot',
+    color: 'from-cyan-600 to-blue-600',
+    subfields: ['Autonomous Mobile Robots (AMRs)', 'Industrial IoT Gateways', 'Sensor Fusion & Telemetry', 'Wearables & Health Monitors', 'Precision Actuators'],
+    openProblems: ['Low-cost AMR for hospitality floor delivery in multi-story hotels', 'Vibration anomaly detection sensor for industrial HVAC and motors', 'Smart wearable for cold-storage workers monitoring core vitals'],
+    sampleProject: 'Modular warehouse robot with magnetic track following and obstacle LiDAR.',
+    alignedCampuses: ['TSEC (Electronics & Mechanical)', 'TIHM (Hospitality Automation)'],
+  },
+  {
+    id: 'aviation-uav',
+    title: 'Aviation, Aerospace & Autonomous Drones',
+    iconName: 'Plane',
+    color: 'from-emerald-600 to-teal-600',
+    subfields: ['Heavy-Lift Cargo UAVs', 'Avionics Telemetry & Diagnostics', 'Autonomous Drone Swarm Navigation', 'Hybrid Propulsion', 'Airspace Geofencing'],
+    openProblems: ['Urban organ-transport drone with active thermal temperature lock', 'AI-assisted visual aircraft fuselage crack inspection drone', 'Fail-safe autonomous parachute deployment for commercial quadcopters'],
+    sampleProject: '360° LiDAR drone for structural crack detection in high-rise bridges.',
+    alignedCampuses: ['TIAT (Aviation Tech)', 'TSEC (Embedded Controls)'],
+  },
+  {
+    id: 'food-hospitality',
+    title: 'Hospitality Tech, Food Science & Nutrition',
+    iconName: 'Utensils',
+    color: 'from-amber-600 to-orange-600',
+    subfields: ['Smart Kitchen Automation', 'Alternative Proteins & Plant Formulations', 'Sustainable Bioplastics & Packaging', 'Zero-Waste Kitchen Systems', 'QR Dining Tech'],
+    openProblems: ['Biodegradable water-resistant takeaway containers from agricultural husk', 'Automated spice dispensing & recipe precision robot for commercial kitchens', 'Smart shelf-life indicator tag using colorimetric food sensors'],
+    sampleProject: 'Compostable sugarcane bagasse thermal food box with moisture locking.',
+    alignedCampuses: ['TIHM (Hotel Management)', 'TSDC (Sciences & Chemistry)'],
+  },
+  {
+    id: 'fintech-commerce',
+    title: 'FinTech, Media Tech & Computational Commerce',
+    iconName: 'TrendingUp',
+    color: 'from-pink-600 to-rose-600',
+    subfields: ['UPI & Micro-Payment Protocols', 'Algorithmic Risk Scoring', 'Generative Media & Ad Creation', 'Decentralized Identity (DID)', 'Social Commerce Platforms'],
+    openProblems: ['Credit scoring engine for gig-economy student freelancers', 'Hyper-personalized video ads generator using localized voice synthesis', 'Campus micro-barter & book circulation platform with verifiable tokens'],
+    sampleProject: 'Peer-to-peer campus escrow payment gateway for student freelancers.',
+    alignedCampuses: ['TSDC (Commerce & Banking)', 'TSEC (Software Systems)'],
+  },
+  {
+    id: 'cleantech-impact',
+    title: 'CleanTech, Sustainability & Social Innovation',
+    iconName: 'Leaf',
+    color: 'from-teal-600 to-emerald-700',
+    subfields: ['Battery Recycling & Second-Life', 'Solar Microgrid Optimization', 'Greywater Filtration Systems', 'Campus Carbon Auditing', 'Bio-Composting IoT'],
+    openProblems: ['Decentralized solar charging station for campus e-rickshaws with IoT billing', 'Smart campus bin with acoustic trash classification and fill-level telemetry', 'Low-cost water testing sensor for heavy metal detection in urban drains'],
+    sampleProject: 'IoT greywater filtration skid treating 1,00,000L/day for campus gardening.',
+    alignedCampuses: ['TSEC', 'TSDC', 'TIAT', 'TIHM (Unified Chapter)'],
+  },
+];
+
+export const EVENTS: ActivityEvent[] = [
+  {
+    id: 'evt-1',
+    title: 'HackSpark 2026: Multi-Campus 36-Hour Hackathon',
+    date: 'Oct 10 - 12, 2026',
+    time: '09:00 AM IST onwards',
+    status: 'Upcoming',
+    venue: 'TSEC Campus (Central Innovation Hub), Kandivali (E), Mumbai',
+    category: 'Innovation Hackathon',
+    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80'
+    ],
+    description: 'The flagship inter-institutional hackathon uniting 300+ students across engineering, commerce, aviation, and hospitality to build multidisciplinary solutions.',
+    fullContent: 'HackSpark 2026 is our premier 36-hour sprint. Teams will receive direct mentorship from Fortune 500 engineers, seed fund managers, and venture capitalists. Prize pool includes ₹2.5L in cash grants and fast-track pre-incubation slots.',
+    speaker: 'Mr. Vishram Bapat & Industry Guests',
+    speakerRole: 'Management Board, WINQubit',
+    featured: true,
+    tags: ['Hackathon', '₹2.5L Grants', 'All 4 Campuses'],
+  },
+  {
+    id: 'evt-2',
+    title: 'Drone Tech & Autonomous Flight Masterclass',
+    date: 'Nov 04, 2026',
+    time: '02:00 PM - 05:30 PM IST',
+    status: 'Upcoming',
+    venue: 'TIAT Hangar & Simulator Bay, Mumbai',
+    category: 'Technical Workshop',
+    image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80'],
+    description: 'Hands-on workshop on flight controller tuning, autonomous mission planning, and DGCA drone certification pathways.',
+    featured: false,
+    tags: ['Aviation', 'Robotics', 'TIAT'],
+  },
+  {
+    id: 'evt-3',
+    title: 'Smart Kitchen & Sustainable Food Packaging Ideathon',
+    date: 'Nov 18, 2026',
+    time: '10:00 AM - 04:00 PM IST',
+    status: 'Upcoming',
+    venue: 'TIHM Culinary Innovation Suite, Mumbai',
+    category: 'Ideathon & Pitch',
+    image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80'],
+    description: 'Design innovative F&B solutions, sustainable packaging alternatives, and smart kitchen automation alongside hospitality mentors.',
+    featured: false,
+    tags: ['FoodTech', 'Sustainability', 'TIHM'],
+  },
+  {
+    id: 'evt-4',
+    title: 'From Campus Project to Seed Investment: Demo Day 2026',
+    date: 'Dec 05, 2026',
+    time: '11:00 AM - 06:00 PM IST',
+    status: 'Upcoming',
+    venue: 'InQubit Venture Auditorium & Virtual Livestream',
+    category: 'Demo Day & Investor Pitch',
+    image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80'],
+    description: 'Graduating cohort of 15 student startups pitch live to Angel Investors, VC funds, and the InQubit Investment Committee.',
+    featured: false,
+    tags: ['Demo Day', 'Investors', 'InQubit'],
+  },
+];
+
+export const RESOURCES: ResourceItem[] = [
+  {
+    id: 'doc-1',
+    title: 'WINQubit Student Innovation Playbook (2026-27)',
+    category: 'students',
+    fileType: 'PDF Guide',
+    fileSize: '4.2 MB',
+    description: 'Complete step-by-step roadmap from problem validation, lean canvas crafting, lab access rules, and prototype grant requirements.',
+    tag: 'Student Essential',
+    downloadCount: '1,420+',
+  },
+  {
+    id: 'doc-2',
+    title: 'Student Prototype Grant Application Template & Budget Sheet',
+    category: 'documents',
+    fileType: 'DOCX / XLSX',
+    fileSize: '1.8 MB',
+    description: 'Standardized committee template for requesting up to ₹1,00,000 for hardware components, cloud servers, and fabrication costs.',
+    tag: 'Grant Template',
+    downloadCount: '890+',
+  },
+  {
+    id: 'doc-3',
+    title: 'Institutional Charter & Campus Committee Bylaws',
+    category: 'institutional',
+    fileType: 'PDF Charter',
+    fileSize: '2.5 MB',
+    description: 'Official governance framework, committee election guidelines, faculty coordinator roles, and ethics policies.',
+    tag: 'Governance',
+    downloadCount: '340+',
+  },
+  {
+    id: 'doc-4',
+    title: 'Provisional Patent Filing & Prior-Art Search Checklist',
+    category: 'students',
+    fileType: 'PDF Checklist',
+    fileSize: '1.1 MB',
+    description: 'Practical guide for student innovators to protect novel hardware and software inventions before public hackathon disclosures.',
+    tag: 'IP & Legal',
+    downloadCount: '1,120+',
+  },
+  {
+    id: 'doc-5',
+    title: 'WINQubit Pitch Deck Standard Presentation Template',
+    category: 'documents',
+    fileType: 'PPTX / Keynote',
+    fileSize: '8.4 MB',
+    description: '10-slide standard pitch template crafted in alignment with InQubit Venture Fund review standards.',
+    tag: 'Pitch Deck',
+    downloadCount: '2,050+',
+  },
+  {
+    id: 'doc-6',
+    title: 'Annual Student Innovation Impact Report & Whitepaper (2025-26)',
+    category: 'reports',
+    fileType: 'PDF Report',
+    fileSize: '6.7 MB',
+    description: 'Comprehensive annual review of prototypes built, grants disbursed, inter-campus collaborations, and patent submissions across Mumbai.',
+    tag: 'Impact Report',
+    downloadCount: '620+',
+  },
+];
+
+export const FAQS: FAQItem[] = [
+  {
+    question: 'Who is eligible to join the WINQubit Student Innovation Ecosystem?',
+    answer: 'Any enrolled student from Thakur Shyamnarayan Engineering College (TSEC), Thakur Shyamnarayan Degree College (TSDC), Thakur Institute of Aviation Technology (TIAT), or Thakur Institute of Hotel Management (TIHM) can join by obtaining the ₹500 Annual Student Pass.',
+  },
+  {
+    question: 'What do I receive with the ₹500 Annual Student Membership Pass?',
+    answer: 'The ₹500 Annual Pass provides verified access to campus innovation labs, 3D printing & hardware equipment, eligibility for ₹1L - ₹2.5L prototype grants, free entry to HackSpark and workshops, 1-on-1 industry mentor pairings, and fast-track pre-incubation pipelines into InQubit.',
+  },
+  {
+    question: 'Do I need an existing team or working prototype to join?',
+    answer: 'No! You can join at the ideation stage or simply with the desire to build. WINQubit hosts regular cross-campus team mixer events and provides a multidisciplinary skill-matching portal to help you find coders, designers, managers, and domain specialists.',
+  },
+  {
+    question: 'Does WINQubit take equity in student projects at the pre-incubation stage?',
+    answer: 'Zero equity! 100% of student intellectual property is retained by the student founders during the pre-incubation and prototype grant stages.',
+  },
+  {
+    question: 'How do student prototypes transition into InQubit Venture Incubation?',
+    answer: 'Teams that successfully complete the 12-Week Pre-Incubation Bootcamp and validate their prototype pitch at Demo Day are directly recommended to the InQubit Investment Committee for institutional seed capital, full-scale incubation, and commercial market entry.',
+  },
+];
+
+export const COLLEGE_PARTNERS: CollegePartner[] = [
+  {
+    id: 'tsec',
+    name: 'Thakur Shyamnarayan Engineering College',
+    code: 'TSEC',
+    logo: '/images/tsec-logo.png',
+    location: 'Kandivali (East), Mumbai',
+    website: 'https://www.tsec.edu.in',
+    description: 'Premier engineering institution leading breakthroughs in AI, Robotics, Embedded Systems, and Software.',
+    isFoundingPartner: true,
+  },
+  {
+    id: 'tsdc',
+    name: 'Thakur Shyamnarayan Degree College',
+    code: 'TSDC',
+    logo: '/images/tsdc-logo.png',
+    location: 'Kandivali (East), Mumbai',
+    website: 'https://www.tsdc.edu.in',
+    description: 'Interdisciplinary sciences, commerce, data science, multimedia, and computational finance.',
+    isFoundingPartner: true,
+  },
+  {
+    id: 'tiat',
+    name: 'Thakur Institute of Aviation Technology',
+    code: 'TIAT',
+    logo: '/images/tiat-logo.png',
+    location: 'Kandivali (East), Mumbai',
+    website: 'https://www.tiat.edu.in',
+    description: 'DGCA-approved aviation center pioneering UAVs, aerospace engineering, and avionics systems.',
+    isFoundingPartner: true,
+  },
+  {
+    id: 'tihm',
+    name: 'Thakur Institute of Hotel Management',
+    code: 'TIHM',
+    logo: '/images/tihm-logo.png',
+    location: 'Kandivali (East), Mumbai',
+    website: 'https://www.tihm.edu.in',
+    description: 'Hospitality innovation, culinary sciences, smart kitchen tech, and sustainable packaging.',
+    isFoundingPartner: true,
+  },
+];
+
+export const ANNOUNCEMENTS: Announcement[] = [
   {
     id: 'ann-1',
-    title: 'WINQubit $100K Research Grant Fellowship Open for Four-College Students',
-    content: 'We are thrilled to announce our 2026 Research Fellowship Grant! Female PhD candidates and undergraduate student innovators from our four partner colleges are invited to submit project proposals.',
+    title: 'HackSpark 2026 Multi-Campus Hackathon Registration Open',
+    content: 'Calling all student innovators across TSEC, TSDC, TIAT & TIHM! Registrations for HackSpark 2026 are now live. Submit your multidisciplinary teams and compete for ₹2.5L in grants.',
     priority: 'Urgent',
     pinned: true,
-    attachments: [
-      { name: 'Fellowship_Guidelines_2026.pdf', url: '#', size: '2.4 MB' },
-      { name: 'Application_Template.docx', url: '#', size: '450 KB' }
-    ],
-    expiryDate: '2026-10-01',
-    date: '2026-08-10'
+    date: 'Sep 01, 2026',
   },
   {
     id: 'ann-2',
-    title: 'Strategic Partnership with Global Quantum Cloud Network',
-    content: 'WINQubit has partnered with leading cloud quantum providers to deliver 500 hours of free QPU access for our student researchers and active hackathon participants.',
-    priority: 'Opportunity',
-    pinned: true,
-    attachments: [
-      { name: 'Cloud_Access_Portal_Guide.pdf', url: '#', size: '1.1 MB' }
-    ],
-    date: '2026-08-05'
+    title: 'Prototype Micro-Grant Applications Open for Q2 Cohort',
+    content: 'Student teams with validated proof of concepts can now apply for up to ₹1,00,000 in hardware components and cloud credits.',
+    priority: 'Notice',
+    pinned: false,
+    date: 'Aug 25, 2026',
   },
   {
     id: 'ann-3',
-    title: 'Call for Speakers: WINQubit Four-College Annual Science Symposium',
-    content: 'Submissions are open for keynotes, lightning talks, and student poster sessions for the upcoming Q4 conference across consortium campuses.',
-    priority: 'Notice',
-    pinned: false,
-    attachments: [],
-    expiryDate: '2026-09-01',
-    date: '2026-07-28'
-  },
-  {
-    id: 'ann-4',
-    title: 'WINQubit Monthly Newsletter & Student Research Digest Released',
-    content: 'Read the latest issue covering breakthrough papers in neutral atom quantum computing, interviews with female student founders, and college spotlights.',
+    title: 'TIAT Autonomous Drone Flight Testing Window Scheduled',
+    content: 'TIAT Hangar testing bay will be available for autonomous drone navigation trials every Saturday from 10:00 AM to 04:00 PM.',
     priority: 'Update',
     pinned: false,
-    attachments: [
-      { name: 'Digest_Issue_42.pdf', url: '#', size: '3.8 MB' }
-    ],
-    date: '2026-07-15'
-  }
+    date: 'Aug 18, 2026',
+  },
 ];
 
-export const INITIAL_COMMITTEE: CommitteeMember[] = [
-  {
-    id: 'mem-1',
-    name: 'Dr. Evelyn Carter',
-    position: 'Founder & President',
-    bio: 'Pioneer in Quantum Information Processing with over 15 years leading research labs. Professor of Physics at IQET Campus.',
-    photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
-    order: 1,
-    category: 'Leadership',
-    social: {
-      linkedin: 'https://linkedin.com',
-      twitter: 'https://twitter.com',
-      email: 'evelyn.carter@winqubit.org',
-      github: 'https://github.com'
-    }
+// Backwards compatibility aliases for context & legacy views
+export const INITIAL_SITE_CONTENT: SiteContent = {
+  hero: {
+    badge: 'Women-Led • Inclusive • Student-Driven',
+    title: 'Dream. Build. Lead.',
+    titleLine1: 'Dream. Build.',
+    titleGradient: 'Lead.',
+    subtitle: 'WINQubit is a student innovation and pre-incubation ecosystem powered by InQubit across premier academic institutions.',
+    description: 'A multi-campus student innovation and pre-incubation ecosystem powered by InQubit across premier academic institutions in Mumbai.',
+    primaryCtaText: 'Get Student Pass (₹500)',
+    studentPortalText: 'Submit Idea / Find Team',
+    partnerPortalText: 'Partner with Us',
+    stats: [
+      { label: 'Campuses', value: '4', sub: 'Mumbai' },
+      { label: 'Members', value: '500+', sub: 'Year 1 Target' },
+      { label: 'Grants', value: '₹2.5L', sub: 'Per POC' }
+    ]
   },
-  {
-    id: 'mem-2',
-    name: 'Prof. Amara Patel',
-    position: 'Head of Quantum Hardware & Research',
-    bio: 'Professor at NCAS specializing in superconducting qubits and microwave resonator architectures. Author of 40+ peer-reviewed papers.',
-    photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80',
-    order: 2,
-    category: 'Leadership',
-    social: {
-      linkedin: 'https://linkedin.com',
-      email: 'amara.patel@winqubit.org'
-    }
-  },
-  {
-    id: 'mem-3',
-    name: 'Dr. Sophia Vance',
-    position: 'Lead Cybersecurity & PQC Chair',
-    bio: 'Specialist in post-quantum cryptography standards and lattice mathematics at AIAR campus.',
-    photo: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=600&q=80',
-    order: 3,
-    category: 'Executive',
-    social: {
-      linkedin: 'https://linkedin.com',
-      twitter: 'https://twitter.com',
-      github: 'https://github.com'
-    }
-  },
-  {
-    id: 'mem-4',
-    name: 'Maria Gonzalez',
-    position: 'Director of Global Partnerships & Growth',
-    bio: 'Venture strategist connecting MUTI academic research with enterprise capital and corporate accelerators.',
-    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
-    order: 4,
-    category: 'Executive',
-    social: {
-      linkedin: 'https://linkedin.com',
-      email: 'maria.g@winqubit.org'
-    }
-  },
-  {
-    id: 'mem-5',
-    name: 'Dr. Chloe Zhang',
-    position: 'AI & Neural Quantum Systems Specialist',
-    bio: 'Research scientist focusing on machine-learning-assisted quantum state tomography and variational quantum eigensolvers (VQE).',
-    photo: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80',
-    order: 5,
-    category: 'Advisory',
-    social: {
-      linkedin: 'https://linkedin.com',
-      github: 'https://github.com'
-    }
-  },
-  {
-    id: 'mem-6',
-    name: 'Aaliyah Sharma',
-    position: 'Student Chapter & Consortium Lead',
-    bio: 'Quantum Computing graduate lead orchestrating student bootcamps, campus ambassador networks across all 4 colleges, and open-source drives.',
-    photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80',
-    order: 6,
-    category: 'Student Chapter',
-    social: {
-      linkedin: 'https://linkedin.com',
-      twitter: 'https://twitter.com'
-    }
-  }
-];
+  sectionHeaders: {},
+  innovateCard: { badge: 'Innovate', title: 'Student Portal', description: 'Submit ideas and get grants', benefits: ['Grants', 'Labs', 'Mentors'], bullets: ['Grants', 'Labs', 'Mentors'] },
+  collaborateCard: { badge: 'Partner', title: 'Collaboration Portal', description: 'Partner with WINQubit', benefits: ['Talent', 'Incubation', 'Challenges'], bullets: ['Talent', 'Incubation', 'Challenges'] },
+  about: { mission: 'Empower student innovators', vision: 'Build scalable ventures', philosophy: 'Interdisciplinary making', objectives: ['Interdisciplinary Innovation', 'Venture Incubation', '100% Student IP'] },
+  contactCta: { badge: 'Contact', title: 'Get in Touch', subtitle: 'Reach committee', description: 'Reach our central secretariat or campus innovation desks.', email: 'info@winqubit.org', phone: '+91 22 6730 8000', address: 'Mumbai', button1Text: 'Send Message', button2Text: 'Call Desk' },
+  contactInfo: { address: 'Kandivali East, Mumbai', email: 'info@winqubit.org', phone: '+91 22 6730 8000', hours: 'Mon-Sat 9AM-6PM', locationMapUrl: '' }
+};
 
-export const INITIAL_COLLABORATIONS: Collaboration[] = [
-  {
-    id: 'col-1',
-    partnerName: 'IBM Quantum Network',
-    logo: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=300&q=80',
-    website: 'https://ibm.com/quantum',
-    description: 'Providing hardware access, quantum cloud compute credits, and joint developer certification programs for WINQubit researchers across all four colleges.',
-    category: 'Industry',
-    collaborationScope: 'QPU Access & Certification'
-  },
-  {
-    id: 'col-2',
-    partnerName: 'MIT Quantum Science Institute',
-    logo: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=300&q=80',
-    website: 'https://mit.edu',
-    description: 'Joint research exchange program for female postdoctorates working on topological insulators and superconducting circuits.',
-    category: 'Academic',
-    collaborationScope: 'Academic Exchange & Postdoc Grants'
-  },
-  {
-    id: 'col-3',
-    partnerName: 'DeepMind AI Research Initiative',
-    logo: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=300&q=80',
-    website: 'https://deepmind.google',
-    description: 'Co-developing AI models for quantum pulse control and automated error mitigation algorithms.',
-    category: 'Research',
-    collaborationScope: 'AI-Quantum Hybrid Models'
-  },
-  {
-    id: 'col-4',
-    partnerName: 'European Quantum Flagship',
-    logo: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=300&q=80',
-    website: 'https://qt.eu',
-    description: 'International consortium alliance advocating diversity policy, joint symposia, and global student exchange.',
-    category: 'Global Partner',
-    collaborationScope: 'Global Policy & Symposia'
-  }
-];
-
-export const INITIAL_GALLERY: GalleryItem[] = [];
-
-export const INITIAL_INNOVATE_SUBMISSIONS: InnovateSubmission[] = [
-  {
-    id: 'inn-101',
-    studentName: 'Riya Deshmukh',
-    email: 'riya.d@ncas.edu',
-    phone: '+1 (555) 382-9102',
-    college: 'National College of Applied Sciences & AI (NCAS)',
-    projectTitle: 'Quantum Approximate Optimization Algorithm for Power Grid Efficiency',
-    category: 'Quantum Software',
-    description: 'A student project developing a 12-qubit QAOA simulation aimed at minimizing distribution loss in microgrids.',
-    submissionDate: '2026-08-14',
-    status: 'Shortlisted'
-  },
-  {
-    id: 'inn-102',
-    studentName: 'Meera Sen',
-    email: 'meera.sen@iqet.edu',
-    phone: '+1 (555) 901-2384',
-    college: 'Institute of Quantum & Engineering Tech (IQET)',
-    projectTitle: 'Cryogenic Low-Noise Amplifier for Superconducting Qubit Readout',
-    category: 'Hardware',
-    description: 'Design and simulation of a CMOS cryogenic LNA operating at 4 Kelvin with sub-1dB noise figure.',
-    submissionDate: '2026-08-13',
-    status: 'Under Review'
-  }
-];
-
-export const INITIAL_COLLABORATE_SUBMISSIONS: CollaborateSubmission[] = [
-  {
-    id: 'col-201',
-    contactName: 'Dr. Robert Vance',
-    email: 'r.vance@quantumlabs.org',
-    phone: '+1 (555) 782-[#1E1632]',
-    organizationName: 'Quantum Labs Inc.',
-    organizationType: 'Industry',
-    proposalType: 'Research Collaboration',
-    message: 'We wish to establish a co-funded research program with WINQubit four partner colleges to benchmark quantum error mitigation algorithms.',
-    submissionDate: '2026-08-12',
-    status: 'In Discussion'
-  },
-  {
-    id: 'col-202',
-    contactName: 'Prof. David K. Miller',
-    email: 'miller@techuniv.edu',
-    phone: '+1 (555) 441-0092',
-    organizationName: 'State Tech University',
-    organizationType: 'University',
-    proposalType: 'Guest Lecture / Mentorship',
-    message: 'Interested in joint faculty exchanges and participating in the annual four-college inter-campus symposium.',
-    submissionDate: '2026-08-11',
-    status: 'New'
-  }
-];
-
-export const INITIAL_CONTACT_SUBMISSIONS: ContactSubmission[] = [
-  {
-    id: 'cs-1',
-    name: 'Dr. Mark Henderson',
-    email: 'm.henderson@research-inst.org',
-    subject: 'Proposed Joint Research Project on Qubit Fidelity',
-    category: 'Research Collaboration',
-    message: 'We are submitting a proposal to collaborate with WINQubit on characterization of superconducting qubit coherence times. Please let us know who to contact on the executive committee.',
-    date: '2026-08-12',
-    status: 'New'
-  },
-  {
-    id: 'cs-2',
-    name: 'Sarah Jenkins',
-    email: 'sarah.j@techventure.com',
-    subject: 'Sponsorship Query for Upcoming Hackathon',
-    category: 'Partnership & Sponsorship',
-    message: 'Our firm would love to sponsor prize funds and provide cloud credits for the WINQubit Quantum Hackathon 2026. Looking forward to discussing details.',
-    date: '2026-08-11',
-    status: 'Replied'
-  }
-];
+export const INITIAL_COLLEGES: CollegePartner[] = COLLEGE_PARTNERS;
+export const INITIAL_EVENTS: ActivityEvent[] = EVENTS;
+export const INITIAL_ANNOUNCEMENTS: Announcement[] = ANNOUNCEMENTS;
+export const INITIAL_COMMITTEE: CommitteeMember[] = GOVERNING_COUNCIL.map((g, i) => ({
+  id: g.id,
+  name: g.name,
+  position: g.designation,
+  bio: g.bio,
+  photo: g.photoUrl,
+  order: i,
+  category: 'Leadership'
+}));
+export const INITIAL_COLLABORATIONS: Collaboration[] = [];
+export const INITIAL_CONTACT_SUBMISSIONS: ContactSubmission[] = [];
+export const INITIAL_INNOVATE_SUBMISSIONS: InnovateSubmission[] = [];
+export const INITIAL_COLLABORATE_SUBMISSIONS: CollaborateSubmission[] = [];

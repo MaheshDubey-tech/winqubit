@@ -44,7 +44,7 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({ event, onC
         {/* Hero Event Image */}
         <div className="relative w-full h-64 sm:h-72 rounded-2xl overflow-hidden mb-6 group">
           <Image
-            src={selectedGalleryImg || event.image}
+            src={selectedGalleryImg || event.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'}
             alt={event.title}
             fill
             className="object-cover transition-all duration-500"
@@ -108,12 +108,12 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({ event, onC
               </h4>
               <div className="flex items-center gap-3 overflow-x-auto pb-2">
                 <button
-                  onClick={() => setSelectedGalleryImg(event.image)}
+                  onClick={() => setSelectedGalleryImg(event.image || null)}
                   className={`relative w-20 h-16 rounded-xl overflow-hidden flex-shrink-0 border-2 ${
                     selectedGalleryImg === event.image || !selectedGalleryImg ? 'border-[#E83CB7] scale-105' : 'border-transparent'
                   }`}
                 >
-                  <Image src={event.image} alt="Main" fill className="object-cover" />
+                  <Image src={event.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'} alt="Main" fill className="object-cover" />
                 </button>
                 {event.gallery.map((img, idx) => (
                   <button

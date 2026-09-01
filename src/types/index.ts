@@ -9,16 +9,17 @@ export interface ActivityEvent {
   date: string;
   time: string;
   venue: string;
-  image: string;
-  gallery: string[];
-  registrationUrl: string;
+  image?: string;
+  gallery?: string[];
+  registrationUrl?: string;
   status: EventStatus;
-  featured: boolean;
+  featured?: boolean;
   speaker?: string;
   speakerRole?: string;
   prerequisites?: string[];
   agenda?: Array<{ time: string; topic: string }>;
   outcomes?: string[];
+  tags?: string[];
 }
 
 export interface EventRegistration {
@@ -34,6 +35,51 @@ export interface EventRegistration {
   registrationDate: string;
 }
 
+export interface GoverningCouncilMember {
+  id: string;
+  name: string;
+  designation: string;
+  organization: string;
+  photoUrl: string;
+  bio: string;
+  expertise: string[];
+}
+
+export interface StrategicMandate {
+  title: string;
+  description: string;
+}
+
+export interface CampusFaculty {
+  role: string;
+  name: string;
+  title: string;
+  email: string;
+}
+
+export interface CampusLead {
+  name: string;
+  role: string;
+  year: string;
+  department: string;
+}
+
+export interface CampusInfo {
+  id: string;
+  name: string;
+  shortName: string;
+  tagline: string;
+  badgeColor?: string;
+  accentColor?: string;
+  description: string;
+  keyLabs: string[];
+  leadership: {
+    principal: string;
+    facultyCoordinators: CampusFaculty[];
+    studentLeads: CampusLead[];
+  };
+}
+
 export interface CollegePartner {
   id: string;
   name: string;
@@ -45,47 +91,145 @@ export interface CollegePartner {
   isFoundingPartner: boolean;
 }
 
+export interface StudentLifecycleStep {
+  step: string;
+  name: string;
+  action: string;
+  tagline: string;
+  desc: string;
+  icon: string;
+  deliverables: string[];
+  supportOffered: string;
+  timeline: string;
+}
+
+export interface CoreProgram {
+  id: string;
+  category: string;
+  title: string;
+  tagline: string;
+  description: string;
+  duration: string;
+  intake: string;
+  eligibility: string;
+  grantAmount?: string;
+  benefits: string[];
+  icon: string;
+  activeStatus: string;
+}
+
+export interface InnovationCluster {
+  id: string;
+  title: string;
+  iconName: string;
+  color?: string;
+  subfields: string[];
+  openProblems: string[];
+  sampleProject: string;
+  alignedCampuses: string[];
+}
+
+export interface ResourceItem {
+  id: string;
+  title: string;
+  category: 'all' | 'students' | 'documents' | 'institutional' | 'reports';
+  fileType: string;
+  fileSize: string;
+  description: string;
+  tag: string;
+  downloadCount: string;
+  downloadUrl?: string;
+}
+
+export interface StatItem {
+  label: string;
+  value: string;
+  sub: string;
+  color?: string;
+}
+
 export interface InnovateSubmission {
   id: string;
-  studentName: string;
+  fullName?: string;
+  studentName?: string;
   email: string;
   phone: string;
-  college: string;
-  projectTitle: string;
-  category: string;
-  description: string;
+  institution?: string;
+  college?: string;
+  rollNo?: string;
+  branch?: string;
+  year?: string;
+  domain?: string;
+  category?: string;
+  ideaTitle?: string;
+  projectTitle?: string;
+  problemStatement?: string;
+  proposedSolution?: string;
+  description?: string;
+  currentStage?: string;
+  supportNeeded?: string[];
+  teamSize?: string;
   submissionDate: string;
   status: 'New' | 'Under Review' | 'Shortlisted' | 'Accepted';
 }
 
-export interface CollaborateSubmission {
+export interface JoinSubmission {
   id: string;
-  contactName: string;
+  fullName: string;
   email: string;
   phone: string;
-  organizationName: string;
-  organizationType: 'University' | 'Industry' | 'Research Institute' | 'Government / NGO' | 'Individual';
-  proposalType: 'Research Collaboration' | 'Event Sponsorship' | 'Guest Lecture / Mentorship' | 'Student Internship' | 'Other';
-  message: string;
+  institution: string;
+  rollNo?: string;
+  branch?: string;
+  year?: string;
+  interestAreas: string[];
+  hasIdea: 'yes' | 'no';
+  ideaSnippet?: string;
+  passId: string;
+  submissionDate: string;
+  status: 'Active';
+}
+
+export interface CollaborateSubmission {
+  id: string;
+  category?: string;
+  orgName?: string;
+  organizationName?: string;
+  contactPerson?: string;
+  contactName?: string;
+  designation?: string;
+  organizationType?: string;
+  proposalType?: string;
+  email: string;
+  phone: string;
+  city?: string;
+  collaborationGoals?: string[];
+  notes?: string;
+  message?: string;
   submissionDate: string;
   status: 'New' | 'In Discussion' | 'Partnered' | 'Archived';
 }
 
-export type AnnouncementPriority = 'Urgent' | 'Notice' | 'Update' | 'Opportunity';
-
-export interface Attachment {
+export interface ContactSubmission {
+  id: string;
   name: string;
-  url: string;
-  size?: string;
+  email: string;
+  subject?: string;
+  campus?: string;
+  department?: string;
+  category?: string;
+  message: string;
+  date: string;
+  status: 'New' | 'Replied' | 'Archived';
 }
 
 export interface Announcement {
   id: string;
   title: string;
   content: string;
-  priority: AnnouncementPriority;
+  priority: 'Urgent' | 'Notice' | 'Update' | 'Opportunity';
   pinned: boolean;
-  attachments: Attachment[];
+  attachments?: Array<{ name: string; url: string; size?: string }>;
   expiryDate?: string;
   date: string;
 }
@@ -98,7 +242,7 @@ export interface CommitteeMember {
   photo: string;
   order: number;
   category: 'Leadership' | 'Advisory' | 'Executive' | 'Student Chapter';
-  social: {
+  social?: {
     linkedin?: string;
     twitter?: string;
     email?: string;
@@ -126,83 +270,64 @@ export interface GalleryItem {
   tags: string[];
 }
 
-export interface ContactSubmission {
-  id: string;
-  name: string;
-  email: string;
-  subject: string;
-  category: string;
-  message: string;
-  date: string;
-  status: 'New' | 'Replied' | 'Archived';
-}
-
-export interface JourneyMilestone {
-  id: string;
-  year: string;
-  title: string;
-  description: string;
-  icon?: string;
-}
-
-export interface SectionHeaderContent {
-  badge: string;
-  title: string;
-  subtitle: string;
-}
-
-export interface InnovateCollaborateCard {
-  badge: string;
-  title: string;
-  description: string;
-  bullets: string[];
-  ctaText: string;
-}
-
-export interface ContactCtaContent {
-  badge: string;
-  title: string;
-  description: string;
-  button1Text: string;
-  button2Text: string;
+export interface FAQItem {
+  question: string;
+  answer: string;
+  category?: string;
 }
 
 export interface SiteContent {
   hero: {
-    title: string;
+    badge: string;
+    title?: string;
+    titleLine1: string;
+    titleGradient: string;
     subtitle: string;
-    description: string;
-    primaryCtaText: string;
-    primaryCtaLink: string;
-    studentPortalText: string;
-    partnerPortalText: string;
-    stats: Array<{ label: string; value: string }>;
+    description?: string;
+    primaryCtaText?: string;
+    studentPortalText?: string;
+    partnerPortalText?: string;
+    stats: Array<{ label: string; value: string; sub?: string }>;
   };
-  sectionHeaders: {
-    announcements: SectionHeaderContent;
-    colleges: SectionHeaderContent;
-    about: SectionHeaderContent;
-    innovateCollaborate: SectionHeaderContent;
-    events: SectionHeaderContent;
-    committee: SectionHeaderContent;
-  };
-  innovateCard: InnovateCollaborateCard;
-  collaborateCard: InnovateCollaborateCard;
-  about: {
+  sectionHeaders: Record<string, { badge: string; title: string; subtitle: string }>;
+  innovateCard: {
     badge: string;
     title: string;
-    vision: string;
-    mission: string;
-    objectives: string[];
-    journey: JourneyMilestone[];
+    description: string;
+    benefits: string[];
+    bullets: string[];
+    ctaText?: string;
   };
-  contactCta: ContactCtaContent;
-  contactInfo: {
+  collaborateCard: {
+    badge: string;
+    title: string;
+    description: string;
+    benefits: string[];
+    bullets: string[];
+    ctaText?: string;
+  };
+  about: {
+    mission: string;
+    vision: string;
+    philosophy: string;
+    objectives: string[];
+  };
+  contactCta: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    description?: string;
     email: string;
     phone: string;
     address: string;
-    officeHours: string;
-    mapEmbedUrl: string;
+    button1Text?: string;
+    button2Text?: string;
+  };
+  contactInfo: {
+    address: string;
+    email: string;
+    phone: string;
+    hours: string;
+    locationMapUrl: string;
   };
 }
-

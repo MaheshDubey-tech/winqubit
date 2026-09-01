@@ -2,218 +2,203 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShieldCheck, ArrowUpRight, Sparkles } from 'lucide-react';
-import { useData } from '@/context/DataContext';
+import { 
+  Menu, 
+  X, 
+  Sparkles, 
+  ArrowRight, 
+  HeartHandshake, 
+  CreditCard 
+} from 'lucide-react';
+import { NAV_ITEMS } from '@/lib/initialData';
+import { InnovateModal } from '@/components/shared/InnovateModal';
+import { JoinModal } from '@/components/shared/JoinModal';
+import { CollaborateModal } from '@/components/shared/CollaborateModal';
 
-export const Navbar: React.FC = () => {
-  const pathname = usePathname();
-  const { isAdmin } = useData();
+export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('Home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [innovateOpen, setInnovateOpen] = useState(false);
+  const [joinOpen, setJoinOpen] = useState(false);
+  const [collaborateOpen, setCollaborateOpen] = useState(false);
+  const pathname = usePathname();
 
-  // Exact section navigation matching main page section order
-  const navLinks = [
-    { name: 'Home', href: '/', id: 'hero' },
-    { name: 'Announcements', href: '/announcements', id: 'announcements' },
-    { name: 'Four Colleges', href: '/#colleges', id: 'colleges' },
-    { name: 'About Us', href: '/about', id: 'about' },
-    { name: 'Portals', href: '/#innovate-collaborate', id: 'innovate-collaborate' },
-    { name: 'Events', href: '/events', id: 'events' },
-    { name: 'Committee', href: '/committee', id: 'committee' },
-    { name: 'Contact', href: '/contact', id: 'contact' },
-  ];
-
-  // Scroll listener for sticky styling & Section Spy
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      // Scroll Spy on Home Page matching exact order
-      if (pathname === '/') {
-        const sections = ['hero', 'announcements', 'colleges', 'about', 'innovate-collaborate', 'events', 'committee', 'contact'];
-        const scrollPosition = window.scrollY + 180;
-
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const sectionEl = document.getElementById(sections[i]);
-          if (sectionEl) {
-            const top = sectionEl.offsetTop;
-            if (scrollPosition >= top) {
-              const matchedLink = navLinks.find(l => l.id === sections[i]);
-              if (matchedLink) {
-                setActiveSection(matchedLink.name);
-                break;
-              }
-            }
-          }
-        }
-      }
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
-
-  // Update active section on route change
-  useEffect(() => {
-    setMobileOpen(false);
-    if (pathname === '/') {
-      setActiveSection('Home');
-    } else {
-      const currentLink = navLinks.find(l => l.href === pathname || (l.href === '/events' && pathname.startsWith('/events')));
-      if (currentLink) {
-        setActiveSection(currentLink.name);
-      }
-    }
-  }, [pathname]);
-
-  // Smooth scroll handler
-  const handleNavClick = (e: React.MouseEvent, link: typeof navLinks[0]) => {
-    if (pathname === '/' && link.id) {
-      const targetElement = document.getElementById(link.id);
-      if (targetElement) {
-        e.preventDefault();
-        setActiveSection(link.name);
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'py-2.5 bg-white/85 backdrop-blur-2xl border-b border-white/80 shadow-md shadow-[#5D1451]/5'
-          : 'py-4 bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* WINQubit Brand Logo Cutout */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 group-hover:scale-105 transition-transform flex items-center justify-center">
-            <Image
-              src="/winqubit-logo-cutout.png"
-              alt="WINQubit Logo"
-              width={40}
-              height={40}
-              className="object-contain w-full h-full"
-              priority
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-black tracking-tight text-[#5D1451] flex items-center gap-1 font-outfit">
-              WINQubit
-              <Sparkles className="w-3.5 h-3.5 text-[#E83CB7]" />
-            </span>
-            <span className="text-[9px] font-extrabold tracking-widest text-[#6E6785] uppercase -mt-0.5">
-              Women Led Innovation
-            </span>
-          </div>
-        </Link>
-
-        {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-white/70 backdrop-blur-2xl p-1.5 rounded-full border border-white/90 shadow-sm shadow-[#5D1451]/5">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.name;
-            return (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link)}
-                className={`relative px-3 py-1.5 text-xs font-bold rounded-full transition-colors duration-300 z-10 ${
-                  isActive ? 'text-white' : 'text-[#1E1632] hover:text-[#5D1451]'
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="active-nav-indicator"
-                    className="absolute inset-0 rounded-full btn-primary -z-10 shadow-md shadow-[#E83CB7]/35"
-                    transition={{
-                      type: 'spring',
-                      stiffness: 380,
-                      damping: 30
-                    }}
-                  />
-                )}
-                <span>{link.name}</span>
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Right CTA / Admin Link */}
-        <div className="hidden lg:flex items-center gap-3">
+    <>
+      {/* Top Notification / Announcement Bar */}
+      <div className="bg-gradient-to-r from-violet-950 via-slate-900 to-indigo-950 border-b border-violet-800/30 text-[11px] py-1.5 px-4 text-center text-slate-300 relative z-50">
+        <div className="container mx-auto flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+          <span className="inline-flex items-center gap-1 font-semibold text-violet-300">
+            <Sparkles className="w-3 h-3 text-cyan-400" />
+            HackSpark 2026 Innovation Challenge Open
+          </span>
+          <span className="hidden sm:inline text-slate-500">•</span>
+          <span className="hidden md:inline text-slate-400">
+            ₹2.5L Grants for Student POCs Across TSEC, TSDC, TIAT & TIHM
+          </span>
           <Link
-            href={isAdmin ? "/admin/dashboard" : "/admin"}
-            className="flex items-center gap-2 px-4 py-2 text-xs font-extrabold rounded-full bg-[#EEF2FF] border border-[#C7D2FE] text-[#4F46E5] hover:bg-[#FCE7F3] hover:text-[#DB2777] hover:border-[#FBCFE8] transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105"
+            href="/events"
+            className="text-cyan-400 hover:text-cyan-300 font-bold underline inline-flex items-center gap-0.5 ml-1"
           >
-            <ShieldCheck className="w-4 h-4 text-[#4F46E5]" />
-            <span>{isAdmin ? 'Admin Portal' : 'Admin Login'}</span>
-            <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
+            Explore <ArrowRight className="w-2.5 h-2.5" />
           </Link>
         </div>
-
-        {/* Mobile Menu Toggle Button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden p-2.5 rounded-2xl glass-panel text-[#5D1451] focus:outline-none bg-white/80"
-          aria-label="Toggle Navigation Menu"
-        >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </div>
 
-      {/* Mobile Drawer Overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="lg:hidden fixed inset-x-4 top-20 z-50 p-6 glass-panel border border-white/90 bg-white/90 backdrop-blur-3xl shadow-2xl rounded-3xl"
-          >
-            <nav className="flex flex-col gap-2">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.name;
+      {/* Main Header / Sticky Navbar */}
+      <header
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#020617]/95 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/50 py-2.5'
+            : 'bg-[#020617]/85 backdrop-blur-md border-b border-white/5 py-3'
+        }`}
+      >
+        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center space-x-3 text-left group transition">
+            <div className="w-9 h-9 bg-gradient-to-tr from-violet-600 to-cyan-400 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-violet-500/20 group-hover:scale-105 transition">
+              W
+            </div>
+            <div>
+              <div className="font-display text-lg sm:text-xl font-bold tracking-tight text-white flex items-center">
+                WIN<span className="text-violet-400 font-light ml-0.5">Qubit</span>
+              </div>
+              <div className="text-[9px] uppercase tracking-[0.2em] text-cyan-400 font-semibold -mt-1">
+                Powered by InQubit
+              </div>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation Links */}
+          <nav className="hidden xl:flex items-center space-x-5 text-[11px] font-semibold uppercase tracking-[0.14em]">
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  className={`transition-all duration-200 py-1 ${
+                    isActive
+                      ? 'text-cyan-400 border-b-2 border-cyan-400 font-bold'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Action CTAs (Desktop) */}
+          <div className="hidden lg:flex items-center space-x-2.5">
+            <button
+              onClick={() => setCollaborateOpen(true)}
+              className="text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-white px-3 py-1.5 rounded-full border border-white/10 hover:border-white/20 transition flex items-center gap-1.5"
+            >
+              <HeartHandshake className="w-3.5 h-3.5 text-emerald-400" />
+              Collaborate
+            </button>
+            <button
+              onClick={() => setJoinOpen(true)}
+              className="border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500 hover:text-black px-3.5 py-1.5 rounded-full text-[10px] font-bold transition uppercase tracking-wider flex items-center gap-1"
+            >
+              <CreditCard className="w-3 h-3" />
+              Join (₹500)
+            </button>
+            <button
+              onClick={() => setInnovateOpen(true)}
+              className="bg-violet-600 hover:bg-violet-500 text-white px-4 py-1.5 rounded-full text-[10px] font-bold shadow-lg shadow-violet-600/20 hover:scale-105 transition uppercase tracking-wider flex items-center gap-1"
+            >
+              <Sparkles className="w-3 h-3" />
+              Innovate
+            </button>
+          </div>
+
+          {/* Mobile Menu & Quick Action Toggle */}
+          <div className="flex items-center gap-2 xl:hidden">
+            <button
+              onClick={() => setInnovateOpen(true)}
+              className="sm:inline-flex hidden px-3 py-1.5 rounded-full text-[10px] font-bold text-cyan-400 border border-cyan-500/40"
+            >
+              Innovate
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-slate-300 hover:text-white bg-slate-900 rounded-xl border border-slate-800"
+              aria-label="Toggle navigation"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="xl:hidden bg-slate-950/98 border-b border-slate-800 px-6 py-5 space-y-4 backdrop-blur-2xl animate-in slide-in-from-top duration-200">
+            <div className="grid grid-cols-2 gap-2">
+              {NAV_ITEMS.map((item) => {
+                const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
                 return (
                   <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => {
-                      handleNavClick(e, link);
-                      setMobileOpen(false);
-                    }}
-                    className={`px-4 py-3 text-sm font-bold rounded-2xl transition-all flex items-center justify-between ${
-                      isActive
-                        ? 'btn-primary text-white shadow-md'
-                        : 'text-[#1E1632] hover:bg-[#EEF2FF]'
+                    key={item.id}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-3 py-2 rounded-lg text-left text-xs font-semibold ${
+                      isActive ? 'bg-violet-600 text-white font-bold' : 'text-slate-300 hover:bg-slate-900'
                     }`}
                   >
-                    <span>{link.name}</span>
-                    {isActive && <Sparkles className="w-4 h-4 text-[#FFCFE5]" />}
+                    {item.label}
                   </Link>
                 );
               })}
-              <hr className="my-2 border-[#E9E6F2]" />
-              <Link
-                href={isAdmin ? "/admin/dashboard" : "/admin"}
-                className="flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl btn-primary text-white shadow-lg"
+            </div>
+
+            <div className="pt-3 border-t border-slate-800 flex flex-col gap-2">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setJoinOpen(true);
+                }}
+                className="w-full py-2.5 rounded-xl text-xs font-bold text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500 hover:text-black transition"
               >
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-white" />
-                  <span>{isAdmin ? 'Admin Dashboard' : 'Admin Portal Login'}</span>
-                </div>
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-            </nav>
-          </motion.div>
+                Join WINQubit Student Pass (₹500)
+              </button>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setInnovateOpen(true);
+                }}
+                className="w-full py-2.5 rounded-xl text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 transition shadow-lg shadow-violet-600/20"
+              >
+                Submit Project / Find Team
+              </button>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setCollaborateOpen(true);
+                }}
+                className="w-full py-2 rounded-xl text-xs font-semibold text-emerald-400 hover:bg-slate-900 flex items-center justify-center gap-1.5 transition"
+              >
+                <HeartHandshake className="w-4 h-4" /> Partner / Collaborate
+              </button>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
-    </header>
+      </header>
+
+      {/* Global Interactive Modals */}
+      <InnovateModal isOpen={innovateOpen} onClose={() => setInnovateOpen(false)} />
+      <JoinModal isOpen={joinOpen} onClose={() => setJoinOpen(false)} />
+      <CollaborateModal isOpen={collaborateOpen} onClose={() => setCollaborateOpen(false)} />
+    </>
   );
 };

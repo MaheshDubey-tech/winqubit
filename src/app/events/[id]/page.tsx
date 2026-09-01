@@ -131,7 +131,7 @@ export default function EventDetailsPage() {
           <div className="lg:col-span-6 space-y-4">
             <div className="relative w-full h-80 sm:h-96 rounded-3xl overflow-hidden shadow-lg border border-white">
               <Image
-                src={event.image}
+                src={event.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'}
                 alt={event.title}
                 fill
                 className="object-cover"

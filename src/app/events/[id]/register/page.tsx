@@ -156,7 +156,7 @@ export default function DedicatedEventRegistrationPage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-6 rounded-3xl bg-[#EEF2FF]/60 border border-[#C7D2FE]">
             <div className="flex items-center gap-4">
               <div className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border border-white shadow-sm">
-                <Image src={event.image} alt={event.title} fill className="object-cover" />
+                <Image src={event.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'} alt={event.title} fill className="object-cover" />
               </div>
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
