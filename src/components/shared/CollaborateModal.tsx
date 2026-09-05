@@ -15,10 +15,11 @@ import {
 interface CollaborateModalProps {
   isOpen: boolean;
   onClose: () => void;
+  defaultCategory?: string;
 }
 
-export const CollaborateModal: React.FC<CollaborateModalProps> = ({ isOpen, onClose }) => {
-  const [category, setCategory] = useState<'corporate' | 'academic' | 'incubator' | 'vendor' | 'investor'>('corporate');
+export const CollaborateModal: React.FC<CollaborateModalProps> = ({ isOpen, onClose, defaultCategory = 'corporate' }) => {
+  const [category, setCategory] = useState<string>(defaultCategory);
   const [formData, setFormData] = useState({
     orgName: '',
     contactPerson: '',
