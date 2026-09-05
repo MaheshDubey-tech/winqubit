@@ -47,8 +47,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
           {/* Photo Count badge for Completed events */}
           {isCompleted && galleryCount > 0 && (
-            <div className="absolute bottom-3 right-3 z-10 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-bold text-xs flex items-center gap-1.5 border border-white/30">
-              <ImageIcon className="w-3.5 h-3.5 text-[#FFCFE5]" />
+            <div className="absolute bottom-3 right-3 z-10 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#5D1451] font-bold text-xs flex items-center gap-1.5 border border-white/80 shadow-md">
+              <ImageIcon className="w-3.5 h-3.5 text-[#E83CB7]" />
               <span>{galleryCount} Photo{galleryCount > 1 ? 's' : ''}</span>
             </div>
           )}

@@ -17,12 +17,12 @@ import {
   Utensils, 
   TrendingUp, 
   Leaf, 
-  ExternalLink,
-  ChevronRight,
-  ShieldCheck,
-  Zap,
-  Building2,
-  Briefcase
+  ChevronRight, 
+  ShieldCheck, 
+  Zap, 
+  Building2, 
+  CreditCard,
+  HeartHandshake
 } from 'lucide-react';
 import { 
   CAMPUSES, 
@@ -35,12 +35,12 @@ import {
 import { InnovateModal } from '@/components/shared/InnovateModal';
 import { JoinModal } from '@/components/shared/JoinModal';
 import { CollaborateModal } from '@/components/shared/CollaborateModal';
+import { Badge } from '@/components/ui/Badge';
 
 export default function HomePage() {
   const [innovateOpen, setInnovateOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
   const [collaborateOpen, setCollaborateOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('tsec');
 
   const clusterIconMap: Record<string, any> = {
     Cpu,
@@ -70,38 +70,33 @@ export default function HomePage() {
     <div className="space-y-20 md:space-y-28 pb-20 overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative pt-10 md:pt-16 pb-8 overflow-hidden">
-        {/* Background Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] md:w-[1000px] h-[450px] bg-[radial-gradient(circle_at_50%_0%,#1e1b4b,transparent_75%)] pointer-events-none -z-10" />
-
-        <div className="container mx-auto px-4 md:px-8 text-center">
+        <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
           {/* Eyebrow badge */}
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            <div className="h-[1px] w-12 bg-violet-500/30" />
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-[#E9E6F2] shadow-sm mb-6">
+            <Sparkles className="w-3.5 h-3.5 text-[#E83CB7]" />
+            <span className="text-[11px] font-extrabold text-[#5D1451] uppercase tracking-widest">
               Women-Led • Inclusive • Student-Driven
             </span>
-            <div className="h-[1px] w-12 bg-violet-500/30" />
           </div>
 
           {/* Main Title */}
-          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-5 max-w-4xl mx-auto leading-[1.1]">
+          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-[#1E1632] mb-6 max-w-4xl mx-auto leading-[1.1]">
             Dream. Build.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-cyan-400 to-indigo-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5D1451] via-[#B82B8A] to-[#E83CB7]">
               Lead.
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xs sm:text-sm md:text-base text-gray-400 max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+          <p className="text-sm sm:text-base md:text-lg text-[#6E6785] max-w-2xl mx-auto font-normal leading-relaxed mb-10">
             WINQubit is a multi-campus student innovation and pre-incubation ecosystem powered by InQubit across premier academic institutions in Mumbai—uniting engineering, commerce, aviation, and hospitality creators.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3.5 mb-14">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
             <button
               onClick={() => setJoinOpen(true)}
-              className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm px-7 py-3 rounded-full transition shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="btn-primary text-white text-xs sm:text-sm px-8 py-3.5 rounded-full flex items-center gap-2 shadow-lg"
             >
               Get Student Pass (₹500)
               <ArrowRight className="w-4 h-4" />
@@ -109,32 +104,33 @@ export default function HomePage() {
 
             <button
               onClick={() => setInnovateOpen(true)}
-              className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs sm:text-sm px-7 py-3 rounded-full transition shadow-lg shadow-violet-600/20 hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="btn-ghost text-[#5D1451] text-xs sm:text-sm px-7 py-3.5 rounded-full flex items-center gap-2"
             >
               Submit Idea / Find Team
-              <Sparkles className="w-4 h-4 text-cyan-300" />
+              <Sparkles className="w-4 h-4 text-[#E83CB7]" />
             </button>
 
             <button
               onClick={() => setCollaborateOpen(true)}
-              className="bg-white/5 hover:bg-white/10 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-full border border-white/10 transition flex items-center gap-2"
+              className="btn-glass text-[#6E6785] hover:text-[#5D1451] text-xs sm:text-sm px-6 py-3.5 rounded-full flex items-center gap-2"
             >
+              <HeartHandshake className="w-4 h-4 text-[#059669]" />
               Partner with Us
             </button>
           </div>
 
           {/* Key Metrics / Target Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 max-w-5xl mx-auto">
             {STATS.map((stat, idx) => (
               <div
                 key={idx}
-                className="bg-slate-900/60 border border-white/5 rounded-2xl p-4 text-center backdrop-blur-sm hover:border-violet-500/30 transition group"
+                className="glass-card-light p-5 text-center"
               >
-                <div className={`font-display text-2xl sm:text-3xl font-bold ${stat.color || 'text-white'} group-hover:scale-105 transition`}>
+                <div className="font-display text-2xl sm:text-3xl font-black text-[#5D1451]">
                   {stat.value}
                 </div>
-                <div className="text-[11px] font-bold text-white mt-1">{stat.label}</div>
-                <div className="text-[10px] text-gray-500 mt-0.5">{stat.sub}</div>
+                <div className="text-xs font-bold text-[#1E1632] mt-1">{stat.label}</div>
+                <div className="text-[11px] text-[#6E6785] mt-0.5">{stat.sub}</div>
               </div>
             ))}
           </div>
@@ -144,56 +140,64 @@ export default function HomePage() {
       {/* 2. THE 4 PILLARS OF WINQUBIT */}
       <section className="container mx-auto px-4 md:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#5D1451]/10 border border-[#5D1451]/15 text-[#5D1451] text-[11px] font-extrabold uppercase tracking-widest mb-3">
             Core Foundations
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#1E1632]">
             Built on Four Pillars of Excellence
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400 mt-2">
+          <p className="text-xs sm:text-sm text-[#6E6785] mt-2">
             A comprehensive framework designed to convert student curiosity into scalable, venture-backed enterprises.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-violet-500/30 transition group">
-            <div className="w-12 h-12 rounded-2xl bg-violet-600/20 text-violet-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Users className="w-6 h-6" />
+          <div className="glass-card-light p-6 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#5D1451]/10 text-[#5D1451] flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-[#5D1451]" />
+              </div>
+              <h3 className="text-base font-bold text-[#1E1632] mb-2">Women-Led & Inclusive</h3>
+              <p className="text-xs text-[#6E6785] leading-relaxed">
+                Empowering diverse leadership and fostering equal access to maker spaces, grant funding, and leadership chapters across Mumbai.
+              </p>
             </div>
-            <h3 className="text-base font-bold text-white mb-2">Women-Led & Inclusive</h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Empowering diverse leadership and fostering equal access to maker spaces, grant funding, and leadership chapters across Mumbai.
-            </p>
           </div>
 
-          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-cyan-500/30 transition group">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Zap className="w-6 h-6" />
+          <div className="glass-card-light p-6 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#E83CB7]/10 text-[#E83CB7] flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-[#E83CB7]" />
+              </div>
+              <h3 className="text-base font-bold text-[#1E1632] mb-2">Multidisciplinary Synergy</h3>
+              <p className="text-xs text-[#6E6785] leading-relaxed">
+                Uniting engineers, business strategists, aviation technicians, and food scientists to build complete, defensible products.
+              </p>
             </div>
-            <h3 className="text-base font-bold text-white mb-2">Multidisciplinary Synergy</h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Uniting engineers, business strategists, aviation technicians, and food scientists to build complete, defensible products.
-            </p>
           </div>
 
-          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-emerald-500/30 transition group">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <ShieldCheck className="w-6 h-6" />
+          <div className="glass-card-light p-6 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#059669]/10 text-[#059669] flex items-center justify-center mb-4">
+                <ShieldCheck className="w-6 h-6 text-[#059669]" />
+              </div>
+              <h3 className="text-base font-bold text-[#1E1632] mb-2">Student-Driven Governance</h3>
+              <p className="text-xs text-[#6E6785] leading-relaxed">
+                Autonomous campus innovation committees led by student directors in tech, marketing, operations, networking, and finance.
+              </p>
             </div>
-            <h3 className="text-base font-bold text-white mb-2">Student-Driven Governance</h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Autonomous campus innovation committees led by student directors in tech, marketing, operations, networking, and finance.
-            </p>
           </div>
 
-          <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:border-amber-500/30 transition group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-600/20 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Rocket className="w-6 h-6" />
+          <div className="glass-card-light p-6 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#ADD8E6]/40 text-[#0284C7] flex items-center justify-center mb-4">
+                <Rocket className="w-6 h-6 text-[#0284C7]" />
+              </div>
+              <h3 className="text-base font-bold text-[#1E1632] mb-2">InQubit Incubation Pipeline</h3>
+              <p className="text-xs text-[#6E6785] leading-relaxed">
+                Direct transition from student prototype to institutional incubation, seed capital, IP registration, and commercial launch.
+              </p>
             </div>
-            <h3 className="text-base font-bold text-white mb-2">InQubit Incubation Pipeline</h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Direct transition from student prototype to institutional incubation, seed capital, IP registration, and commercial launch.
-            </p>
           </div>
         </div>
       </section>
@@ -202,20 +206,20 @@ export default function HomePage() {
       <section className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#5D1451]/10 border border-[#5D1451]/15 text-[#5D1451] text-[11px] font-extrabold uppercase tracking-widest mb-2">
               Campus Chapters
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#1E1632]">
               Participating Higher Education Institutions
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-1">
+            <p className="text-xs sm:text-sm text-[#6E6785] mt-1">
               Active innovation chapters with specialized hardware labs, faculty mentors, and student boards.
             </p>
           </div>
 
           <Link
             href="/leadership"
-            className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 self-start md:self-auto"
+            className="text-xs font-bold text-[#5D1451] hover:text-[#E83CB7] inline-flex items-center gap-1 self-start md:self-auto"
           >
             View Governance & Committees <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -225,36 +229,36 @@ export default function HomePage() {
           {CAMPUSES.map((campus) => (
             <div
               key={campus.id}
-              className="bg-slate-900/50 border border-white/5 rounded-3xl p-6 flex flex-col justify-between hover:border-violet-500/30 transition group relative overflow-hidden"
+              className="glass-card-light p-6 flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${campus.badgeColor || 'border-violet-500/30 text-violet-400'}`}>
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#5D1451]/10 text-[#5D1451] border border-[#5D1451]/15">
                     {campus.shortName}
                   </span>
-                  <span className="text-[10px] text-gray-500">{campus.established}</span>
+                  <span className="text-[11px] font-bold text-[#8E87A5]">{campus.established}</span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition">
+                  <h3 className="text-base font-bold text-[#1E1632] group-hover:text-[#5D1451] transition">
                     {campus.name}
                   </h3>
-                  <div className="text-[11px] text-gray-400 font-medium mt-1">
+                  <div className="text-xs text-[#E83CB7] font-semibold mt-1">
                     {campus.tagline}
                   </div>
                 </div>
 
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-[#6E6785] leading-relaxed">
                   {campus.description}
                 </p>
 
                 <div className="pt-2">
-                  <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">
+                  <div className="text-[10px] font-bold text-[#8E87A5] uppercase tracking-wider mb-1.5">
                     Core Labs & Facilities
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {campus.keyLabs.slice(0, 3).map((lab, i) => (
-                      <span key={i} className="text-[9px] bg-white/[0.03] border border-white/5 text-gray-300 px-2 py-0.5 rounded-md">
+                      <span key={i} className="text-[10px] bg-white/90 border border-[#E9E6F2] text-[#5D1451] font-semibold px-2.5 py-0.5 rounded-md shadow-2xs">
                         {lab}
                       </span>
                     ))}
@@ -262,15 +266,15 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
-                <span className="text-[11px] text-gray-400">
-                  {campus.faculty.length} Faculty • {campus.students.length} Student Leads
+              <div className="pt-5 mt-5 border-t border-[#E9E6F2] flex items-center justify-between">
+                <span className="text-[11px] text-[#6E6785] font-medium">
+                  {campus.faculty.length} Faculty • {campus.students.length} Leads
                 </span>
                 <Link
                   href="/leadership"
-                  className="text-[11px] text-cyan-400 hover:underline font-bold inline-flex items-center gap-0.5"
+                  className="text-xs text-[#5D1451] hover:text-[#E83CB7] font-bold inline-flex items-center gap-0.5"
                 >
-                  Board <ChevronRight className="w-3 h-3" />
+                  Board <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
@@ -280,46 +284,48 @@ export default function HomePage() {
 
       {/* 4. STUDENT INNOVATION LIFECYCLE (5 STAGES) */}
       <section className="container mx-auto px-4 md:px-8">
-        <div className="bg-slate-900/30 border border-white/10 rounded-[2.5rem] p-6 md:p-12 relative overflow-hidden">
+        <div className="glass-panel p-6 md:p-12 relative overflow-hidden">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#5D1451]/10 border border-[#5D1451]/15 text-[#5D1451] text-[11px] font-extrabold uppercase tracking-widest mb-3">
               5-Stage Journey
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#1E1632]">
               The Student Innovation Lifecycle
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2">
+            <p className="text-xs sm:text-sm text-[#6E6785] mt-2">
               From an initial spark of curiosity in campus classrooms to validated proof of concepts and full-scale venture incubation.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
-            {STUDENT_LIFECYCLE.map((step, idx) => {
+            {STUDENT_LIFECYCLE.map((step) => {
               const Icon = lifecycleIconMap[step.icon] || Compass;
               return (
                 <div
                   key={step.step}
-                  className="bg-slate-950/80 border border-white/5 rounded-2xl p-5 flex flex-col justify-between hover:border-violet-500/40 transition group"
+                  className="glass-card-light p-5 flex flex-col justify-between border border-white/95"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-bold text-cyan-400">{step.step}</span>
-                      <div className="w-8 h-8 rounded-xl bg-violet-600/20 text-violet-400 flex items-center justify-center group-hover:scale-110 transition">
+                      <span className="font-mono text-xs font-black text-[#5D1451] bg-[#5D1451]/10 px-2.5 py-0.5 rounded-md">
+                        {step.step}
+                      </span>
+                      <div className="w-8 h-8 rounded-xl bg-[#5D1451]/10 text-[#5D1451] flex items-center justify-center">
                         <Icon className="w-4 h-4" />
                       </div>
                     </div>
 
                     <div>
-                      <div className="text-xs font-bold text-violet-400 uppercase tracking-wider">{step.name}</div>
-                      <h4 className="text-sm font-bold text-white mt-0.5">{step.action}</h4>
+                      <div className="text-[11px] font-bold text-[#E83CB7] uppercase tracking-wider">{step.name}</div>
+                      <h4 className="text-sm font-bold text-[#1E1632] mt-0.5">{step.action}</h4>
                     </div>
 
-                    <p className="text-[11px] text-gray-400 leading-relaxed">
+                    <p className="text-[11px] text-[#6E6785] leading-relaxed">
                       {step.desc}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-4 border-t border-white/5 text-[10px] text-gray-500 font-mono">
+                  <div className="pt-3 mt-3 border-t border-[#E9E6F2] text-[10px] text-[#8E87A5] font-mono font-semibold">
                     {step.timeline}
                   </div>
                 </div>
@@ -327,13 +333,13 @@ export default function HomePage() {
             })}
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-10 text-center">
             <Link
               href="/students"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs px-7 py-3 rounded-full transition shadow-lg shadow-violet-600/20"
+              className="btn-primary inline-flex items-center gap-2 text-white font-bold text-xs px-8 py-3.5 rounded-full transition shadow-lg"
             >
               Explore Full Student Roadmap & Grants
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -342,13 +348,13 @@ export default function HomePage() {
       {/* 5. CORE PROGRAMS */}
       <section className="container mx-auto px-4 md:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#5D1451]/10 border border-[#5D1451]/15 text-[#5D1451] text-[11px] font-extrabold uppercase tracking-widest mb-3">
             Incubation Tracks
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#1E1632]">
             Core Programs & Cohorts
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400 mt-2">
+          <p className="text-xs sm:text-sm text-[#6E6785] mt-2">
             Structured hackathons, acceleration bootcamps, prototype grants, and continuous venture pipeline.
           </p>
         </div>
@@ -359,49 +365,49 @@ export default function HomePage() {
             return (
               <div
                 key={prog.id}
-                className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col justify-between hover:border-violet-500/30 transition group"
+                className="glass-card-light p-6 md:p-8 flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl bg-violet-600/20 text-violet-400 flex items-center justify-center">
-                        <Icon className="w-5 h-5" />
+                      <div className="w-10 h-10 rounded-2xl bg-[#5D1451]/10 text-[#5D1451] flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-[#5D1451]" />
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                        <span className="text-[10px] font-mono text-[#E83CB7] font-bold uppercase tracking-wider">
                           {prog.duration}
                         </span>
-                        <h3 className="text-lg font-bold text-white">{prog.title}</h3>
+                        <h3 className="text-lg font-bold text-[#1E1632]">{prog.title}</h3>
                       </div>
                     </div>
-                    <span className="text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-bold">
+                    <Badge variant={prog.activeStatus === 'Ongoing' ? 'ongoing' : 'upcoming'} size="sm">
                       {prog.activeStatus}
-                    </span>
+                    </Badge>
                   </div>
 
-                  <p className="text-xs text-gray-300 leading-relaxed">
+                  <p className="text-xs text-[#6E6785] leading-relaxed">
                     {prog.description}
                   </p>
 
                   <div className="space-y-2 pt-2">
                     {prog.benefits.map((b, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs text-gray-400">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2 text-xs text-[#6E6785]">
+                        <CheckCircle2 className="w-4 h-4 text-[#059669] shrink-0 mt-0.5" />
                         <span>{b}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
-                  <div className="text-[11px] font-bold text-violet-400">
+                <div className="pt-6 mt-6 border-t border-[#E9E6F2] flex items-center justify-between">
+                  <div className="text-xs font-bold text-[#5D1451]">
                     {prog.grantAmount || prog.intake}
                   </div>
                   <button
                     onClick={() => setInnovateOpen(true)}
-                    className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1"
+                    className="text-xs font-bold text-[#E83CB7] hover:text-[#5D1451] inline-flex items-center gap-1"
                   >
-                    Apply for Track <ArrowRight className="w-3 h-3" />
+                    Apply for Track <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
@@ -414,20 +420,20 @@ export default function HomePage() {
       <section className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#5D1451]/10 border border-[#5D1451]/15 text-[#5D1451] text-[11px] font-extrabold uppercase tracking-widest mb-2">
               Focus Domains
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#1E1632]">
               Six Key Innovation Clusters
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-1">
+            <p className="text-xs sm:text-sm text-[#6E6785] mt-1">
               Multi-institutional research clusters mapped to faculty expertise and specialized laboratories.
             </p>
           </div>
 
           <Link
             href="/innovation"
-            className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 self-start md:self-auto"
+            className="text-xs font-bold text-[#5D1451] hover:text-[#E83CB7] inline-flex items-center gap-1 self-start md:self-auto"
           >
             Explore All Clusters & Problem Statements <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -439,40 +445,40 @@ export default function HomePage() {
             return (
               <div
                 key={cluster.id}
-                className="bg-slate-900/50 border border-white/5 rounded-3xl p-6 hover:border-cyan-500/30 transition group flex flex-col justify-between"
+                className="glass-card-light p-6 flex flex-col justify-between"
               >
                 <div className="space-y-4">
-                  <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-2xl bg-[#5D1451]/10 text-[#5D1451] flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#5D1451]" />
                   </div>
 
                   <div>
-                    <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition">
+                    <h3 className="text-base font-bold text-[#1E1632]">
                       {cluster.title}
                     </h3>
-                    <div className="text-[11px] text-gray-500 mt-0.5">
+                    <div className="text-[11px] text-[#8E87A5] font-medium mt-0.5">
                       Campuses: {cluster.alignedCampuses.join(' • ')}
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-1.5">
                     {cluster.subfields.slice(0, 3).map((sub, i) => (
-                      <span key={i} className="text-[9px] bg-white/[0.03] border border-white/5 text-gray-400 px-2 py-0.5 rounded-md">
+                      <span key={i} className="text-[10px] bg-white/90 border border-[#E9E6F2] text-[#6E6785] font-medium px-2 py-0.5 rounded-md">
                         {sub}
                       </span>
                     ))}
                   </div>
 
-                  <div className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-gray-400 space-y-1">
-                    <span className="text-[9px] font-bold text-violet-400 uppercase tracking-wider block">Sample Project</span>
+                  <div className="p-3.5 rounded-xl bg-[#F7F5FF] border border-[#E9E6F2] text-xs text-[#6E6785] space-y-1">
+                    <span className="text-[10px] font-bold text-[#5D1451] uppercase tracking-wider block">Sample Project</span>
                     <p className="line-clamp-2">{cluster.sampleProject}</p>
                   </div>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t border-[#E9E6F2] flex items-center justify-between">
                   <button
                     onClick={() => setInnovateOpen(true)}
-                    className="text-[11px] font-bold text-cyan-400 hover:underline"
+                    className="text-xs font-bold text-[#5D1451] hover:text-[#E83CB7]"
                   >
                     Submit Project in this Cluster →
                   </button>
@@ -485,15 +491,15 @@ export default function HomePage() {
 
       {/* 7. GOVERNING COUNCIL HIGHLIGHT */}
       <section className="container mx-auto px-4 md:px-8">
-        <div className="bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-6 md:p-12">
+        <div className="glass-panel p-6 md:p-12">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#5D1451]/10 border border-[#5D1451]/15 text-[#5D1451] text-[11px] font-extrabold uppercase tracking-widest mb-3">
               Strategic Oversight
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#1E1632]">
               Governing Council & Leadership
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2">
+            <p className="text-xs sm:text-sm text-[#6E6785] mt-2">
               Steering ecosystem strategy, institutional policy, prototype grants, and direct alignment with InQubit venture incubation.
             </p>
           </div>
@@ -502,19 +508,19 @@ export default function HomePage() {
             {GOVERNING_COUNCIL.map((leader) => (
               <div
                 key={leader.id}
-                className="bg-slate-950 border border-white/5 rounded-3xl p-6 text-center hover:border-violet-500/30 transition group"
+                className="glass-card-light p-6 text-center"
               >
-                <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-2 border-violet-500/30 group-hover:border-cyan-400 transition">
+                <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-2 border-[#5D1451]/20 shadow-md">
                   <img
                     src={leader.photoUrl}
                     alt={leader.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h4 className="text-base font-bold text-white">{leader.name}</h4>
-                <div className="text-[11px] text-cyan-400 font-semibold">{leader.designation}</div>
-                <div className="text-[10px] text-gray-500 mb-3">{leader.organization}</div>
-                <p className="text-xs text-gray-400 leading-relaxed">{leader.bio}</p>
+                <h4 className="text-base font-bold text-[#1E1632]">{leader.name}</h4>
+                <div className="text-xs text-[#E83CB7] font-bold mt-0.5">{leader.designation}</div>
+                <div className="text-[11px] text-[#8E87A5] mb-3">{leader.organization}</div>
+                <p className="text-xs text-[#6E6785] leading-relaxed">{leader.bio}</p>
               </div>
             ))}
           </div>
@@ -522,7 +528,7 @@ export default function HomePage() {
           <div className="mt-8 text-center">
             <Link
               href="/leadership"
-              className="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1"
+              className="text-xs font-bold text-[#5D1451] hover:text-[#E83CB7] inline-flex items-center gap-1"
             >
               Explore Governing Council & All 4 Campus Committees <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -532,37 +538,37 @@ export default function HomePage() {
 
       {/* 8. BOTTOM CTA BANNER */}
       <section className="container mx-auto px-4 md:px-8">
-        <div className="bg-gradient-to-r from-violet-950 via-slate-900 to-indigo-950 border border-violet-500/30 rounded-[2.5rem] p-8 md:p-14 text-center relative overflow-hidden shadow-2xl">
+        <div className="bg-gradient-to-r from-[#5D1451] via-[#851C6C] to-[#E83CB7] rounded-[2.5rem] p-8 md:p-14 text-center relative overflow-hidden shadow-2xl text-white">
           <div className="max-w-2xl mx-auto space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-md">
+              <Sparkles className="w-3.5 h-3.5 text-[#FFD6F3]" />
               Cohort 2026-27 Enrollment Open
             </div>
 
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
               Ready to Turn Your Campus Project Into a Viable Startup?
             </h2>
 
-            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
               Join 500+ student creators across TSEC, TSDC, TIAT, and TIHM. Get verified lab access, prototype grants, and 1-on-1 venture mentorship today.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-3.5 pt-3">
               <button
                 onClick={() => setJoinOpen(true)}
-                className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm px-8 py-3.5 rounded-full transition shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95"
+                className="bg-white text-[#5D1451] hover:bg-white/90 font-black text-xs sm:text-sm px-8 py-3.5 rounded-full transition shadow-lg hover:scale-105 active:scale-95"
               >
                 Get Student Pass (₹500)
               </button>
               <button
                 onClick={() => setInnovateOpen(true)}
-                className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs sm:text-sm px-8 py-3.5 rounded-full transition shadow-lg shadow-violet-600/20 hover:scale-105 active:scale-95"
+                className="border-2 border-white/80 hover:bg-white/10 text-white font-bold text-xs sm:text-sm px-8 py-3.5 rounded-full transition hover:scale-105 active:scale-95"
               >
                 Submit Innovation Idea
               </button>
               <button
                 onClick={() => setCollaborateOpen(true)}
-                className="bg-white/5 hover:bg-white/10 text-white font-semibold text-xs sm:text-sm px-6 py-3.5 rounded-full border border-white/10 transition"
+                className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-full border border-white/20 transition"
               >
                 Enterprise / College Partner
               </button>

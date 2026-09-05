@@ -54,7 +54,7 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({ event, onC
             <Badge variant={statusVariantMap[event.status]} size="md">
               {event.status}
             </Badge>
-            <span className="text-xs font-semibold text-white/90 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+            <span className="text-xs font-bold text-[#5D1451] bg-white/95 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/80 shadow-sm">
               {event.category}
             </span>
           </div>

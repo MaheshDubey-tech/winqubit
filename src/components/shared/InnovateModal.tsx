@@ -108,66 +108,66 @@ export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose })
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2rem] shadow-2xl overflow-hidden my-8">
-        <div className="h-[2px] bg-gradient-to-r from-violet-500 via-cyan-400 to-indigo-500 w-full" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1E1632]/50 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-white/95 backdrop-blur-2xl border border-white/90 rounded-[2.5rem] shadow-[0_25px_80px_rgba(93,20,81,0.2)] overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="h-1.5 bg-gradient-to-r from-[#5D1451] via-[#E83CB7] to-[#ADD8E6] w-full" />
         
         <div className="p-6 md:p-8">
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-white/5">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E9E6F2]">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-violet-400">
-                <Sparkles className="w-4 h-4" />
+              <div className="w-10 h-10 rounded-2xl bg-[#5D1451]/10 border border-[#5D1451]/20 flex items-center justify-center text-[#5D1451]">
+                <Sparkles className="w-5 h-5 text-[#E83CB7]" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <h3 className="text-xl font-black text-[#1E1632] flex items-center gap-2">
                   Student Innovation Portal
                 </h3>
-                <p className="text-[11px] text-gray-400">
+                <p className="text-xs text-[#6E6785]">
                   WINQubit × InQubit Idea Intake & Acceleration Engine
                 </p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 text-gray-400 hover:text-white rounded-full hover:bg-white/5 transition"
+              className="p-2 text-[#6E6785] hover:text-[#1E1632] rounded-full hover:bg-[#F7F5FF] transition"
               aria-label="Close modal"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Success Screen */}
           {isSubmitted ? (
             <div className="py-8 text-center space-y-5 animate-in fade-in">
-              <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-center mx-auto text-emerald-400 shadow-lg shadow-emerald-500/10">
+              <div className="w-16 h-16 bg-[#ECFDF5] border border-[#A7F3D0] rounded-2xl flex items-center justify-center mx-auto text-[#059669] shadow-md">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <div className="space-y-1.5">
-                <h4 className="text-xl font-bold text-white">Innovation Proposal Submitted!</h4>
-                <p className="text-xs text-gray-400 max-w-md mx-auto">
-                  Thank you, <span className="text-white font-semibold">{formData.fullName || 'Student Innovator'}</span>. Your proposal has been routed to the Faculty Coordinator and Student Committee at {formData.institution.split('(')[0]}.
+                <h4 className="text-2xl font-black text-[#1E1632]">Innovation Proposal Submitted!</h4>
+                <p className="text-xs text-[#6E6785] max-w-md mx-auto">
+                  Thank you, <span className="text-[#1E1632] font-bold">{formData.fullName || 'Student Innovator'}</span>. Your proposal has been routed to the Faculty Coordinator and Student Committee at {formData.institution.split('(')[0]}.
                 </p>
               </div>
 
-              <div className="bg-slate-950 border border-white/10 rounded-2xl p-4 max-w-sm mx-auto space-y-2 text-left text-xs">
-                <div className="flex justify-between items-center text-gray-400">
+              <div className="bg-[#F7F5FF] border border-[#E9E6F2] rounded-2xl p-5 max-w-sm mx-auto space-y-2.5 text-left text-xs">
+                <div className="flex justify-between items-center text-[#6E6785]">
                   <span>Tracking Reference:</span>
-                  <span className="font-mono font-bold text-cyan-400">{refCode}</span>
+                  <span className="font-mono font-bold text-[#5D1451]">{refCode}</span>
                 </div>
-                <div className="flex justify-between items-center text-gray-400">
+                <div className="flex justify-between items-center text-[#6E6785]">
                   <span>Next Review Stage:</span>
-                  <span className="text-slate-300">Institutional Faculty Review Board</span>
+                  <span className="text-[#1E1632] font-semibold">Institutional Faculty Review Board</span>
                 </div>
-                <div className="flex justify-between items-center text-gray-400">
+                <div className="flex justify-between items-center text-[#6E6785]">
                   <span>Target Response:</span>
-                  <span className="text-emerald-400">Within 72 Hours via WhatsApp / Email</span>
+                  <span className="text-[#059669] font-bold">Within 72 Hours via WhatsApp / Email</span>
                 </div>
               </div>
 
               <button
                 onClick={handleReset}
-                className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs px-6 py-2.5 rounded-full transition shadow-lg shadow-violet-600/30"
+                className="btn-primary text-white font-bold text-xs px-8 py-3 rounded-full transition shadow-lg"
               >
                 Done & Return to Site
               </button>
@@ -176,8 +176,8 @@ export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose })
             /* Step 1: Select Track */
             <div className="pt-6 space-y-5">
               <div className="space-y-1">
-                <h4 className="text-sm font-bold text-white">How can WINQubit power your journey?</h4>
-                <p className="text-xs text-gray-400">Select your primary reason for reaching out today.</p>
+                <h4 className="text-base font-bold text-[#1E1632]">How can WINQubit power your journey?</h4>
+                <p className="text-xs text-[#6E6785]">Select your primary reason for reaching out today.</p>
               </div>
 
               <div className="space-y-2.5">
@@ -189,27 +189,27 @@ export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose })
                       key={t.id}
                       type="button"
                       onClick={() => setTrack(t.id)}
-                      className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-center justify-between group ${
+                      className={`w-full text-left p-4 rounded-2xl border transition-all flex items-center justify-between group ${
                         isSelected
-                          ? 'bg-violet-600/15 border-violet-500 text-white shadow-lg shadow-violet-500/10'
-                          : 'bg-white/[0.02] border-white/5 text-gray-400 hover:text-white hover:bg-white/[0.04]'
+                          ? 'bg-[#FCE7F3]/70 border-[#E83CB7] shadow-[0_4px_16px_rgba(232,60,183,0.15)]'
+                          : 'bg-[#F7F5FF] border-[#E9E6F2] text-[#6E6785] hover:bg-white hover:border-[#5D1451]/30 hover:text-[#1E1632]'
                       }`}
                     >
                       <div className="flex items-center gap-3.5">
-                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition ${
-                          isSelected ? 'bg-violet-600 text-white' : 'bg-slate-800 text-gray-400 group-hover:text-white'
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition ${
+                          isSelected ? 'bg-[#5D1451] text-white' : 'bg-white text-[#5D1451] border border-[#E9E6F2]'
                         }`}>
-                          <Icon className="w-4 h-4" />
+                          <Icon className="w-5 h-5" />
                         </div>
                         <div>
-                          <div className={`text-xs font-bold ${isSelected ? 'text-violet-300' : 'text-white'}`}>
+                          <div className={`text-xs font-bold ${isSelected ? 'text-[#5D1451]' : 'text-[#1E1632]'}`}>
                             {t.label}
                           </div>
-                          <div className="text-[11px] text-gray-500">{t.desc}</div>
+                          <div className="text-[11px] text-[#6E6785]">{t.desc}</div>
                         </div>
                       </div>
-                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
-                        isSelected ? 'border-violet-400 bg-violet-500 text-white' : 'border-white/20'
+                      <div className={`w-5 h-5 rounded-full border flex items-center justify-center text-xs font-bold ${
+                        isSelected ? 'border-[#E83CB7] bg-[#E83CB7] text-white' : 'border-[#E9E6F2] bg-white'
                       }`}>
                         {isSelected && '✓'}
                       </div>
@@ -218,41 +218,41 @@ export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose })
                 })}
               </div>
 
-              <div className="flex justify-end pt-2">
+              <div className="flex justify-end pt-3">
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-bold px-6 py-2.5 rounded-full transition shadow-lg shadow-violet-600/20"
+                  className="btn-primary inline-flex items-center gap-2 text-white text-xs font-bold px-7 py-3 rounded-full transition shadow-md"
                 >
                   Continue to Details
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
           ) : (
             /* Step 2: Form Details */
             <form onSubmit={handleSubmit} className="pt-6 space-y-4 text-xs">
-              <div className="flex items-center justify-between pb-2 border-b border-white/5">
+              <div className="flex items-center justify-between pb-2 border-b border-[#E9E6F2]">
                 <div>
-                  <h4 className="text-sm font-bold text-white">Student & Campus Details</h4>
-                  <p className="text-[11px] text-gray-400">Tell us where you are studying and how we can reach you.</p>
+                  <h4 className="text-base font-bold text-[#1E1632]">Student & Campus Details</h4>
+                  <p className="text-xs text-[#6E6785]">Tell us where you are studying and how we can reach you.</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="text-[11px] text-cyan-400 hover:underline inline-flex items-center gap-1"
+                  className="text-xs text-[#E83CB7] hover:underline inline-flex items-center gap-1 font-bold"
                 >
-                  <ArrowLeft className="w-3 h-3" /> Change Track
+                  <ArrowLeft className="w-3.5 h-3.5" /> Change Track
                 </button>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="sm:col-span-2">
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Campus / Institution *</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Campus / Institution *</label>
                   <select
                     value={formData.institution}
                     onChange={e => setFormData({ ...formData, institution: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] font-medium focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   >
                     <option value="Thakur Shyamnarayan Engineering College (TSEC)">Thakur Shyamnarayan Engineering College (TSEC)</option>
                     <option value="Thakur Shyamnarayan Degree College (TSDC)">Thakur Shyamnarayan Degree College (TSDC)</option>
@@ -263,82 +263,82 @@ export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose })
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Full Name *</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Full Name *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Priya Sharma"
                     value={formData.fullName}
                     onChange={e => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">College Email Address *</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">College Email Address *</label>
                   <input
                     type="email"
                     required
                     placeholder="e.g. student@tsec.edu.in"
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">WhatsApp / Phone Number *</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">WhatsApp / Phone Number *</label>
                   <input
                     type="tel"
                     required
                     placeholder="+91 98765 43210"
                     value={formData.phone}
                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Branch & Academic Year *</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Branch & Academic Year *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Computer Engg / TE (3rd Year)"
                     value={formData.branch}
                     onChange={e => setFormData({ ...formData, branch: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   />
                 </div>
               </div>
 
               {/* Innovation Details */}
-              <div className="pt-2 border-t border-white/5 space-y-3">
-                <h5 className="text-xs font-bold text-white">Innovation Project Details</h5>
+              <div className="pt-2 border-t border-[#E9E6F2] space-y-3">
+                <h5 className="text-xs font-bold text-[#1E1632]">Innovation Project Details</h5>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Project / Idea Title</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Project / Idea Title</label>
                   <input
                     type="text"
                     placeholder="e.g. Autonomous Drone for Hospital Logistics"
                     value={formData.ideaTitle}
                     onChange={e => setFormData({ ...formData, ideaTitle: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Problem Statement & Proposed Solution</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Problem Statement & Proposed Solution</label>
                   <textarea
                     rows={3}
                     placeholder="Describe what problem you are solving and how your technology/solution works..."
                     value={formData.problemStatement}
                     onChange={e => setFormData({ ...formData, problemStatement: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1.5">Support Needed (Select all that apply)</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1.5">Support Needed (Select all that apply)</label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {supportOptions.map(opt => {
                       const isChecked = formData.supportNeeded.includes(opt);
@@ -347,10 +347,10 @@ export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose })
                           key={opt}
                           type="button"
                           onClick={() => handleSupportToggle(opt)}
-                          className={`text-left p-2 rounded-xl border text-[11px] transition ${
+                          className={`text-left p-2.5 rounded-xl border text-[11px] font-semibold transition ${
                             isChecked
-                              ? 'bg-violet-600/20 border-violet-500 text-violet-200'
-                              : 'bg-white/[0.02] border-white/5 text-gray-400 hover:text-white'
+                              ? 'bg-[#FCE7F3] border-[#FBCFE8] text-[#DB2777]'
+                              : 'bg-[#F7F5FF] border-[#E9E6F2] text-[#6E6785] hover:border-[#5D1451]/30 hover:text-[#1E1632]'
                           }`}
                         >
                           {isChecked ? '✓ ' : '+ '} {opt}
@@ -361,17 +361,17 @@ export const InnovateModal: React.FC<InnovateModalProps> = ({ isOpen, onClose })
                 </div>
               </div>
 
-              <div className="flex justify-between items-center pt-3 border-t border-white/5">
+              <div className="flex justify-between items-center pt-3 border-t border-[#E9E6F2]">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="text-gray-400 hover:text-white text-xs font-semibold"
+                  className="text-[#6E6785] hover:text-[#1E1632] text-xs font-bold"
                 >
                   Back
                 </button>
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-violet-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-xs px-6 py-2.5 rounded-full transition shadow-lg shadow-violet-600/20"
+                  className="btn-primary text-white font-bold text-xs px-7 py-3 rounded-full transition shadow-md"
                 >
                   Submit Proposal
                 </button>

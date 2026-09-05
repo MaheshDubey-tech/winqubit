@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, CheckCircle2, CreditCard, Sparkles } from 'lucide-react';
+import { X, Sparkles, CheckCircle2, CreditCard } from 'lucide-react';
 
 interface JoinModalProps {
   isOpen: boolean;
@@ -10,16 +10,14 @@ interface JoinModalProps {
 
 export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    institution: 'Thakur Shyamnarayan Engineering College (TSEC)',
     fullName: '',
     email: '',
     phone: '',
+    institution: 'Thakur Shyamnarayan Engineering College (TSEC)',
+    department: 'Computer Engineering',
+    yearOfStudy: 'Second Year',
     rollNo: '',
-    branch: 'Computer Engineering',
-    year: 'SE',
-    interestAreas: ['Artificial Intelligence & ML', 'Robotics & Embedded IoT'],
-    hasIdea: 'no' as 'yes' | 'no',
-    ideaSnippet: '',
+    interestAreas: [] as string[],
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -28,23 +26,26 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const domains = [
-    'Artificial Intelligence & ML',
-    'Robotics & Embedded IoT',
-    'Aerospace & Drone Engineering',
-    'Biotech & HealthTech',
-    'Hospitality & Food Technology',
+    'AI & Intelligent Robotics',
+    'Aviation & Drone Systems',
+    'Food Tech & Culinary Science',
+    'FinTech & Business Commerce',
     'CleanTech & Sustainability',
-    'FinTech & Business Modeling',
-    'Patent & Research Writing',
+    'Cybersecurity & Web3',
   ];
 
-  const handleInterestToggle = (item: string) => {
-    setFormData(prev => ({
-      ...prev,
-      interestAreas: prev.interestAreas.includes(item)
-        ? prev.interestAreas.filter(i => i !== item)
-        : [...prev.interestAreas, item],
-    }));
+  const handleInterestToggle = (domain: string) => {
+    if (formData.interestAreas.includes(domain)) {
+      setFormData({
+        ...formData,
+        interestAreas: formData.interestAreas.filter(d => d !== domain),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        interestAreas: [...formData.interestAreas, domain],
+      });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -60,98 +61,98 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-xl bg-slate-900 border border-white/10 rounded-[2rem] shadow-2xl overflow-hidden my-8">
-        <div className="h-[2px] bg-gradient-to-r from-cyan-400 via-violet-500 to-emerald-400 w-full" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1E1632]/50 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-xl bg-white/95 backdrop-blur-2xl border border-white/90 rounded-[2.5rem] shadow-[0_25px_80px_rgba(93,20,81,0.2)] overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="h-1.5 bg-gradient-to-r from-[#5D1451] via-[#E83CB7] to-[#ADD8E6] w-full" />
 
         <div className="p-6 md:p-8">
-          <div className="flex items-center justify-between pb-4 border-b border-white/5">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E9E6F2]">
             <div>
-              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-violet-500/10 text-violet-400 border border-violet-500/20 mb-1 font-mono">
+              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#5D1451]/10 text-[#5D1451] border border-[#5D1451]/15 mb-1 font-mono">
                 Annual Student Pass (2026-27)
               </div>
-              <h3 className="text-lg font-bold text-white">Join the WINQubit Ecosystem</h3>
+              <h3 className="text-xl font-black text-[#1E1632]">Join the WINQubit Ecosystem</h3>
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 text-gray-400 hover:text-white rounded-full hover:bg-white/5 transition"
+              className="p-2 text-[#6E6785] hover:text-[#1E1632] rounded-full hover:bg-[#F7F5FF] transition"
               aria-label="Close"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
           {isSubmitted ? (
             <div className="py-6 text-center space-y-5 animate-in fade-in">
-              <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-center mx-auto text-emerald-400">
+              <div className="w-14 h-14 bg-[#ECFDF5] border border-[#A7F3D0] rounded-2xl flex items-center justify-center mx-auto text-[#059669]">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-white">Welcome to WINQubit!</h4>
-                <p className="text-xs text-gray-400 mt-1">
-                  Membership registration initialized for <span className="text-white font-semibold">{formData.fullName}</span>.
+                <h4 className="text-2xl font-black text-[#1E1632]">Welcome to WINQubit!</h4>
+                <p className="text-xs text-[#6E6785] mt-1">
+                  Membership registration initialized for <span className="text-[#1E1632] font-bold">{formData.fullName}</span>.
                 </p>
               </div>
 
               {/* Digital Pass Mockup */}
-              <div className="bg-gradient-to-br from-violet-950/80 via-slate-900 to-indigo-950/80 border border-violet-500/30 rounded-2xl p-5 max-w-sm mx-auto text-left shadow-xl space-y-4">
+              <div className="bg-gradient-to-br from-[#5D1451] via-[#7B1C6D] to-[#2D0A27] text-white rounded-2xl p-5 max-w-sm mx-auto text-left shadow-xl space-y-4 border border-white/20">
                 <div className="flex justify-between items-center">
-                  <div className="text-[10px] font-bold text-violet-400 tracking-wider">DIGITAL INNOVATOR PASS</div>
-                  <Sparkles className="w-4 h-4 text-cyan-400" />
+                  <div className="text-[10px] font-bold text-[#FFCFE5] tracking-wider uppercase">DIGITAL INNOVATOR PASS</div>
+                  <Sparkles className="w-4 h-4 text-[#FFD6F3]" />
                 </div>
                 <div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider text-[9px]">Pass Holder</div>
-                  <div className="text-sm font-bold text-white">{formData.fullName || 'Student Builder'}</div>
-                  <div className="text-[11px] text-gray-400">{formData.institution.split('(')[0]}</div>
+                  <div className="text-[9px] uppercase tracking-wider text-white/70">Pass Holder</div>
+                  <div className="text-base font-black text-white">{formData.fullName || 'Student Builder'}</div>
+                  <div className="text-xs text-white/80">{formData.institution.split('(')[0]}</div>
                 </div>
-                <div className="flex justify-between items-end pt-2 border-t border-white/10 text-[10px]">
+                <div className="flex justify-between items-end pt-2 border-t border-white/15 text-[10px]">
                   <div>
-                    <div className="text-gray-500 text-[9px]">MEMBER ID</div>
-                    <div className="font-mono font-bold text-cyan-400">{passId}</div>
+                    <div className="text-white/60 text-[9px]">MEMBER ID</div>
+                    <div className="font-mono font-bold text-white text-xs">{passId}</div>
                   </div>
                   <div>
-                    <div className="text-gray-500 text-[9px]">STATUS</div>
-                    <div className="text-emerald-400 font-bold">ACTIVE (2026-27)</div>
+                    <div className="text-white/60 text-[9px]">STATUS</div>
+                    <div className="text-[#A7F3D0] font-black">ACTIVE (2026-27)</div>
                   </div>
                 </div>
               </div>
 
-              <p className="text-[11px] text-gray-400 max-w-xs mx-auto">
+              <p className="text-xs text-[#6E6785] max-w-xs mx-auto">
                 Your campus chapter coordinator will verify your student ID and issue your lab access clearance within 24 hours.
               </p>
 
               <button
                 onClick={handleClose}
-                className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs px-6 py-2.5 rounded-full transition shadow-lg shadow-violet-600/30"
+                className="btn-primary text-white font-bold text-xs px-8 py-3 rounded-full transition shadow-lg"
               >
                 Close & Access Member Hub
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="pt-5 space-y-4 text-xs">
-              <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-3.5 flex items-center justify-between">
+              <div className="bg-[#F7F5FF] border border-[#E9E6F2] rounded-2xl p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-violet-600/20 text-violet-400 flex items-center justify-center">
-                    <CreditCard className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-[#5D1451]/10 text-[#5D1451] flex items-center justify-center">
+                    <CreditCard className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-white">Standard Annual Membership</div>
-                    <div className="text-[11px] text-gray-400">All 4 campus labs, hackathons & prototype grants</div>
+                    <div className="text-xs font-bold text-[#1E1632]">Standard Annual Membership</div>
+                    <div className="text-[11px] text-[#6E6785]">All 4 campus labs, hackathons & prototype grants</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-base font-bold text-cyan-400">₹500</div>
-                  <div className="text-[9px] text-gray-500">/ academic year</div>
+                  <div className="text-lg font-black text-[#5D1451]">₹500</div>
+                  <div className="text-[10px] text-[#8E87A5]">/ academic year</div>
                 </div>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3.5">
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Campus / Institution *</label>
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Campus / Institution *</label>
                   <select
                     value={formData.institution}
                     onChange={e => setFormData({ ...formData, institution: e.target.value })}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-violet-400"
+                    className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] font-medium focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                   >
                     <option value="Thakur Shyamnarayan Engineering College (TSEC)">Thakur Shyamnarayan Engineering College (TSEC)</option>
                     <option value="Thakur Shyamnarayan Degree College (TSDC)">Thakur Shyamnarayan Degree College (TSDC)</option>
@@ -162,54 +163,54 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-300 mb-1">Full Name *</label>
+                    <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Full Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Rahul Patil"
                       value={formData.fullName}
                       onChange={e => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                      className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-300 mb-1">College Roll / PRN Number *</label>
+                    <label className="block text-[11px] font-bold text-[#1E1632] mb-1">College Roll / PRN Number *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. 202410123"
                       value={formData.rollNo}
                       onChange={e => setFormData({ ...formData, rollNo: e.target.value })}
-                      className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                      className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-300 mb-1">Email Address *</label>
+                    <label className="block text-[11px] font-bold text-[#1E1632] mb-1">Email Address *</label>
                     <input
                       type="email"
                       required
                       placeholder="student@college.edu.in"
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                      className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-300 mb-1">WhatsApp Mobile *</label>
+                    <label className="block text-[11px] font-bold text-[#1E1632] mb-1">WhatsApp Mobile *</label>
                     <input
                       type="tel"
                       required
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-400"
+                      className="w-full bg-[#F7F5FF] border border-[#E9E6F2] rounded-xl px-3.5 py-2.5 text-[#1E1632] placeholder:text-[#8E87A5] focus:outline-none focus:border-[#E83CB7] focus:ring-2 focus:ring-[#E83CB7]/20"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-300 mb-1.5">Primary Interests (Select 2 or more)</label>
-                  <div className="grid grid-cols-2 gap-1.5">
+                  <label className="block text-[11px] font-bold text-[#1E1632] mb-1.5">Primary Interests (Select 2 or more)</label>
+                  <div className="grid grid-cols-2 gap-2">
                     {domains.map(d => {
                       const isChecked = formData.interestAreas.includes(d);
                       return (
@@ -217,10 +218,10 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
                           key={d}
                           type="button"
                           onClick={() => handleInterestToggle(d)}
-                          className={`text-left p-2 rounded-xl border text-[10px] transition ${
+                          className={`text-left p-2.5 rounded-xl border text-[11px] font-semibold transition ${
                             isChecked
-                              ? 'bg-cyan-500/15 border-cyan-400 text-cyan-200'
-                              : 'bg-white/[0.02] border-white/5 text-gray-400 hover:text-white'
+                              ? 'bg-[#FCE7F3] border-[#FBCFE8] text-[#DB2777]'
+                              : 'bg-[#F7F5FF] border-[#E9E6F2] text-[#6E6785] hover:border-[#5D1451]/30 hover:text-[#1E1632]'
                           }`}
                         >
                           {isChecked ? '✓ ' : '+ '} {d}
@@ -231,10 +232,10 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              <div className="pt-2 flex justify-end">
+              <div className="pt-3">
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white font-bold text-xs py-3 rounded-xl transition shadow-lg shadow-cyan-500/20"
+                  className="btn-primary w-full text-white font-bold text-xs py-3.5 rounded-xl transition shadow-lg"
                 >
                   Proceed to Activate Member Pass (₹500)
                 </button>

@@ -8,17 +8,14 @@ import {
   Rocket, 
   CheckCircle2, 
   ArrowRight, 
-  Layers,
-  Cpu,
-  Plane,
-  Utensils,
-  TrendingUp,
-  Clock,
-  Users
+  Plane, 
+  Utensils, 
+  TrendingUp 
 } from 'lucide-react';
 import { CORE_PROGRAMS } from '@/lib/initialData';
 import { InnovateModal } from '@/components/shared/InnovateModal';
 import { CollaborateModal } from '@/components/shared/CollaborateModal';
+import { Badge } from '@/components/ui/Badge';
 
 export default function ProgramsPage() {
   const [innovateOpen, setInnovateOpen] = useState(false);
@@ -62,19 +59,18 @@ export default function ProgramsPage() {
     <div className="space-y-16 md:space-y-24 pb-20">
       {/* 1. Header Banner */}
       <section className="container mx-auto px-4 md:px-8 pt-8 text-center">
-        <div className="flex items-center justify-center space-x-4 mb-3">
-          <div className="h-[1px] w-12 bg-violet-500/30" />
-          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-[#E9E6F2] shadow-sm mb-4">
+          <Sparkles className="w-3.5 h-3.5 text-[#E83CB7]" />
+          <span className="text-[11px] font-extrabold text-[#5D1451] uppercase tracking-widest">
             Incubation Cohorts & Acceleration Tracks
           </span>
-          <div className="h-[1px] w-12 bg-violet-500/30" />
         </div>
 
-        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-          Core <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-cyan-400 to-indigo-400">Programs</span>
+        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#1E1632] mb-4">
+          Core <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5D1451] via-[#B82B8A] to-[#E83CB7]">Programs</span>
         </h1>
 
-        <p className="text-gray-400 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[#6E6785] text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
           From weekend hackathons to intensive 12-week venture bootcamps and full-stage InQubit institutional incubation.
         </p>
       </section>
@@ -87,67 +83,67 @@ export default function ProgramsPage() {
             return (
               <div
                 key={prog.id}
-                className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col justify-between hover:border-violet-500/30 transition group space-y-6"
+                className="glass-card-light p-6 md:p-8 flex flex-col justify-between space-y-6"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-2xl bg-violet-600/20 text-violet-400 flex items-center justify-center group-hover:scale-110 transition">
-                        <Icon className="w-5 h-5" />
+                      <div className="w-11 h-11 rounded-2xl bg-[#5D1451]/10 text-[#5D1451] flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-[#5D1451]" />
                       </div>
                       <div>
-                        <div className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                        <div className="text-[10px] font-mono text-[#E83CB7] font-bold uppercase tracking-wider">
                           {prog.category}
                         </div>
-                        <h3 className="text-lg font-bold text-white">{prog.title}</h3>
+                        <h3 className="text-lg font-black text-[#1E1632]">{prog.title}</h3>
                       </div>
                     </div>
-                    <span className="text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-bold">
+                    <Badge variant={prog.activeStatus === 'Ongoing' ? 'ongoing' : 'upcoming'} size="sm">
                       {prog.activeStatus}
-                    </span>
+                    </Badge>
                   </div>
 
-                  <p className="text-xs text-gray-300 font-medium">
+                  <p className="text-xs text-[#5D1451] font-bold">
                     {prog.tagline}
                   </p>
 
-                  <p className="text-xs text-gray-400 leading-relaxed">
+                  <p className="text-xs text-[#6E6785] leading-relaxed">
                     {prog.description}
                   </p>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs bg-slate-950/60 p-3.5 rounded-2xl border border-white/5">
+                  <div className="grid grid-cols-2 gap-2 text-xs bg-[#F7F5FF] p-4 rounded-2xl border border-[#E9E6F2]">
                     <div>
-                      <span className="text-[10px] text-gray-500 block">Duration</span>
-                      <span className="font-semibold text-white">{prog.duration}</span>
+                      <span className="text-[10px] text-[#8E87A5] font-semibold block">Duration</span>
+                      <span className="font-bold text-[#1E1632]">{prog.duration}</span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-gray-500 block">Cohort Size</span>
-                      <span className="font-semibold text-cyan-400">{prog.intake}</span>
+                      <span className="text-[10px] text-[#8E87A5] font-semibold block">Cohort Size</span>
+                      <span className="font-bold text-[#5D1451]">{prog.intake}</span>
                     </div>
-                    <div className="col-span-2 pt-2 border-t border-white/5">
-                      <span className="text-[10px] text-gray-500 block">Eligibility</span>
-                      <span className="font-semibold text-gray-300 text-[11px]">{prog.eligibility}</span>
+                    <div className="col-span-2 pt-2 border-t border-[#E9E6F2]">
+                      <span className="text-[10px] text-[#8E87A5] font-semibold block">Eligibility</span>
+                      <span className="font-medium text-[#6E6785] text-[11px]">{prog.eligibility}</span>
                     </div>
                   </div>
 
                   <div className="space-y-1.5 pt-2">
-                    <div className="text-[10px] font-bold text-violet-400 uppercase tracking-wider">Key Benefits & Offerings</div>
+                    <div className="text-[10px] font-black text-[#5D1451] uppercase tracking-wider">Key Benefits & Offerings</div>
                     {prog.benefits.map((b, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs text-gray-400">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2 text-xs text-[#6E6785]">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#059669] shrink-0 mt-0.5" />
                         <span>{b}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                  <div className="text-xs font-bold text-emerald-400">
+                <div className="pt-4 border-t border-[#E9E6F2] flex items-center justify-between">
+                  <div className="text-xs font-bold text-[#059669]">
                     {prog.grantAmount || 'Zero-Equity Grant Support'}
                   </div>
                   <button
                     onClick={() => setInnovateOpen(true)}
-                    className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs px-5 py-2 rounded-full transition shadow-lg shadow-violet-600/20"
+                    className="btn-primary text-white font-bold text-xs px-6 py-2.5 rounded-full transition shadow-md"
                   >
                     Apply for Cohort →
                   </button>
@@ -160,15 +156,15 @@ export default function ProgramsPage() {
 
       {/* 3. Cross-Campus Synergy Matrix */}
       <section className="container mx-auto px-4 md:px-8">
-        <div className="bg-slate-900/30 border border-white/10 rounded-[2.5rem] p-6 md:p-12">
+        <div className="glass-panel p-6 md:p-12">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#5D1451]/10 border border-[#5D1451]/15 text-[#5D1451] text-[11px] font-extrabold uppercase tracking-widest mb-3">
               Interdisciplinary Power
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="font-display text-2xl sm:text-3xl font-black text-[#1E1632]">
               Cross-Campus Synergy Matrix
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2">
+            <p className="text-xs sm:text-sm text-[#6E6785] mt-2">
               Why our 4-institution ecosystem creates unique product advantages that single-discipline colleges cannot replicate.
             </p>
           </div>
@@ -179,16 +175,16 @@ export default function ProgramsPage() {
               return (
                 <div
                   key={idx}
-                  className="bg-slate-950/80 border border-white/5 rounded-2xl p-5 hover:border-cyan-500/30 transition group space-y-3"
+                  className="glass-card-light p-5 space-y-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold text-violet-400 bg-violet-500/10 px-2.5 py-0.5 rounded-full border border-violet-500/20">
+                    <span className="text-[10px] font-mono font-bold text-[#5D1451] bg-[#5D1451]/10 px-2.5 py-0.5 rounded-full border border-[#5D1451]/15">
                       {s.campuses}
                     </span>
-                    <Icon className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition" />
+                    <Icon className="w-4 h-4 text-[#E83CB7]" />
                   </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-cyan-300 transition">{s.title}</h4>
-                  <p className="text-xs text-gray-400 leading-relaxed">{s.desc}</p>
+                  <h4 className="text-sm font-bold text-[#1E1632]">{s.title}</h4>
+                  <p className="text-xs text-[#6E6785] leading-relaxed">{s.desc}</p>
                 </div>
               );
             })}

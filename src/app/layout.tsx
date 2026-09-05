@@ -46,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} ${spaceGrotesk.variable} scroll-smooth`}>
-      <body className="antialiased bg-[#020617] text-slate-100 selection:bg-violet-500 selection:text-white">
+      <body className="antialiased text-[#1E1632] selection:bg-[#E83CB7] selection:text-white">
         <DataProvider>
           <LenisProvider>
             <BackgroundAurora />
